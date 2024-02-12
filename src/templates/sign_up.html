@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="/register" method="POST">
+  {{ form.csrf_token }}
+
+  {% for field in form %}
+  <section>
+    {{ field.label }}
+    {{ field }}
+  </section>
+  {% endfor %}
+
+  <input type="submit" value="ENVIAR">
+</form>
+{% endblock %}
