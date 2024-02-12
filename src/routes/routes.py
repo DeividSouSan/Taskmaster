@@ -1,27 +1,13 @@
 from datetime import datetime
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from sqlalchemy import text
 from sqlalchemy.orm import sessionmaker
 
-from src.models.user import User
-from src.server import server
+
+bp = Blueprint("tasks", __name__, template_folder="../templates")
 
 
-bp = Blueprint("tasks", __name__)
-
-
-@bp.route("/add", methods=["POST"])
+@bp.route("/", methods=["GET"])
 def index():
-    user = User(
-        username="Deivisousn",
-        password_hash="1234",
-        fullname="Deivid Souza Santana",
-        email="deividsantana2013@gmail.com",
-        registration=datetime.now()
-    )
-
-    server.db.session.add(user)
-    server.db.session.commit()
-    server.db.session.close()
-
-    return jsonify({user}), 200
+    print('oi')
+    return render_template("index.html")
