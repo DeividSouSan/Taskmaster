@@ -1,15 +1,15 @@
-from datetime import datetime
-from flask import Blueprint, request, jsonify, render_template
-from sqlalchemy import text
-from sqlalchemy.orm import Session
+from flask import Blueprint, request, render_template, url_for
 from src.forms.register import RegisterForm
-from src.server.server import engine
-
-from src.models.user import User
 from src.use_case.user.register_user_use_case import RegisterUserUseCase
 
 
-bp = Blueprint("tasks", __name__, template_folder="../templates")
+bp = Blueprint("website", __name__)
+
+
+@bp.route("/")
+def index():
+    return render_template("index.html", title="Taskmaster - Index")
+
 
 @bp.route("/register", methods=["GET", "POST"])
 def register():
@@ -20,4 +20,4 @@ def register():
             useCase = RegisterUserUseCase(form)
             useCase.execute()
 
-    return render_template("sign_up.html", form=form)
+    return render_template("register.html", form=form)
