@@ -8,7 +8,10 @@ import os
 
 load_dotenv()  # Carrega as variáveis de ambiente no .eInv
 
-app = Flask("__name__")
+app = Flask(__name__,
+            template_folder="../templates",
+            static_folder="../static")
+
 csrf = CSRFProtect(app)
 
 
@@ -37,5 +40,10 @@ with app.app_context():
     db.create_all()
     print("As tabelas 'user' e 'task' foram criadas com sucesso.")
 
-from src.routes import routes
-app.register_blueprint(routes.bp)
+
+def register_blueprints(app):
+    from src.routes import routes
+    app.register_blueprint(routes.bp)
+
+
+register_blueprints(app)
