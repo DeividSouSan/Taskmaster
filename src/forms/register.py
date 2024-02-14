@@ -10,7 +10,7 @@ class RegisterForm(FlaskForm):
 
     password: str = PasswordField(
         "Senha: ",
-        validators=[DataRequired(), Length(max=100)])
+        validators=[DataRequired(), Length(min=8, max=20)])
 
     fullname: str = StringField(
         "Nome Completo: ",
