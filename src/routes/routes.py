@@ -17,16 +17,15 @@ def index():
 def register():
     form = RegisterForm()
     error = None
+
     if request.method == "POST":
         if form.validate_on_submit():
 
-            useCase = RegisterUserUseCase(form)
-            result = useCase.execute()
+            use_case = RegisterUserUseCase(form)
+            success = use_case.attempt_registration()
 
-            if result == True:
-                redirect(url_for("website.register"))
-
-            error = useCase.error
+            if success:
+                return redirect(url_for("website.register"))
 
     return render_template("register.html", title="Taskmaster - Cadastro", form=form, error=error)
 
@@ -40,8 +39,8 @@ def login():
     if form.validate_on_submit():
         if request.method == "POST":
             print("formulário válido")
-            useCase = LoginUserUseCase(form)
-            result = useCase.execute()
+            use_case = LoginUserUseCase(form)
+            result = use_case.execute()
             print("Já executou o caso de uso")
 
     return render_template("login.html", title="Taskmaster - Login", form=form)
