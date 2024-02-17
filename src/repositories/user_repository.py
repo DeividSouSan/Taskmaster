@@ -1,13 +1,17 @@
-from sqlalchemy import select
+from flask import current_app
+from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
-from src.models.user import User
+from ..models.user import User
 
 
 class UserRepository():
 
-    def __init__(self, engine):
-        self.engine = engine
+    def __init__(self):
+        with current_app.app_context():
+            DATABASE_URI = current_app.config['DATABASE_URI']
+            
+        self.engine = create_engine(DATABASE_URI)
 
     def add_user(self, user):
         with Session(self.engine) as session:
@@ -20,8 +24,3 @@ class UserRepository():
             result = session.query(User).filter(
                 user_attribute == given_value).first()
             return bool(result)
-
-    def get_user_password_hash(self, email):
-        with Session(self.engine) as session:
-            result = session.query(User).filter(User.email == email).first()
-            print("User:", result.password_hash)
