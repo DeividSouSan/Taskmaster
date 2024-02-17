@@ -41,10 +41,11 @@
 			</g>
 		</svg>
 	</div>
-	{% for field in form if field.name != "csrf_token" %}
+	{% for field in form if field.name not in ["csrf_token", "submit"] %}
 	<section class="field-wrapper">
 		{{ field.label }}
 		{{ field }}
+
 		{% if error.type == "username" and field.name == 'username'%}
 		<p class="error-p">{{ error.text }}</p>
 		{% elif error.type == "email" and field.name == 'email'%}
@@ -52,8 +53,8 @@
 		{% endif %}
 	</section>
 	{% endfor %}
-	{{ form.csrf_token }}
+	{{ form.submit}}
+	{{ form.hidden_tag()}}
 
-	<input type="submit" value="ENVIAR">
 </form>
 {% endblock %}
