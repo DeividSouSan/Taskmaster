@@ -1,8 +1,9 @@
 from flask import Blueprint, redirect, request, render_template, url_for
-from src.forms.register import RegisterForm
-from src.forms.login import LoginForm
-from src.use_cases.user.register_user_use_case import RegisterUserUseCase
-from src.use_cases.user.login_user_use_case import LoginUserUseCase
+from ..forms.register_form import RegisterForm
+from ..forms.login_form import LoginForm
+from ..use_cases.user.register_user_use_case import RegisterUserUseCase
+from ..use_cases.user.login_user_use_case import LoginUserUseCase
+from ..repositories.user_repository import UserRepository
 
 
 bp = Blueprint("website", __name__)
@@ -21,11 +22,15 @@ def register():
     if request.method == "POST":
         if form.validate_on_submit():
 
-            use_case = RegisterUserUseCase(form)
+            repository = UserRepository()
+
+            use_case = RegisterUserUseCase(form, repository)
             success = use_case.attempt_registration()
 
             if success:
                 return redirect(url_for("website.register"))
+
+            error = error.message
 
     return render_template("register.html", title="Taskmaster - Cadastro", form=form, error=error)
 
@@ -38,10 +43,8 @@ def login():
 
     if form.validate_on_submit():
         if request.method == "POST":
-            print("formulário válido")
             use_case = LoginUserUseCase(form)
             result = use_case.execute()
-            print("Já executou o caso de uso")
 
     return render_template("login.html", title="Taskmaster - Login", form=form)
 
