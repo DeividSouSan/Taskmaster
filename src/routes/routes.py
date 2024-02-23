@@ -30,7 +30,7 @@ def register():
             success = use_case.attempt_registration()
 
             if success:
-                return redirect(url_for("website.register"))
+                return redirect(url_for("website.login"))
 
             error = error.message
 
