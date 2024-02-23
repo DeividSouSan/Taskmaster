@@ -4,9 +4,10 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from ..models.task import Task
 from ..database.db import db
+from flask_login import UserMixin
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "Users"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
