@@ -1,16 +1,15 @@
+from ...forms.login_form import ILoginForm
+from ...repositories.user_repository import IUserRepository
 
-
-from src.repositories.user_repository import UserRepository
-from src.server.server import engine
 
 class LoginUserUseCase():
-    
-    def __init__(self, form):
-        self.repository = UserRepository(engine)
-        self.form = form
-        
+
+    def __init__(self, form: ILoginForm, repository: IUserRepository):
+        self.__repository = repository
+        self.__form = form
+
     def execute(self):
-        database_pwd = self.repository.get_user_password_hash(self.form.email.data)
-        
+        pass
+
     def database_password_unhash(self):
         pass
