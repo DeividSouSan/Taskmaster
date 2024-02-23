@@ -3,7 +3,7 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey, Enum, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from src.server.server import db
+from ..database.db import db
 
 
 class MyEnum(enum.Enum):
