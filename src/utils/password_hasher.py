@@ -10,6 +10,6 @@ class PassowordHash():
         return password_hash
 
     @staticmethod
-    def check_password(password, hash):
+    def check_password(password, hashed_password):
         hashed_password = PassowordHash().hash_password(password)
         return hashed_password == hash
