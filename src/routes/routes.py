@@ -55,8 +55,8 @@ def login():
 
 
 @bp.route("/board")
-@login_required
 def board():
-    print("entramos na rota")
+    if not current_user.is_authenticated:
+        return redirect(url_for("website.login"))
 
     return render_template("board.html", title="board", user=current_user)
