@@ -11,5 +11,7 @@ class PassowordHash():
 
     @staticmethod
     def check_password(password, hashed_password):
-        hashed_password = PassowordHash().hash_password(password)
-        return hashed_password == hash
+        password = bytes(password, "utf-8")
+        hashed_password = bytes(hashed_password, "utf-8")
+        
+        return bcrypt.checkpw(password, hashed_password)
