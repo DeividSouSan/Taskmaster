@@ -1,4 +1,6 @@
 from flask import Blueprint, redirect, request, render_template, url_for
+from flask_login import current_user, login_required, logout_user
+from flask import current_app
 from ..forms.register_form import RegisterForm
 from ..forms.login_form import LoginForm
 from ..use_cases.user.register_user_use_case import RegisterUserUseCase
@@ -39,18 +41,22 @@ def register():
 def login():
     form = LoginForm()
 
-    print("entramos na rota")
-
     if form.validate_on_submit():
         if request.method == "POST":
-            use_case = LoginUserUseCase(form)
-            result = use_case.execute()
+
+            repository = UserRepository()
+            use_case = LoginUserUseCase(form, repository)
+            result = use_case.attempt_login_user()
+
+            if result:
+                return redirect(url_for("website.board"))
 
     return render_template("login.html", title="Taskmaster - Login", form=form)
 
-# Nessa rota o usuário já precisa estar autenticado
-
 
 @bp.route("/board")
+@login_required
 def board():
-    return render_template("board.html", title="board")
+    print("entramos na rota")
+
+    return render_template("board.html", title="board", user=current_user)
