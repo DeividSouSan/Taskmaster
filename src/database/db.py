@@ -1,19 +1,21 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask import current_app
 
 
 db = SQLAlchemy()
 
 
-def initialize_database():
-	with current_app.app_context():
-		db.init_app(current_app)
+class Database():
+    def __init__(self, app):
+        self.app = app
 
+    def initialize_database(self):
+        db.init_app(self.app)
 
-def create_database():
-	from src.models.task import Task  # pylint: disable=unused-import
-	from src.models.user import User  # pylint: disable=unused-import
+    def create_tables(self):
+        from ..models.task import Task  # pylint: disable=unused-import
+        from ..models.user import User  # pylint: disable=unused-import
 
-	with current_app.app_context():
-		db.create_all()
-		print("As tabelas 'user' e 'task' foram criadas com sucesso.")
+        with self.app.app_context():
+            db.create_all()
+
+        print("As tabelas 'user' e 'task' foram criadas com sucesso.")
