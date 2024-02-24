@@ -1,10 +1,8 @@
 import enum
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey, Enum, String
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-from ..database.db import db
-
+from sqlalchemy.orm import Mapped, mapped_column
+from src import db
 
 class MyEnum(enum.Enum):
     NOT_STARTED = 0

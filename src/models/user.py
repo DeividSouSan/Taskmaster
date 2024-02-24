@@ -1,10 +1,9 @@
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from ..models.task import Task
-from ..database.db import db
 from flask_login import UserMixin
+from src import db
+from ..models.task import Task
 
 
 class User(db.Model, UserMixin):
