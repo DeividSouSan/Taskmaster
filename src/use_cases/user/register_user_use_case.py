@@ -67,7 +67,6 @@ class RegisterUserUseCase():
             fullname=fullname,
             email=email,
             registration=registration_date,
-            tasks=[]
         )
 
         self.__repository.add_user(user)
