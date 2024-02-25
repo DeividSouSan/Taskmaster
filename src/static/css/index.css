@@ -1,12 +1,3 @@
-:root {
-    --dark-blue: #131C2B;
-    --light-blue: rgb(143, 182, 232);
-    --dark-gray: #AFAFAF;
-    --pseudo-white: #FDFDFD;
-}
-
-
-
 main {
     display: flex;
     justify-content: center;
