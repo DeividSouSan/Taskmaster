@@ -1,9 +1,8 @@
 from datetime import datetime
 from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column
 from flask_login import UserMixin
 from src import db
-from ..models.task import Task
 
 
 class User(db.Model, UserMixin):
@@ -15,4 +14,3 @@ class User(db.Model, UserMixin):
     fullname: Mapped[str] = mapped_column(String(50))
     email: Mapped[str] = mapped_column(String(50))
     registration: Mapped[datetime]
-    tasks: Mapped[list["Task"]] = relationship()
