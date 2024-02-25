@@ -19,7 +19,6 @@ class LoginUserUseCase():
         username = self.__form.username.data
         password = self.__form.password.data
 
-
         valid_credentials = self.verify_credentials(username, password)
 
         if valid_credentials:
@@ -30,8 +29,6 @@ class LoginUserUseCase():
         
         return False
 
-    def get_user(self):
-        pass
 
     def verify_credentials(self, username, password):
 
