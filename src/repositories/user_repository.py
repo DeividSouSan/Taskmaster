@@ -25,7 +25,7 @@ class UserRepository:
 
         self.engine = create_engine(DATABASE_URI)
 
-    def add_user(self, user):
+    def add_user(self, user: User):
         with Session(self.engine) as session:
             session.add(user)
             session.commit()
