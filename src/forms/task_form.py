@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, Length
 class TaskForm(FlaskForm):
     task_title = StringField(
         "Titulo: ",
-        validators=[DataRequired(), Length(50)])
+        validators=[DataRequired(), Length(max=50)])
 
     task_description = TextAreaField(
         "Descrição: ",
@@ -15,7 +15,9 @@ class TaskForm(FlaskForm):
     due_date = DateField("Para: ")
 
     status = SelectField("Status: ",
-                         choices=["Não comecei", "Fazendo", "Terminado"],
+                         choices=[(0, "Não comecei"),
+                                  (1, "Fazendo"),
+                                  (2, "Terminado")],
                          validators=[DataRequired()])
 
     submit = SubmitField("Enviar")
