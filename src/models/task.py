@@ -11,6 +11,15 @@ class TaskStatus(enum.Enum):
 
 
 class Task(db.Model):
+    """
+    Attr:
+    id
+    user_id
+    task_title
+    task_description
+    due_date
+    status
+    """
     __tablename__ = "Tasks"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -18,4 +27,4 @@ class Task(db.Model):
     task_title: Mapped[str] = mapped_column(String(50))
     task_description: Mapped[str] = mapped_column(String(200))
     due_date: Mapped[datetime]
-    status: Mapped[str] = mapped_column(Enum(TaskStatus))
+    status: Mapped[int]
