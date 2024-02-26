@@ -28,7 +28,7 @@
   <div class="modal-container">
     <section class="add-task-modal">
       <h1>Adicionar Task</h1>
-      <form action="">
+      <form action="/board" method="POST">
         {% for field in form if field.name not in ["csrf_token", "submit"] %}
         <div class="field-wrapper">
           {{ field.label }}
