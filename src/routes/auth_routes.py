@@ -7,6 +7,7 @@ from src.models.user import User
 from src.repositories.user_repository import UserRepository
 from src.use_cases.user.login_user_use_case import LoginUserUseCase
 from src.use_cases.user.register_user_use_case import RegisterUserUseCase
+
 auth = Blueprint("auth", __name__)
 
 
@@ -31,10 +32,10 @@ def register():
             if success:
                 return redirect(url_for("auth.login"))
 
-            error = error.message
+            error = use_case.error['message']
 
     return render_template(
-        "auth/register.html",
+        "register.html",
         title="Taskmaster - Cadastro",
         form=form,
         error=error)
@@ -55,6 +56,6 @@ def login():
                 return redirect(url_for("user.board"))
 
     return render_template(
-        "auth/login.html",
+        "login.html",
         title="Taskmaster - Login",
         form=form)
