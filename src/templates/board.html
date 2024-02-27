@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/board.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/add-modal.css')}}">
+<script src="https://unpkg.com/htmx.org@1.9.10"
+  integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="board-top">
+  <h1>Tarefas Ativas</h1>
+  <button class="add-task-button">Add Task</button>
+</section>
+
+<section class="task-wrapper">
+  {% include "partials/task-container.html" %}
+</section>
+
+<template class=" add-task-template">
+  <div class="modal-container">
+    <section class="add-task-modal">
+      <h1>Adicionar Task</h1>
+      <form action="/add_task" method="POST">
+        {% for field in form if field.name not in ["csrf_token", "submit"] %}
+        <div class="field-wrapper">
+          {{ field.label }}
+          {{ field }}
+        </div>
+        {% endfor %}
+        {{form.submit}}
+        {{ form.csrf_token}}
+        {{ form.hidden_tag()}}
+      </form>
+    </section>
+  </div>
+</template>
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='javascript/board.js')}}"></script>
+{% endblock %}
+
+{% endblock %}
