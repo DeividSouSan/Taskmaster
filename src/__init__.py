@@ -3,6 +3,7 @@ from flask import Flask
 from dotenv import load_dotenv
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_htmx import HTMX
 
 load_dotenv()
 USER = os.environ.get("USER")
@@ -13,6 +14,7 @@ DATABASE_URI = f'mysql+pymysql://{USER}:{PASSWORD}@localhost/{DATABASE}'
 # Initialize Plugins
 db = SQLAlchemy()
 login_manager = LoginManager()
+htmx = HTMX()
 
 
 def create_app():
@@ -32,6 +34,7 @@ def create_app():
     # Initializing Pluginis
     db.init_app(app)
     login_manager.init_app(app)
+    htmx.init_app(app)
 
     with app.app_context():
         # Create tables
