@@ -1,12 +1,17 @@
 
+var button = document.querySelector(".add-task-button");
+
 const template = document.querySelector(".add-task-template");
 
-const addTaskModal = template.content.cloneNode(true);
+const modal = template.content.cloneNode(true);
+const container = modal.querySelector(".modal-container");
 
+button.addEventListener('click', () => {
+    document.body.appendChild(container);
+})
 
-
-var addTaskButton = document.querySelector(".add-task-button");
-
-addTaskButton.addEventListener('click', () => {
-    document.body.appendChild(addTaskModal)
+container.addEventListener("click", (ev) => {
+    if (ev.target.classList.contains("modal-container")) {
+        document.body.removeChild(container);
+    }
 })
