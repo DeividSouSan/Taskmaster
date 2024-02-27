@@ -31,11 +31,19 @@
       </a>
     </div>
 
+    {% if not user %}
     <ul>
       <li><a href="">Features</a></li>
       <li><a href="{{ url_for('auth.login') }}">Login</a></li>
       <li><a href="{{ url_for('auth.register') }}">Cadastro</a></li>
     </ul>
+    {% else %}
+    <ul>
+      <li>
+        <button href="">Perfil</button>
+      </li>
+    </ul>
+    {% endif %}
   </header>
 
   <main>
@@ -43,6 +51,10 @@
 
     {% endblock %}
   </main>
+
+  {% block javascript %}
+
+  {% endblock %}
 </body>
 
 </html>
