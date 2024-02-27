@@ -1,4 +1,5 @@
-from flask import Blueprint, request, redirect, url_for, render_template
+from flask import Blueprint, request, redirect, url_for, render_template, Response
+from flask_login import login_required, logout_user
 from src import login_manager
 from src.forms.login_form import LoginForm
 
@@ -45,10 +46,11 @@ def register():
 def login():
     form = LoginForm()
 
-    if form.validate_on_submit():
-        if request.method == "POST":
+    if request.method == "POST":
+        if form.validate_on_submit():
 
             repository = UserRepository()
+
             use_case = LoginUserUseCase(form, repository)
             result = use_case.attempt_login_user()
 
@@ -59,3 +61,13 @@ def login():
         "login.html",
         title="Taskmaster - Login",
         form=form)
+
+
+@auth.route("/logout", methods=["GET"])
+@login_required
+def logout():
+    logout_user()
+
+    response = Response()
+    response.headers["hx-redirect"] = url_for("auth.login")
+    return response
