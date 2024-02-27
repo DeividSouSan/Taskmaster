@@ -8,6 +8,33 @@ main {
     align-items: center;
 }
 
+.board-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin: 1rem 0;
+    width: 80%;
+
+
+    button {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        color: transparent;
+
+        border: 2px solid black;
+
+        background-image: url("../img/ic--baseline-add.svg");
+        background-size: cover;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+
+}
+
 .task-wrapper {
     display: flex;
     flex-direction: row;
@@ -17,35 +44,42 @@ main {
     width: 70vw;
 
     gap: 1rem;
-}
 
-.task {
-    background-color: white;
-    border-radius: 5px;
-    width: 20vw;
 
-    padding: 1rem;
+    .task {
+        background-color: white;
+        border-radius: 5px;
+        width: 20vw;
 
-    .task-header {
-        display: flex;
-        justify-content: space-between;
+        padding: 1rem;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.277);
+        transition: all 500ms ease-in-out;
 
-        button {
-            color: transparent;
-            background-color: var(--tomato-red);
+        .task-header {
+            display: flex;
+            justify-content: space-between;
 
-            border: none;
-            border-radius: 50%;
+            button {
+                color: black;
+                background-color: black;
 
-            width: 16px;
-            height: 16px;
+                border: none;
+                border-radius: 50%;
 
-            transition: all 200ms ease-in-out;
+                width: 16px;
+                height: 16px;
+
+                transition: all 200ms ease-in-out;
+            }
+
+            button:hover {
+                color: transparent;
+                cursor: pointer;
+            }
         }
+    }
 
-        button:hover {
-            color: transparent;
-            cursor: pointer;
-        }
+    .task:hover {
+        scale: 1.3;
     }
 }

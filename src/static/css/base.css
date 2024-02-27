@@ -6,14 +6,20 @@
 }
 
 :root {
-    --dark-blue: #131C2B;
-    --light-blue: #A6C9F3;
-    --dark-gray: #AFAFAF;
-    --pseudo-white: #FDFDFD;
+    --page-background: #A6C9F3;
+    --subtle-text: #AFAFAF;
+    --container: #FDFDFD;
+    --error-text: rgb(240, 85, 85)
+    --close-button: rgb(240, 85, 85)
+    
+}
+
+html {
+    font-size: 18px;
 }
 
 body {
-    background-color: var(--dark-blue);
+    background-color: var(--page-background);
 }
 
 header {
@@ -21,7 +27,8 @@ header {
     flex-direction: row;
     align-items: center;
 
-    background-color: var(--pseudo-white);
+    background-color: var(--container);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.363);
     padding: 0 20px;
 
     .logo {
@@ -61,12 +68,24 @@ header {
 
         a {
             color: black;
-            text-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
             font-weight: 500;
-        }
 
-        a:link {
+            padding: 0 1rem;
+
             text-decoration: none;
         }
+
+        a:hover {
+            text-decoration: line-through;
+        }
+
+        a::before {
+            content: "[";
+        }
+
+        a::after {
+            content: "]";
+        }
+
     }
 }

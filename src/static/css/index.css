@@ -26,12 +26,6 @@ main {
         color: var(--dark-gray);
     }
 
-
-    img {
-        display: block;
-        width: 50%;
-    }
-
     a {
         color: #252525;
         font-weight: 500;
