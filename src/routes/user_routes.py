@@ -1,6 +1,6 @@
-from flask import Blueprint, redirect, render_template, url_for, request
+from flask import Blueprint, redirect, render_template, url_for
 from flask_login import current_user, login_required
-
+from src import htmx
 from src.forms.task_form import TaskForm
 from src.repositories.task_repository import TaskRepository
 from src.use_cases.tasks.add_task_use_case import AddTaskUseCase
@@ -12,7 +12,6 @@ user = Blueprint("user", __name__)
 
 @user.route("/board", methods=["GET"])
 def board():
-    print("O board foi re-renderizado.")
     form = TaskForm()
     repository = TaskRepository()
 
@@ -21,6 +20,9 @@ def board():
 
     use_case = GetTasksUseCase(current_user.id, repository)
     tasks = use_case.get_tasks()
+
+    if htmx:
+        return render_template("partials/task-container.html", tasks=tasks)
 
     return render_template(
         "board.html",
@@ -50,7 +52,4 @@ def delete_task(task_id):
     use_case = DeleteTaskUseCase(task_id, repository)
     use_case.delete_task()
 
-    use_case = GetTasksUseCase(current_user.id, repository)
-    tasks = use_case.get_tasks()
-
-    return render_template("partials/task-container.html", tasks=tasks)
+    return redirect(url_for("user.board"), code=303)
