@@ -15,3 +15,19 @@ class TaskRepository:
         with Session(self.__engine) as session:
             session.add(task)
             session.commit()
+
+    def get_tasks(self, user_id: int):
+        with Session(self.__engine) as session:
+            tasks = session.query(Task).filter(Task.user_id == user_id)
+            return tasks
+
+    def get_task_by_id(self, task_id: int):
+        with Session(self.__engine) as session:
+            task = session.query(Task).filter(Task.id == task_id).first()
+            return task
+
+    def delete_task(self, task_id: int):
+        with Session(self.__engine) as session:
+            task = self.get_task_by_id(task_id)
+            session.delete(task)
+            session.commit()
