@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href=" {{ url_for('static', filename='css/register.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<form action="/register" method="POST">
+		{% for field in form if field.name not in ["csrf_token", "submit"] %}
+		<section class="field-wrapper">
+			{{ field.label }}
+			{{ field }}
+
+			{% if error.type == "username" and field.name == 'username'%}
+			<p class="error-p">{{ error.text }}</p>
+			{% elif error.type == "email" and field.name == 'email'%}
+			<p class="error-p">{{ error.text }}</p>
+			{% endif %}
+		</section>
+		{% endfor %}
+		{{ form.submit}}
+
+		{{ form.csrf_token}}
+		{{ form.hidden_tag()}}
+	</form>
+</div>
+{% endblock %}
