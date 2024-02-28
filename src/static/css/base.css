@@ -8,7 +8,7 @@
     --page-background: #A6C9F3;
     --subtle-text: #AFAFAF;
     --container: #FDFDFD;
-    --error-text: rgb(240, 85, 85) 
+    --error-text: rgb(240, 85, 85);
     --close-button: rgb(240, 85, 85)
 }
 
@@ -72,19 +72,43 @@ header {
             padding: 0 1rem;
 
             text-decoration: none;
+
+            transition: all 0.3s ease;
         }
 
         a:hover {
-            text-decoration: line-through;
+            letter-spacing: 5px;
         }
 
         a::before {
-            content: "[";
+            content: "<";
         }
 
         a::after {
-            content: "]";
+            content: ">";
         }
 
     }
+}
+
+
+.alert, .error, .success {
+    text-align: center;
+    padding: 5px 0;
+    width: 100%;
+}
+
+.alert {
+    border: 2px solid orange;
+    background-color: rgb(245, 205, 130);
+}
+
+.error {
+    border: 2px solid red;
+    background-color: rgb(243, 130, 130)
+}
+
+.success {
+    border: 2px solid rgb(0, 255, 42);
+    background-color: rgb(141, 252, 150)
 }
