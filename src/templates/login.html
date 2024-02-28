@@ -6,18 +6,26 @@
 
 {% block content %}
 <section class="container">
-  <form action="/login" method="POST">
-    {% for field in form if field.name not in ["csrf_token", "submit"] %}
-    <section class="field-wrapper">
-      {{ field.label }}
-      {{ field }}
-    </section>
-    {% endfor %}
-    {{ form.submit }}
-    {{form.hidden_tag()}}
-  </form>
-  <section>
-    <a href="{{ url_for('auth.register') }}">Não possui uma conta? Registre-se aqui.</a>
-  </section>
+	<form action="/login" method="POST">
+		{% with message = get_flashed_messages() %}
+		{% if message %}
+		<section>
+			{{ message[0] }}
+		</section>
+		{% endif %}
+		{% endwith %}
+
+		{% for field in form if field.name not in ["csrf_token", "submit"] %}
+		<section class="field-wrapper">
+			{{ field.label }}
+			{{ field }}
+		</section>
+		{% endfor %}
+		{{ form.submit }}
+		{{form.hidden_tag()}}
+	</form>
+	<section>
+		<a href="{{ url_for('auth.register') }}">Não possui uma conta? Registre-se aqui.</a>
+	</section>
 </section>
 {% endblock %}

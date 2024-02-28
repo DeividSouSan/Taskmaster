@@ -1,12 +1,9 @@
+from flask import flash
+from flask_login import login_user
+
 from ...utils.password_hasher import PassowordHash
 from ...forms.login_form import ILoginForm
 from ...repositories.user_repository import IUserRepository
-from flask_login import login_user
-
-# Vou ter que verificar as credenciais que foram enviadas
-# Se estiverem corretas eu utilizo elas para acessar o repositório
-# Do repositório eu pegos os dados do usuário e instâncio User com esses dados
-# Depois eu utilizo a função login_user do flask_login para logar o usuário
 
 
 class LoginUserUseCase():
@@ -23,20 +20,28 @@ class LoginUserUseCase():
 
         if valid_credentials:
             user = self.__repository.get_user_by_username(username)
-
             login_user(user)
-            return True
-        
-        return False
 
+            return True
+
+        return False
 
     def verify_credentials(self, username, password):
 
-        if self.__repository.exists_user_with_field("username", username):
-            hashed_password = self.__repository.get_user_password_by_username(username)
-            correct_password = PassowordHash().check_password(password, hashed_password)
+        user_exists = self.__repository.exists_user_with_field(
+            "username", username)
 
-            if correct_password:
-                return True
+        if user_exists:
+            database_password = self.__repository\
+                .get_user_password_by_username(username)
 
+            pwd_is_correct = PassowordHash()\
+                .check_password(password, database_password)
+
+            if not pwd_is_correct:
+                flash("Senha incorreta")
+
+            return pwd_is_correct
+
+        flash("Usuário não encontrado")
         return False
