@@ -26,7 +26,7 @@ def board():
 
     return render_template(
         "board.html",
-        title="board",
+        title="Quadro de Tarefas - Taskmaster",
         user=current_user,
         tasks=tasks,
         form=form)
