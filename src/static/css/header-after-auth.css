@@ -1,0 +1,35 @@
+header {
+    .logo {
+        display: flex;
+        align-items: center;
+
+        user-select: none;
+        color: black;
+        text-decoration: none;
+
+        h1 {
+            font-weight: 600;
+            margin-left: 3rem;
+        }
+
+        svg {
+            width: 32px;
+            height: 32px;
+        }
+    }
+
+    button {
+        color: red;
+        font-weight: 700;
+        font-size: 1rem;
+
+        text-decoration: underline;
+
+        border: none;
+        background-color: transparent;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+}
