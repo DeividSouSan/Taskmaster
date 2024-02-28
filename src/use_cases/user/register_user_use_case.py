@@ -18,14 +18,15 @@ class RegisterUserUseCase():
         user = self.create_user()
 
         if self.is_field_taken("username", user.username):
-            flash("Nome de usuário já foi utilizado")
+            flash("Nome de usuário já foi utilizado", "error")
             return False
 
         if self.is_field_taken("email", user.email):
-            flash("Email já foi utlizado")
+            flash("Email já foi utlizado", "error")
             return False
 
         self.__repository.add_user(user)
+        flash("Usuário cadastrado com sucesso", "success")
         return True
 
     def is_field_taken(self, field, value):

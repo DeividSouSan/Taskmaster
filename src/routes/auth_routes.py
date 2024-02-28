@@ -33,7 +33,6 @@ def register():
             if success:
                 return redirect(url_for("auth.login"))
 
-            flash("Erro ao cadastrar usuário")
 
     return render_template(
         "register.html",
@@ -68,7 +67,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash("Você foi deslogado com sucesso!", "logout-sucess")
+    flash("Você foi deslogado com sucesso!", "alert")
 
     response = Response()
     response.headers["hx-redirect"] = url_for("auth.login")

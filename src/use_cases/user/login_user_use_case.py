@@ -39,9 +39,9 @@ class LoginUserUseCase():
                 .check_password(password, database_password)
 
             if not pwd_is_correct:
-                flash("Senha incorreta")
+                flash("Senha incorreta", "error")
 
             return pwd_is_correct
 
-        flash("Usuário não encontrado")
+        flash("Usuário não encontrado", "error")
         return False
