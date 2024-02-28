@@ -1,4 +1,4 @@
-from flask import Blueprint, request, redirect, url_for, render_template, Response
+from flask import Blueprint, flash, request, redirect, url_for, render_template, Response
 from flask_login import login_required, logout_user
 from src import login_manager
 from src.forms.login_form import LoginForm
@@ -33,7 +33,7 @@ def register():
             if success:
                 return redirect(url_for("auth.login"))
 
-            error = use_case.error['message']
+            flash("Erro ao cadastrar usuário")
 
     return render_template(
         "register.html",
@@ -57,6 +57,7 @@ def login():
             if result:
                 return redirect(url_for("user.board"))
 
+
     return render_template(
         "login.html",
         title="Taskmaster - Login",
@@ -67,6 +68,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    flash("Você foi deslogado com sucesso!", "logout-sucess")
 
     response = Response()
     response.headers["hx-redirect"] = url_for("auth.login")
