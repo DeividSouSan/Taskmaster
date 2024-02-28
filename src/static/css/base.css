@@ -2,16 +2,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
 }
 
 :root {
     --page-background: #A6C9F3;
     --subtle-text: #AFAFAF;
     --container: #FDFDFD;
-    --error-text: rgb(240, 85, 85)
+    --error-text: rgb(240, 85, 85) 
     --close-button: rgb(240, 85, 85)
-    
 }
 
 html {
@@ -20,6 +18,7 @@ html {
 
 body {
     background-color: var(--page-background);
+    font-family: "Poppins", sans-serif;
 }
 
 header {
