@@ -8,6 +8,7 @@ main {
     align-items: center;
 }
 
+
 .board-top {
     display: flex;
     flex-direction: row;
@@ -48,11 +49,11 @@ main {
 
     .task {
         background-color: white;
-        border-radius: 5px;
         width: 20vw;
+        font-family: "Roboto Slab";
 
         padding: 1rem;
-        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.277);
+        box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.277);
         transition: all 500ms ease-in-out;
 
         .task-header {
