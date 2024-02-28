@@ -7,10 +7,18 @@
 {% block content %}
 <section class="container">
 	<form action="/login" method="POST">
-		{% with message = get_flashed_messages() %}
-		{% if message %}
-		<section>
-			{{ message[0] }}
+		{% with message = get_flashed_messages(with_categories=True) %}
+		{% if "alert" in message[0] %}
+		<section class="alert">
+			{{ message[0][1] }}
+		</section>
+		{% elif "error" in message[0] %}
+		<section class="error">
+			{{ message[0][1] }}
+		</section>
+		{% elif "success" in message[0] %}
+		<section class="success">
+			{{ message[0][1] }}
 		</section>
 		{% endif %}
 		{% endwith %}
