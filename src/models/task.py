@@ -26,5 +26,5 @@ class Task(db.Model):
     user_id: Mapped[int] = mapped_column(ForeignKey("Users.id"))
     task_title: Mapped[str] = mapped_column(String(50))
     task_description: Mapped[str] = mapped_column(String(200))
-    due_date: Mapped[datetime]
+    due_date: Mapped[datetime] = mapped_column(nullable=True)
     status: Mapped[int]
