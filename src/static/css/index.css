@@ -4,16 +4,19 @@ main {
     margin: auto;
 
     padding: 2rem;
+
+    font-family: "Roboto slab", sans-serif;
 }
 
 
-.presentation {
+.container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
     width: 45%;
+    gap: 1rem;
 
     h1 {
         font-size: 4rem;
@@ -22,27 +25,31 @@ main {
     }
 
     p {
+        font-family: "Poppins", sans-serif;
+
         text-align: justify;
         color: var(--dark-gray);
     }
 
-    a {
-        color: #252525;
-        font-weight: 500;
-        padding: 0.25rem 1rem;
-        border-radius: 15px;
-        width: 66%;
-        background-color: white;
-        text-align: center;
+    .register-button {
+        width: 60%;
+        background-color: var(--tomato-button);
 
-        transition: all 500ms ease-in-out;
-    }
+        padding: 1rem;
 
-    a:hover {
-        background-color: var(--light-blue);
-        outline: 2px solid #252525;
+        border-radius: 5px;
+        border: none;
 
-        width: 77%;
-        letter-spacing: 5px;
+        a {
+            display: inline-block;
+            font-family: "Poppins", sans-serif;
+            font-size: 1rem;
+            text-decoration: none;
+
+
+            color: white;
+            width: 100%;
+        }
+
     }
 }
