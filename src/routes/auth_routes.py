@@ -33,10 +33,9 @@ def register():
             if success:
                 return redirect(url_for("auth.login"))
 
-
     return render_template(
         "register.html",
-        title="Taskmaster - Cadastro",
+        title="Cadastro - Taskmaster",
         form=form,
         error=error)
 
@@ -56,10 +55,9 @@ def login():
             if result:
                 return redirect(url_for("user.board"))
 
-
     return render_template(
         "login.html",
-        title="Taskmaster - Login",
+        title="Login - Taskmaster",
         form=form)
 
 
