@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<section class="presentation">
+<section class="container">
 
   <h1>Taskmaster</h1>
 
@@ -16,6 +16,8 @@
   </p>
 
   <img src="https://fakeimg.pl/600x400" alt="">
+
+  <button class="register-button"><a href="{{ url_for('auth.register') }}">Quero fazer cadastro agora!</a></button>
 
 </section>
 {% endblock %}
