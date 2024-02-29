@@ -9,25 +9,46 @@
     --subtle-text: #AFAFAF;
     --container: #FDFDFD;
     --error-text: rgb(240, 85, 85);
-    --close-button: rgb(240, 85, 85)
+
+    --close-button: rgb(240, 85, 85);
+
+
+    --tomato-button: rgb(240, 85, 85);
+
+
+    --error-message-border: red;
+    --error-message: rgb(240, 85, 85);
+    --alert-message-border: orange;
+    --alert-message: rgb(245, 205, 130);
+    --success-message-border: green;
+    --success-message: rgb(141, 252, 150);
 }
 
 html {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 body {
     background-color: var(--page-background);
-    font-family: "Poppins", sans-serif;
+    font-family: "Roboto slab", sans-serif;
 }
 
-
-
-
 .message {
+    opacity: 80%;
+
+    animation: fade-out 1s 5s forwards;
+
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    translate: -50% 0;
+
     text-align: center;
-    padding: 5px 0;
-    width: 100%;
+    padding: 5px;
+    width: 30%;
+    border-radius: 5px;
+
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.295);
 }
 
 .alert {
@@ -41,6 +62,16 @@ body {
 }
 
 .success {
-    border: 2px solid rgb(0, 255, 42);
+    border: 2px solid green;
     background-color: rgb(141, 252, 150)
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 80%;
+    }
+
+    100% {
+        opacity: 0%;
+    }
 }
