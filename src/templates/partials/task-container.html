@@ -3,9 +3,31 @@
   <section class="task-header">
     <h3>{{ task.task_title }}</h3>
     <button hx-delete="/delete_task/{{ task.id }}" hx-target=".task-wrapper">
-      X
+      <!-- Delete Task  -->
     </button>
   </section>
-  <p>{{ task.task_description }}</p>
+  <section class="task-desc">
+    <p>
+      {{ task.task_description }}
+    </p>
+  </section>
+  <section class="task-bottom">
+    <span>
+      {% if task.due_date %}
+      {{ task.due_date.date() }}
+      {% else %}
+      Sem data
+      {% endif %}
+    </span>
+    <span>
+      {% if task.status == 0 %}
+      <p>Não comecei</p>
+      {% elif task.status == 1 %}
+      <p>Fazendo</p>
+      {% elif task.status == 2 %}
+      <p>Finalizdo</p>
+      {% endif %}
+    </span>
+  </section>
 </section>
 {% endfor %}
