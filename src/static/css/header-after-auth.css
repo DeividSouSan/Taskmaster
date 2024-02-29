@@ -13,23 +13,43 @@ header {
         }
 
         svg {
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
         }
     }
 
     button {
-        color: red;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        color: white;
+        background-color: var(--tomato-button);
+
         font-weight: 700;
         font-size: 1rem;
 
-        text-decoration: underline;
-
+        padding: 5px 10px;
         border: none;
-        background-color: transparent;
+        border-radius: 5px;
+
+        letter-spacing: 1px;
+
+        transition: all 0.5s ease-in;
     }
 
     button:hover {
+        background-color: var(--deactivated-button);
         cursor: pointer;
+    }
+
+    button::after {
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+
+        background-image: url("/static/img/logout.svg");
+        background-size: cover;
     }
 }
