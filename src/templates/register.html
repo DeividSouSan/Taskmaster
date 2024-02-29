@@ -1,40 +1,33 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" href=" {{ url_for('static', filename='css/register.css') }}">
+<link rel="stylesheet" href=" {{ url_for('static', filename='css/forms.css') }}">
 {% endblock %}
 
 {% block content %}
-<div class="container">
+
+<!-- Pode viar include pois é o mesmo de login.html -->
+{% with messages = get_flashed_messages(with_categories=True) %}
+{% for message in messages %}
+<section class="message {{ message[0] }}">
+	{{ message[1] }}
+</section>
+{% endfor %}
+{% endwith %}
+
+<section class="container">
+	<h1>Cadastro</h1>
 	<form action="/register" method="POST">
-		{% with message = get_flashed_messages(with_categories=True) %}
-		{% if "alert" in message[0] %}
-		<section class="alert">
-			{{ message[0][1] }}
-		</section>
-		{% elif "error" in message[0] %}
-		<section class="error">
-			{{ message[0][1] }}
-		</section>
-		{% endif %}
-		{% endwith %}
 
 		{% for field in form if field.name not in ["csrf_token", "submit"] %}
 		<section class="field-wrapper">
 			{{ field.label }}
 			{{ field }}
-
-			{% if error.type == "username" and field.name == 'username'%}
-			<p class="error-p">{{ error.text }}</p>
-			{% elif error.type == "email" and field.name == 'email'%}
-			<p class="error-p">{{ error.text }}</p>
-			{% endif %}
 		</section>
 		{% endfor %}
 		{{ form.submit}}
-
 		{{ form.csrf_token}}
 		{{ form.hidden_tag()}}
 	</form>
-</div>
+</section>
 {% endblock %}

@@ -1,19 +1,22 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
 {% endblock %}
 
 {% block content %}
+
+{% with messages = get_flashed_messages(with_categories=True) %}
+{% for message in messages %}
+<section class="message {{ message[0] }}">
+	{{ message[1] }}
+</section>
+{% endfor %}
+{% endwith %}
+
 <section class="container">
+	<h1>Login</h1>
 	<form action="/login" method="POST">
-		{% with messages = get_flashed_messages(with_categories=True) %}
-		{% for message in messages %}
-		<section class="message {{ message[0] }}">
-			{{ message[1] }}
-		</section>
-		{% endfor %}
-		{% endwith %}
 
 		{% for field in form if field.name not in ["csrf_token", "submit"] %}
 		<section class="field-wrapper">
@@ -22,10 +25,9 @@
 		</section>
 		{% endfor %}
 		{{ form.submit }}
+		{{ form.csrf_token}}
 		{{form.hidden_tag()}}
 	</form>
-	<section>
-		<a href="{{ url_for('auth.register') }}">Não possui uma conta? Registre-se aqui.</a>
-	</section>
+	<a href="{{ url_for('auth.register') }}">Não possui uma conta? Registre-se aqui.</a>
 </section>
 {% endblock %}
