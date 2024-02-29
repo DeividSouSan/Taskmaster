@@ -9,10 +9,11 @@ class ILoginForm(Protocol):
     password: PasswordField
     submit: SubmitField
 
+
 class LoginForm(FlaskForm):
 
     username = StringField(
-        "Username",
+        "Nome de Usuário",
         validators=[DataRequired()])
 
     password = PasswordField(
