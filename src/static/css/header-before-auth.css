@@ -5,7 +5,7 @@ header {
 
     background-color: var(--container);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.363);
-    padding: 5px 20px;
+    padding: 0px 20px;
 
     .logo {
         a {
@@ -22,8 +22,8 @@ header {
             }
 
             svg {
-                width: 32px;
-                height: 32px;
+                width: 40px;
+                height: 40px;
             }
         }
 
