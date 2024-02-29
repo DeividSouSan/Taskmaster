@@ -10,22 +10,26 @@
     --container: #FDFDFD;
     --error-text: rgb(240, 85, 85);
 
-    --close-button: rgb(240, 85, 85);
+    --close-button: #f05555;
 
 
     --tomato-button: rgb(240, 85, 85);
+    --blue-button: #86b8f5;
+    --deactivated-button: rgb(173, 173, 173);
+
+    --border-color: #AFAFAF;
 
 
     --error-message-border: red;
-    --error-message: rgb(240, 85, 85);
+    --error-message-bg: rgb(240, 85, 85);
     --alert-message-border: orange;
-    --alert-message: rgb(245, 205, 130);
+    --alert-message-bg: rgb(245, 205, 130);
     --success-message-border: green;
-    --success-message: rgb(141, 252, 150);
+    --success-message-bg: rgb(141, 252, 150);
 }
 
 html {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 body {
@@ -52,18 +56,18 @@ body {
 }
 
 .alert {
-    border: 2px solid orange;
-    background-color: rgb(245, 205, 130);
+    border: 2px solid var(--alert-message-border);
+    background-color: var(--alert-message-bg);
 }
 
 .error {
-    border: 2px solid red;
-    background-color: rgb(243, 130, 130)
+    border: 2px solid var(--error-message-border);
+    background-color: var(--error-message-bg);
 }
 
 .success {
-    border: 2px solid green;
-    background-color: rgb(141, 252, 150)
+    border: 2px solid var(--success-message-border);
+    background-color: var(--success-message-bg);
 }
 
 @keyframes fade-out {
