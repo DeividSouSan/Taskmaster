@@ -11,8 +11,8 @@
     </a>
   </div>
   <ul>
-    <li><a href="">Features</a></li>
+    <li><a href="{{ url_for('main.index') }}">Home</a></li>
     <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-    <li><a href="{{ url_for('auth.register') }}">Cadastro</a></li>
+    <li><a href="{{ url_for('auth.register') }}" class="register-link">Cadastro</a></li>
   </ul>
 </header>
