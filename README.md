@@ -4,20 +4,27 @@ O Taskmaster é um website que permite o usuário criar tarefas para que ele pos
 
 # Objetivo
 
-O objetivo do projeto é a prática do desenvolvimento web backend utilizando o framework Flask e o banco de dados MySQL. Além disso, aprender quais bibliotecas existem úteis e que permitem tornar esse projeto possível.
+O objetivo do projeto é a prática do desenvolvimento web backend utilizando o framework Flask e o banco de dados MySQL. Além disso, aprender quais bibliotecas que o ambiente possui para tornar esse projeto possível.
 
 # Funcionalidades
 
-- [ ] Landing Page de Apresentação  
-- [ ] Cadastro do Usuário  
-- [ ] Login do Usuário com Autenticação JWT  
-- [ ] Board com as Tarefas  
-- [ ] Gerenciamento das Tarefas   
-- [ ] Gerencimaneto da Conta do Usuário 
-
-Foram utilizados conceitos como Inversão de Dependencia durante o desenvolvimento de projeto e foram elaborados testes para todos os casos de uso.
+- [x] Cadastro do Usuário
+- [x] Autenticação do Usuário
+- [x] Sistema de Gerenciamento de Tarefas (Adicionar e Remover Tarefas) 
+- [x] Feedback de Erros para diversas operações
+- [ ] Ordenar as Tarefas por Status
+- [ ] Exclusão da Conta
 
 # Demonstração
+## Cadastrando
+
+## Login
+
+## Adicionando Tarefa
+
+## Removendo Tarefa
+
+## Deslogando
 
 # Como Rodar o Projeto?
 
@@ -43,7 +50,7 @@ Recomendo instalar as bibliotecas em um ambiente virtual para evitar conflitos d
 python3 -m venv <nome_do_ambiente_virtual>
 ```
 
-Geralemente, o nome colocado o .venv, mas isso é de sua escolha.
+Comumento o nome utilizado é .venv, mas isso é de sua escolha.
 
 Para ativar o ambiente virutal:
 
@@ -63,14 +70,14 @@ Para desativa-lo:
 deactivate
 ```
 
-Notas: o ambiente vitural é criada na mesma pasta do projeto.
+Notas: o ambiente vitural é criado na mesma pasta do projeto.
 
 ## Bibliotecas
 
 Algumas biblittecas e framework foram utilizadas para realização do projeto:
 
 - Flask (Servidor e Rotas)
-- Python Dotenv
+- Python Dotenv (Variáveis de Ambiente)
 - PyMySQL
 - Flask-SQLAlchemy e SQLAlchemy(Object Relational Mapper)
 - Flask-WTF e WTForms (Formulários)
@@ -109,15 +116,5 @@ mysql> CREATE DATABASE nome_do_seu_banco_de_dados;
 
 ## Finalmente Rodando a Aplicação
 
-Crie a variável de ambiente FLASK_APP com o diretório da aplicação:
-
-```
-export FLASK_APP=src/server/server.py
-```
-Sem espaço antes de depois do sinal de igual.
-
-Rode com o seguinte comando.
-
-```
-flask run --debug
+Para rodar a aplicação rode o arquivo nomeado como `wsgi.py`.
 ```
