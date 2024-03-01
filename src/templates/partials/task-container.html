@@ -12,20 +12,20 @@
     </p>
   </section>
   <section class="task-bottom">
-    <span>
+    <span class="task-due-date">
       {% if task.due_date %}
       {{ task.due_date.date() }}
       {% else %}
       Sem data
       {% endif %}
     </span>
-    <span>
+    <span class="task-status">
       {% if task.status == 0 %}
-      <p>Não comecei</p>
+      <p class="not-started">Não comecei</p>
       {% elif task.status == 1 %}
-      <p>Fazendo</p>
+      <p class="doing">Fazendo</p>
       {% elif task.status == 2 %}
-      <p>Finalizdo</p>
+      <p class="finished">Finalizdo</p>
       {% endif %}
     </span>
   </section>
