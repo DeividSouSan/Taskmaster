@@ -19,12 +19,16 @@ O objetivo do projeto é a prática do desenvolvimento web backend utilizando o 
 ## Cadastrando
 
 ## Login
+![login](https://github.com/DeividSouSan/Taskmaster/assets/49818020/1292ad3a-cfae-4c4a-bf7d-1b59e30f777c)
 
 ## Adicionando Tarefa
+![adicionando_tarefa](https://github.com/DeividSouSan/Taskmaster/assets/49818020/ae8f377c-62e4-4548-a9c8-f841359504fa)
 
 ## Removendo Tarefa
+![excluindo_tarefa](https://github.com/DeividSouSan/Taskmaster/assets/49818020/190fcb2f-a2b2-4bc0-aa30-c50c9ad7aff9)
 
 ## Deslogando
+![deslogando](https://github.com/DeividSouSan/Taskmaster/assets/49818020/fbecb0b3-88bd-4200-9114-71d9cc5d8456)
 
 # Como Rodar o Projeto?
 
