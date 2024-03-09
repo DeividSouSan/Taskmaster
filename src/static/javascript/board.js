@@ -20,10 +20,14 @@ taskFormContainer.addEventListener("click", (ev) => {
 /* Botão de opções do menu */
 
 const accountButton = document.querySelector(".account-button");
-const floatingMenu = document.querySelector(".floating-menu");
+const floatingMenu = document.querySelector(".floating-menu-container");
 const headerAfterAuth = document.querySelector(".header-after-auth");
-accountButton.addEventListener('click', () => {
-    headerAfterAuth.appendChild(floatingMenu);
-    floatingMenu.style.display = "block";
-});
 
+accountButton.addEventListener('click', () => {
+    if (floatingMenu.classList.contains("active")) {
+        floatingMenu.style.display = "none";
+    } else {
+        floatingMenu.style.display = "block";
+    }
+    floatingMenu.classList.toggle("active");
+});
