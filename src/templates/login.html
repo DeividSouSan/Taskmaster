@@ -6,13 +6,6 @@
 
 {% block content %}
 
-{% with messages = get_flashed_messages(with_categories=True) %}
-{% for message in messages %}
-<section class="message {{ message[0] }}">
-	{{ message[1] }}
-</section>
-{% endfor %}
-{% endwith %}
 
 <section class="container">
 	<h1>Login</h1>
