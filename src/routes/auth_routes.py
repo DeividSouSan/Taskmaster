@@ -6,6 +6,8 @@ from src.forms.login_form import LoginForm
 from src.forms.register_form import RegisterForm
 from src.models.user import User
 from src.repositories.user_repository import UserRepository
+from src.use_cases.user.delete_account_use_case import DeleteAccountUseCase
+from src.use_cases.user.logout_user_use_case import LogoutUserUseCase
 from src.use_cases.user.login_user_use_case import LoginUserUseCase
 from src.use_cases.user.register_user_use_case import RegisterUserUseCase
 
@@ -17,10 +19,15 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
+def redirectResponse(route: str):
+    response = Response()
+    response.headers["hx-redirect"] = url_for(route)
+    return response
+
+
 @auth.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()
-    error = None
 
     if request.method == "POST":
         if form.validate_on_submit():
@@ -36,8 +43,7 @@ def register():
     return render_template(
         "register.html",
         title="Cadastro - Taskmaster",
-        form=form,
-        error=error)
+        form=form)
 
 
 @auth.route("/login", methods=["GET", "POST"])
@@ -64,21 +70,30 @@ def login():
 @auth.route("/logout", methods=["GET"])
 @login_required
 def logout():
-    logout_user()
-    flash("Você foi deslogado com sucesso!", "alert")
+
+    use_case = LogoutUserUseCase()
+    use_case.execute_logout()
 
     if htmx:
-        response = Response()
-        response.headers["hx-redirect"] = url_for("auth.login")
-        return response
+        return redirectResponse("auth.login")
 
     return redirect(url_for("auth.login"))
 
-@auth.route("/delete_account/<user_id>", methods=["DELETE"])
+
+@auth.route("/delete_account/<user_id>", methods=["GET", "DELETE"])
 def delete_account(user_id):
     repository = UserRepository()
-    repository.delete_user_by_id(user_id)
 
-    response = Response()
-    response.headers["hx-redirect"] = url_for("auth.login")
-    return response
+    use_case = DeleteAccountUseCase(repository)
+    result = use_case.delete_account(user_id)
+
+    if result:
+        if htmx:
+            return redirectResponse("auth.login")
+
+        return redirect(url_for("auth.login"))
+
+    if htmx:
+        return redirectResponse("user.board")
+
+    return redirect(url_for("user.board"))
