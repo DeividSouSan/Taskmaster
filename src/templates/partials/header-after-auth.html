@@ -1,4 +1,4 @@
-<header>
+<header class="header-after-auth">
   <div class="logo">
     <h1>Taskmaster</h1>
     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
@@ -7,9 +7,27 @@
         clip-rule="evenodd" />
     </svg>
   </div>
-  <ul>
-    <li>
-      <button hx-get="{{ url_for('auth.logout')}}" hx-target="html" hx-push-url="true" hx-swap="innerHTML">Sair</button>
-    </li>
-  </ul>
+  <button class="account-button">
+    <!-- Button with person img  -->
+  </button>
+
+  <section class="floating-menu" style="display: none;">
+    <section class="floating-menu-container">
+      <h1>Opções</h1>
+      <ul>
+        <li>
+          <button hx-get="{{ url_for('auth.logout') }}" hx-target="html" hx-push-url="true" hx-swap="innerHTML"
+            class="logout-button">
+            Sair
+          </button>
+        </li>
+        <li>
+          <button hx-get="{{ url_for('auth.logout') }}" hx-target="html" hx-push-url="true" hx-swap="innerHTML"
+            class="delete-account-button">
+            Excluir conta
+          </button>
+        </li>
+      </ul>
+    </section>
+  </section>
 </header>
