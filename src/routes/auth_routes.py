@@ -1,6 +1,6 @@
 from flask import Blueprint, flash, request, redirect, url_for, render_template, Response
 from flask_login import login_required, logout_user
-from src import login_manager
+from src import login_manager, htmx
 from src.forms.login_form import LoginForm
 
 from src.forms.register_form import RegisterForm
@@ -66,6 +66,18 @@ def login():
 def logout():
     logout_user()
     flash("Você foi deslogado com sucesso!", "alert")
+
+    if htmx:
+        response = Response()
+        response.headers["hx-redirect"] = url_for("auth.login")
+        return response
+
+    return redirect(url_for("auth.login"))
+
+@auth.route("/delete_account/<user_id>", methods=["DELETE"])
+def delete_account(user_id):
+    repository = UserRepository()
+    repository.delete_user_by_id(user_id)
 
     response = Response()
     response.headers["hx-redirect"] = url_for("auth.login")
