@@ -1,20 +1,8 @@
-from typing import Protocol
 from flask import current_app
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 from ..models.user import User
-
-
-class IUserRepository(Protocol):
-    def add_user(self, user: User) -> None:
-        ...
-
-    def get_user_by_username(self, username) -> str:
-        ...
-
-    def exists_user_with_field(self, field: str, given_value: str) -> bool:
-        ...
 
 
 class UserRepository:
@@ -48,3 +36,9 @@ class UserRepository:
             result = session.query(User).filter(
                 user_attribute == given_value).first()
             return bool(result)
+
+    def delete_user_by_id(self, user_id):
+        with Session(self.engine) as session:
+            user = session.query(User).filter(User.id == user_id).first()
+            session.delete(user)
+            session.commit()
