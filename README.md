@@ -4,30 +4,35 @@ O Taskmaster é um website que permite o usuário criar tarefas para que ele pos
 
 # Objetivo
 
-O objetivo do projeto é a prática do desenvolvimento web backend utilizando o framework Flask e o banco de dados MySQL. Além disso, aprender quais bibliotecas que o ambiente possui para tornar esse projeto possível.
+O objetivo do projeto foi aprender mais sobre o desenvolvimento backend utilizando o Python e o micro-framework Flask. Além disso, desenvolver minhas habilidades de solução de problemas e de escrita de código. Como consequência acabei descobrindo algumas bibliotecas que forem facilitadores-chave para que o projeto pudesse ser concluído.
 
 # Funcionalidades
 
 - [x] Cadastro do Usuário
 - [x] Autenticação do Usuário
-- [x] Sistema de Gerenciamento de Tarefas (Adicionar e Remover Tarefas) 
+- [x] Sistema de Gerenciamento de Tarefas (Adicionar e Remover Tarefas)
 - [x] Feedback de Erros para diversas operações
 - [ ] Ordenar as Tarefas por Status
 - [ ] Exclusão da Conta
 
 # Demonstração
+
 ## Cadastrando
 
 ## Login
+
 ![login](https://github.com/DeividSouSan/Taskmaster/assets/49818020/1292ad3a-cfae-4c4a-bf7d-1b59e30f777c)
 
 ## Adicionando Tarefa
+
 ![adicionando_tarefa](https://github.com/DeividSouSan/Taskmaster/assets/49818020/ae8f377c-62e4-4548-a9c8-f841359504fa)
 
 ## Removendo Tarefa
+
 ![excluindo_tarefa](https://github.com/DeividSouSan/Taskmaster/assets/49818020/190fcb2f-a2b2-4bc0-aa30-c50c9ad7aff9)
 
 ## Deslogando
+
 ![deslogando](https://github.com/DeividSouSan/Taskmaster/assets/49818020/fbecb0b3-88bd-4200-9114-71d9cc5d8456)
 
 # Como Rodar o Projeto?
@@ -82,7 +87,7 @@ Algumas biblittecas e framework foram utilizadas para realização do projeto:
 
 - Flask (Servidor e Rotas)
 - Python Dotenv (Variáveis de Ambiente)
-- PyMySQL
+- PyMySQL (Driver de Conexão para o MySQL)
 - Flask-SQLAlchemy e SQLAlchemy(Object Relational Mapper)
 - Flask-WTF e WTForms (Formulários)
 - Bcrypt (Hash da Senha)
@@ -121,4 +126,3 @@ mysql> CREATE DATABASE nome_do_seu_banco_de_dados;
 ## Finalmente Rodando a Aplicação
 
 Para rodar a aplicação rode o arquivo nomeado como `wsgi.py`.
-```
