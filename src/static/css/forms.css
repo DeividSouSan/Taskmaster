@@ -25,13 +25,13 @@ main {
     font-family: "Poppins", sans-serif;
 
     h1 {
-        font-size: 1.5rem;
-        font-weight: 500;
-        margin-bottom: 1rem;
+        font-size: 2rem;
+        font-weight: 800;
+
         text-align: left;
-        font-style: italic;
-        text-decoration: underline;
-        letter-spacing: 1px;
+
+        letter-spacing: 3px;
+
     }
 
     form {
