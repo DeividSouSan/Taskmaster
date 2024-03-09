@@ -45,12 +45,11 @@ main {
 .task-wrapper {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     flex-wrap: wrap;
 
     width: 70vw;
 
-    gap: 1rem;
+    gap: 4rem;
 
     .task {
         display: flex;
@@ -59,15 +58,23 @@ main {
 
         background-color: white;
         width: 20vw;
-        font-family: "Roboto Slab";
+        font-family: "Poppins", sans-serif;
 
         padding: 1rem;
         border-radius: 5px;
         box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.277);
 
+        gap: 1rem;
+
+
         .task-header {
             display: flex;
             justify-content: space-between;
+
+
+            >h3 {
+                text-transform: uppercase;
+            }
 
             button {
                 background-image: url("../img/red-trash.svg");
@@ -89,13 +96,35 @@ main {
         }
 
         .task-desc {
-            color: var(--subtle-text);
+            color: var(--task-desc);
         }
 
         .task-bottom {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            align-items: center;
+
+            .task-status {
+                >p {
+                    padding: 0 5px;
+                    border-radius: 5px;
+
+                    font-size: 0.8rem;
+                }
+
+                .not-started {
+                    background-color: var(--not-started);
+                }
+
+                .doing {
+                    background-color: var(--doing);
+                }
+
+                .finished {
+                    background-color: var(--finished);
+                }
+            }
         }
     }
 }
