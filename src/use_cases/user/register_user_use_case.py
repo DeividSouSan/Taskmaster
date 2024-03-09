@@ -1,14 +1,14 @@
 from datetime import datetime
 from flask import flash
 
-from ...repositories.user_repository import IUserRepository
+from ...repositories.user_repository import UserRepository
 from ...models.user import User
 from ...utils.password_hasher import PassowordHash
-from ...forms.register_form import IRegisterForm
+from ...forms.register_form import RegisterForm
 
 
 class RegisterUserUseCase():
-    def __init__(self, form: IRegisterForm, repository: IUserRepository):
+    def __init__(self, form: RegisterForm, repository: UserRepository):
         self.__repository = repository
         self.__form = form
         self.error = None

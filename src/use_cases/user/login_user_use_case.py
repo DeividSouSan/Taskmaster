@@ -2,13 +2,13 @@ from flask import flash
 from flask_login import login_user
 
 from ...utils.password_hasher import PassowordHash
-from ...forms.login_form import ILoginForm
-from ...repositories.user_repository import IUserRepository
+from ...forms.login_form import LoginForm
+from ...repositories.user_repository import UserRepository
 
 
 class LoginUserUseCase():
 
-    def __init__(self, form: ILoginForm, repository: IUserRepository):
+    def __init__(self, form: LoginForm, repository: UserRepository):
         self.__repository = repository
         self.__form = form
 
