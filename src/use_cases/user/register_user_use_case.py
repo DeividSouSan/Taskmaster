@@ -3,7 +3,7 @@ from flask import flash
 
 from ...repositories.user_repository import UserRepository
 from ...models.user import User
-from ...utils.password_hasher import PassowordHash
+from ...utils.password_hasher import PasswordHash
 from ...forms.register_form import RegisterForm
 
 
@@ -36,7 +36,7 @@ class RegisterUserUseCase():
     def create_user(self):
         return User(
             username=self.__form.username.data,
-            password_hash=PassowordHash().hash_password(self.__form.password.data),
+            password_hash=PasswordHash().hash_password(self.__form.password.data),
             fullname=self.__form.fullname.data,
             email=self.__form.email.data,
             registration=datetime.now(),
