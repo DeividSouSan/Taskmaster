@@ -29,24 +29,25 @@ class RegisterUserUseCase():
         self.notify_successful_register()
         return True
 
-    def is_field_taken(self, field, value):
+    def is_field_taken(self, field: str, value: any) -> bool:
         field_is_taken = self.__repository.exists_user_with_field(field, value)
         return field_is_taken
 
-    def create_user(self):
+    def create_user(self) -> User:
         return User(
             username=self.__form.username.data,
-            password_hash=self.__pwd_hasher.hash_password(self.__form.password.data),
+            password_hash=self.__pwd_hasher.hash_password(
+                self.__form.password.data),
             fullname=self.__form.fullname.data,
             email=self.__form.email.data,
             registration=datetime.now(),
         )
 
-    def notify_successful_register(self):
+    def notify_successful_register(self) -> None:
         flash("Usuário cadastrado com sucesso", "success")
-        
-    def notify_email_already_used(self):
+
+    def notify_email_already_used(self) -> None:
         flash("Email já foi utlizado", "error")
 
-    def notify_username_alredy_used(self):
+    def notify_username_alredy_used(self) -> None:
         flash("Nome de usuário já foi utilizado", "error")

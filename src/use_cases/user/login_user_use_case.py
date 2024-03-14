@@ -13,7 +13,7 @@ class LoginUserUseCase():
         self.__form = form
         self.__pwd_hasher = pwd_hasher
 
-    def attempt_login_user(self):
+    def attempt_login_user(self) -> bool:
         username = self.__form.username.data
         password = self.__form.password.data
 
@@ -28,7 +28,7 @@ class LoginUserUseCase():
 
         return False
 
-    def verify_credentials(self, username, password):
+    def verify_credentials(self, username: str, password: str) -> bool:
         user_exists = self.__repository.exists_user_with_field(
             "username", username)
 
@@ -40,15 +40,15 @@ class LoginUserUseCase():
                 password, database_password)
 
             if not pwd_is_correct:
-                self.notify_wrong_password
+                self.notify_wrong_password()
 
             return pwd_is_correct
 
         self.notify_user_not_found()
         return False
 
-    def notify_user_not_found():
+    def notify_user_not_found() -> None:
         flash("Usuário não encontrado", "error")
 
-    def notify_wrong_password():
+    def notify_wrong_password() -> None:
         flash("Senha incorreta", "error")
