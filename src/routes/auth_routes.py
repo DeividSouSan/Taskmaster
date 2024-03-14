@@ -2,7 +2,6 @@ from flask import Blueprint, flash, request, redirect, url_for, render_template,
 from flask_login import login_required, logout_user
 from src import login_manager, htmx
 from src.forms.login_form import LoginForm
-
 from src.forms.register_form import RegisterForm
 from src.models.user import User
 from src.repositories.user_repository import UserRepository
@@ -10,6 +9,7 @@ from src.use_cases.user.delete_account_use_case import DeleteAccountUseCase
 from src.use_cases.user.logout_user_use_case import LogoutUserUseCase
 from src.use_cases.user.login_user_use_case import LoginUserUseCase
 from src.use_cases.user.register_user_use_case import RegisterUserUseCase
+from src.utils.password_hasher import PasswordHash
 
 auth = Blueprint("auth", __name__)
 
@@ -49,13 +49,13 @@ def register():
 @auth.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
+    repository = UserRepository()
+    pwd_hasher = PasswordHash()
 
     if request.method == "POST":
         if form.validate_on_submit():
 
-            repository = UserRepository()
-
-            use_case = LoginUserUseCase(form, repository)
+            use_case = LoginUserUseCase(form, repository, pwd_hasher)
             result = use_case.attempt_login_user()
 
             if result:
