@@ -21,27 +21,34 @@ class LoginUserUseCase():
 
         if valid_credentials:
             user = self.__repository.get_user_by_username(username)
-            login_user(user)
-            return True
+            result = login_user(user)
+
+            if result:
+                return True
 
         return False
 
     def verify_credentials(self, username, password):
         user_exists = self.__repository.exists_user_with_field(
             "username", username)
-        if user_exists:
-            database_password = self.__repository\
-                .get_user_password_by_username(username)
 
-            pwd_is_correct = self.__pwd_hasher\
-                .check_password(password, database_password)
+        if user_exists:
+            database_password = self.__repository.get_user_password_by_username(
+                username)
+
+            pwd_is_correct = self.__pwd_hasher.check_password(
+                password, database_password)
 
             if not pwd_is_correct:
-                flash("Senha incorreta", "error")
+                self.notify_wrong_password
 
             return pwd_is_correct
 
-        flash("Usuário não encontrado", "error")
+        self.notify_user_not_found()
         return False
 
-   
+    def notify_user_not_found():
+        flash("Usuário não encontrado", "error")
+
+    def notify_wrong_password():
+        flash("Senha incorreta", "error")
