@@ -18,15 +18,15 @@ class RegisterUserUseCase():
         user = self.create_user()
 
         if self.is_field_taken("username", user.username):
-            flash("Nome de usuário já foi utilizado", "error")
+            self.notify_username_alredy_used()
             return False
 
         if self.is_field_taken("email", user.email):
-            flash("Email já foi utlizado", "error")
+            self.notify_email_already_used()
             return False
 
         self.__repository.add_user(user)
-        flash("Usuário cadastrado com sucesso", "success")
+        self.notify_successful_register()
         return True
 
     def is_field_taken(self, field, value):
@@ -41,3 +41,12 @@ class RegisterUserUseCase():
             email=self.__form.email.data,
             registration=datetime.now(),
         )
+
+    def notify_successful_register(self):
+        flash("Usuário cadastrado com sucesso", "success")
+        
+    def notify_email_already_used(self):
+        flash("Email já foi utlizado", "error")
+
+    def notify_username_alredy_used(self):
+        flash("Nome de usuário já foi utilizado", "error")
