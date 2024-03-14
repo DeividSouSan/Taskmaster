@@ -8,10 +8,10 @@ from ...forms.register_form import RegisterForm
 
 
 class RegisterUserUseCase():
-    def __init__(self, form: RegisterForm, repository: UserRepository):
-        self.__repository = repository
+    def __init__(self, form: RegisterForm, repository: UserRepository, pwd_hahser: PasswordHash):
         self.__form = form
-        self.error = None
+        self.__repository = repository
+        self.__pwd_hasher = pwd_hahser
 
     def attempt_registration(self) -> bool:
 
@@ -36,7 +36,7 @@ class RegisterUserUseCase():
     def create_user(self):
         return User(
             username=self.__form.username.data,
-            password_hash=PasswordHash().hash_password(self.__form.password.data),
+            password_hash=self.__pwd_hasher.hash_password(self.__form.password.data),
             fullname=self.__form.fullname.data,
             email=self.__form.email.data,
             registration=datetime.now(),
