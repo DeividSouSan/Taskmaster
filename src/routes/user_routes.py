@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, url_for
+from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from src import htmx
 from src.forms.task_form import TaskForm
@@ -6,6 +6,7 @@ from src.repositories.task_repository import TaskRepository
 from src.use_cases.tasks.add_task_use_case import AddTaskUseCase
 from src.use_cases.tasks.delete_task_use_case import DeleteTaskUseCase
 from src.use_cases.tasks.get_tasks_use_case import GetTasksUseCase
+from src.models.task import TaskStatus
 
 user = Blueprint("user", __name__)
 
@@ -19,16 +20,23 @@ def board():
         return redirect(url_for("auth.login"))
 
     use_case = GetTasksUseCase(current_user.id, repository)
-    tasks = use_case.get_tasks()
+
+    filter = request.args.get('filter', 'normal')
+
+    if filter == "deleted":
+        tasks = use_case.get_deleted_tasks()
+    else:
+        tasks = use_case.get_active_tasks()
 
     if htmx:
-        return render_template("partials/task-container.html", tasks=tasks)
+        return render_template("partials/task-container.html", tasks=tasks, TaskStatus=TaskStatus)
 
     return render_template(
         "board.html",
         title="Quadro de Tarefas - Taskmaster",
         user=current_user,
         tasks=tasks,
+        TaskStatus=TaskStatus,
         form=form)
 
 
