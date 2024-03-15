@@ -16,9 +16,10 @@ class TaskRepository:
             session.add(task)
             session.commit()
 
-    def get_tasks(self, user_id: int):
+    def get_active_tasks(self, user_id: int):
         with Session(self.__engine) as session:
-            tasks = session.query(Task).filter(Task.user_id == user_id)
+            tasks = session.query(Task).filter(
+                Task.user_id == user_id, Task.deleted == False)
             return tasks
 
     def get_task_by_id(self, task_id: int):
@@ -26,8 +27,20 @@ class TaskRepository:
             task = session.query(Task).filter(Task.id == task_id).first()
             return task
 
+    def get_deleted_tasks(self, user_id: int):
+        with Session(self.__engine) as session:
+            tasks = session.query(Task).filter(
+                Task.user_id == user_id, Task.deleted == True)
+            return tasks
+
+    def update_task(self, task_id, columns, value):
+        with Session(self.__engine) as session:
+            session.query(Task).filter(
+                Task.id == task_id).update({columns: value})
+            session.commit()
+
     def delete_task(self, task_id: int):
         with Session(self.__engine) as session:
-            task = self.get_task_by_id(task_id)
-            session.delete(task)
+            session.query(Task).filter(
+                Task.id == task_id).update({Task.deleted: True})
             session.commit()
