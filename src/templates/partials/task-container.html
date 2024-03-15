@@ -1,14 +1,14 @@
 {% for task in tasks %}
 <section class="task">
   <section class="task-header">
-    <h3>{{ task.task_title }}</h3>
+    <h3>{{ task.title }}</h3>
     <button hx-delete="/delete_task/{{ task.id }}" hx-target=".task-wrapper">
       <!-- Delete Task  -->
     </button>
   </section>
   <section class="task-desc">
     <p>
-      {{ task.task_description }}
+      {{ task.description }}
     </p>
   </section>
   <section class="task-bottom">
@@ -20,11 +20,11 @@
       {% endif %}
     </span>
     <span class="task-status">
-      {% if task.status == 0 %}
+      {% if TaskStatus(task.status).name == "NOT_STARTED" %}
       <p class="not-started">Não comecei</p>
-      {% elif task.status == 1 %}
+      {% elif  TaskStatus(task.status).name == "DOING" %}
       <p class="doing">Fazendo</p>
-      {% elif task.status == 2 %}
+      {% elif  TaskStatus(task.status).name == "FINISHED" %}
       <p class="finished">Finalizdo</p>
       {% endif %}
     </span>
