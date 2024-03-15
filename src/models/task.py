@@ -28,3 +28,4 @@ class Task(db.Model):
     description: Mapped[str] = mapped_column(String(200))
     due_date: Mapped[datetime] = mapped_column(nullable=True)
     status: Mapped[int]
+    deleted: Mapped[bool]
