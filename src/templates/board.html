@@ -7,17 +7,31 @@
 
 {% block content %}
 
-<section class="board-top">
-  <h1>Tarefas Ativas</h1>
-  <button class="add-task-button">
-    <!-- Add Task -->
-  </button>
+<section class="board-menu">
+  <section class="search-bar">
+    <h2>Procurar:</h2>
+    <input type="search" placeholder="Palavra-chave">
+    <button>
+      <img src=" {{ url_for('static', filename='img/search.svg')}}" alt="" srcset="">
+    </button>
+  </section>
+  <section class="action-buttons">
+    <button class="filter-task-button">
+      Filtrar
+    </button>
+    <button class="add-task-button">
+      Adicionar
+    </button>
+  </section>
 </section>
+
+
 
 <section class="task-wrapper">
   {% include "partials/task-container.html" %}
 </section>
 
+<!-- Modal com o Formulário das Tarefas -->
 <template class=" add-task-template">
   <div class="modal-container">
     <section class="add-task-modal">
@@ -36,6 +50,7 @@
     </section>
   </div>
 </template>
+
 
 {% block javascript %}
 <script src="{{ url_for('static', filename='javascript/board.js')}}"></script>
