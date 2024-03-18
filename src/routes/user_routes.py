@@ -21,15 +21,17 @@ def board():
 
     use_case = GetTasksUseCase(current_user.id, repository)
 
-    filter = request.args.get('filter', 'normal')
+    filter_option = request.args.get('filter', 'normal')
 
-    if filter == "deleted":
-        tasks = use_case.get_deleted_tasks()
-    else:
-        tasks = use_case.get_active_tasks()
+    current_filter = {
+        "normal": use_case.get_active_tasks(),
+        "deleted": use_case.get_deleted_tasks()
+    }
+
+    tasks = current_filter[filter_option]
 
     if htmx:
-        return render_template("partials/task-container.html", tasks=tasks, TaskStatus=TaskStatus)
+        return render_template("partials/task-container.html", tasks=tasks, TaskStatus=TaskStatus, filter=filter_option)
 
     return render_template(
         "board.html",
@@ -37,7 +39,8 @@ def board():
         user=current_user,
         tasks=tasks,
         TaskStatus=TaskStatus,
-        form=form)
+        form=form,
+        filter=filter_option)
 
 
 @user.route("/add_task", methods=["POST"])
