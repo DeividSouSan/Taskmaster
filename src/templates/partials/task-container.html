@@ -2,32 +2,50 @@
 <section class="task">
   <section class="task-header">
     <h3>{{ task.title }}</h3>
-    <button hx-delete="/delete_task/{{ task.id }}" hx-target=".task-wrapper">
+    {% if task.deleted == False %}
+    <button class="delete-task">
       <!-- Delete Task  -->
     </button>
+    {% endif %}
   </section>
-  <section class="task-desc">
-    <p>
-      {{ task.description }}
-    </p>
+  <hr>
+  <section class="task-info">
+
+    <section class="task-desc">
+      <p>
+        {{ task.description }}
+      </p>
+    </section>
+    <section class="task-bottom">
+      <span class="task-due-date">
+        {% if task.due_date %}
+        {{ task.due_date.date() }}
+        {% else %}
+        Sem data
+        {% endif %}
+      </span>
+      <span class="task-status">
+        {% if TaskStatus(task.status).name == "NOT_STARTED" %}
+        <p class="not-started">Não comecei</p>
+        {% elif TaskStatus(task.status).name == "DOING" %}
+        <p class="doing">Fazendo</p>
+        {% elif TaskStatus(task.status).name == "FINISHED" %}
+        <p class="finished">Finalizdo</p>
+        {% endif %}
+      </span>
+    </section>
   </section>
-  <section class="task-bottom">
-    <span class="task-due-date">
-      {% if task.due_date %}
-      {{ task.due_date.date() }}
-      {% else %}
-      Sem data
-      {% endif %}
-    </span>
-    <span class="task-status">
-      {% if TaskStatus(task.status).name == "NOT_STARTED" %}
-      <p class="not-started">Não comecei</p>
-      {% elif  TaskStatus(task.status).name == "DOING" %}
-      <p class="doing">Fazendo</p>
-      {% elif  TaskStatus(task.status).name == "FINISHED" %}
-      <p class="finished">Finalizdo</p>
-      {% endif %}
-    </span>
+
+  <section class="delete-task-confirm">
+    <section class="button-wrapper">
+
+      <button class="confirm-delete-task-button" hx-delete="/delete_task/{{ task.id }}" hx-target=".task-wrapper">
+        Deletar
+      </button>
+      <button class="cancel-delete-task-button">
+        Cancelar
+      </button>
+    </section>
   </section>
 </section>
 {% endfor %}
