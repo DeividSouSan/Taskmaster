@@ -6,7 +6,6 @@
 
 {% block content %}
 
-
 <section class="container">
 	<h1>Login</h1>
 	<form action="/login" method="POST">
@@ -14,7 +13,7 @@
 		{% for field in form if field.name not in ["csrf_token", "submit"] %}
 		<section class="field-wrapper">
 			{{ field.label }}
-			{{ field }}
+			{{ field(placeholder=field.name) }}
 		</section>
 		{% endfor %}
 		{{ form.submit }}
