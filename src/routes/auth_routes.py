@@ -1,5 +1,5 @@
-from flask import Blueprint, flash, request, redirect, url_for, render_template, Response
-from flask_login import login_required, logout_user
+from flask import Blueprint, request, redirect, url_for, render_template, Response
+from flask_login import login_required
 from src import login_manager, htmx
 from src.forms.login_form import LoginForm
 from src.forms.register_form import RegisterForm
@@ -28,13 +28,13 @@ def redirectResponse(route: str):
 @auth.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()
+    repository = UserRepository()
+    pwd_hasher = PasswordHash()
 
     if request.method == "POST":
         if form.validate_on_submit():
-
-            repository = UserRepository()
-
-            use_case = RegisterUserUseCase(form, repository)
+            
+            use_case = RegisterUserUseCase(form, repository, pwd_hasher)
             success = use_case.attempt_registration()
 
             if success:
