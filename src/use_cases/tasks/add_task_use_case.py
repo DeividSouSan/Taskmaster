@@ -16,8 +16,10 @@ class AddTaskUseCase:
     def _set_task(self):
         return Task(
             user_id=self.__user_id,
-            task_title=self.__form.task_title.data,
-            task_description=self.__form.task_description.data,
+            title=self.__form.title.data,
+            description=self.__form.description.data,
             due_date=self.__form.due_date.data,
-            status=int(self.__form.status.data)
-        )
+            status=int(self.__form.status.data),
+            deleted=False
+            )
+        
