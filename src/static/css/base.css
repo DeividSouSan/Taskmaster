@@ -18,11 +18,14 @@
     /* Button Colors */
     --tomato-button: #f05555;
     --login-button: #86b8f5;
-    --deactivated-button: rgb(8, 6, 6);
+    --deactivated-button: #d9d9d9;
     --filter-button: #E8C547;
     --add-button: #09BC8A;
     --add-task-button: #5C80BC;
     --history-button: #d9d9d9;
+    --delete-task-button: #DB504A;
+    --confirm-delete-task-button: #DB504A;
+    --cancel-delete-task-button: #d9d9d9;
 
     /* Input Border Colors */
     --border-color: #AFAFAF;
@@ -153,5 +156,6 @@ footer {
 
     100% {
         opacity: 0%;
+        display: none;
     }
 }

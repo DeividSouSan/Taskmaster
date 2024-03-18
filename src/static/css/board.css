@@ -212,8 +212,59 @@ main {
         }
     }
 
-    .delete-task-confirmation {
+    .task:hover {
+        outline: 3px solid var(--add-button);
+        user-select: none;
+        cursor: pointer;
+    }
+
+    .delete-task-confirm {
         display: none;
+        background-color: rgba(0, 0, 0, 0.316);
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        .button-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            gap: 1rem;
+
+            button {
+
+                font-size: 1rem;
+                font-family: "Poppins";
+                font-weight: 500;
+
+                color: black;
+                border: 2px solid black;
+
+                border-radius: 10px;
+                padding: 0.5rem 2rem;
+
+                width: 100%;
+            }
+
+            .confirm-delete-task-button {
+                background-color: var(--confirm-delete-task-button);
+            }
+
+            .cancel-delete-task-button {
+                background-color: var(--cancel-delete-task-button);
+            }
+        }
     }
 }
 
