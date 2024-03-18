@@ -8,10 +8,11 @@ main {
     align-items: center;
 }
 
-.board-top {
+.board-menu {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 
     margin: 1rem 0;
     width: 80%;
@@ -21,60 +22,126 @@ main {
     padding: 0.5rem 1rem;
     border-radius: 5px;
 
-    h1 {
-        font-family: "Poppins", sans-serif;
-        font-weight: 500;
+    .search-bar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        gap: 1rem;
+
+        h2 {
+            font-weight: 200;
+        }
+
+        >input[type="search"] {
+            border-radius: 50px;
+            border: 1px solid #d9d9d9;
+            background-color: #EEEEEE;
+            padding-left: 1rem;
+            color: black;
+            height: 2rem;
+        }
+
+        button {
+            border-radius: 50px;
+            border: none;
+            width: 32px;
+            height: 32px;
+
+            >img {
+                width: 28px;
+                height: 28px;
+            }
+        }
     }
 
-    button {
-        width: 42px;
-        height: 42px;
+    .action-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
 
-        border: none;
-        background-color: transparent;
-        background-image: url("../img/plus.svg");
-        background-size: cover;
+        button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            border: none;
+            border-radius: 50px;
+
+            padding: 0.5rem 2rem;
+
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.265);
+        }
+
+        button:hover {
+            cursor: pointer;
+            filter: brightness(0.7);
+        }
+
+        .add-task-button {
+            background-color: var(--add-button);
+        }
+
+        .add-task-button::after {
+            display: inline-block;
+            content: "";
+            width: 24px;
+            height: 24px;
+            background-image: url("../img/bold-add.svg");
+            background-size: cover;
+        }
+
+        .filter-task-button {
+
+            background-color: var(--filter-button);
+        }
+
+        .filter-task-button::after {
+            display: inline-block;
+            content: "";
+            width: 24px;
+            height: 24px;
+            background-image: url("../img/filter.svg");
+            background-size: cover;
+        }
     }
-
-    button:hover {
-        cursor: pointer;
-    }
-
 }
+
 
 .task-wrapper {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     flex-wrap: wrap;
 
-    width: 70vw;
+    width: 80vw;
+    gap: 1rem;
 
-    gap: 4rem;
+    margin-bottom: 4rem;
 
     .task {
+        position: relative;
+        min-height: max-content;
+
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        flex-wrap: wrap;
 
         background-color: white;
-        width: 20vw;
+        width: 30%;
         font-family: "Poppins", sans-serif;
 
         padding: 1rem;
-        border-radius: 5px;
         box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.277);
-
-        gap: 1rem;
 
 
         .task-header {
             display: flex;
             justify-content: space-between;
-
-
-            >h3 {
-                text-transform: uppercase;
-            }
 
             button {
                 background-image: url("../img/red-trash.svg");
@@ -97,13 +164,30 @@ main {
 
         .task-desc {
             color: var(--task-desc);
+
+            hyphens: auto;
+
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+
+            width: 100%;
+
+            margin-bottom: 2rem;
         }
 
         .task-bottom {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
+
+            margin-bottom: 0.5rem;
+            padding: 0 1rem;
 
             .task-status {
                 >p {
@@ -127,7 +211,14 @@ main {
             }
         }
     }
+
+    .delete-task-confirmation {
+        display: none;
+    }
 }
+
+
+
 
 @keyframes shake {
     0% {

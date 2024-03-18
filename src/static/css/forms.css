@@ -7,7 +7,7 @@ main {
     top: 50%;
     left: 50%;
     translate: -50% -50%;
-    
+
     width: 100%;
 }
 
@@ -26,7 +26,6 @@ main {
     animation: lift 1s ease-in-out forwards, wide 1s ease-in-out forwards;
     width: 30%;
 
-    border-radius: 5px;
     margin: auto;
     background-color: var(--container);
 
@@ -38,7 +37,7 @@ main {
     h1 {
         user-select: none;
 
-        font-size: 2rem;
+        font-size: 3rem;
         font-weight: 800;
 
         text-align: left;
@@ -48,10 +47,6 @@ main {
         transition: all 200ms ease-in-out;
 
 
-    }
-
-    h1:hover {
-        animation: shake 1s ease-in infinite;
     }
 
     form {
@@ -91,8 +86,8 @@ main {
             border: none;
             border-radius: 5px;
 
-            color: black;
-            background-color: var(--page-background);
+            color: white;
+            background-color: var(--login-button);
 
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -123,29 +118,6 @@ main {
     a:hover {
         color: blue;
     }
-}
-
-@keyframes shake {
-    0% {
-        rotate: 0deg;
-    }
-
-    25% {
-        rotate: -3deg;
-    }
-
-    50% {
-        rotate: 0deg;
-    }
-
-    75% {
-        rotate: 3deg;
-    }
-
-    100% {
-        rotate: 0deg;
-    }
-
 }
 
 @keyframes lift {

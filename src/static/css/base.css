@@ -5,17 +5,24 @@
 }
 
 :root {
-    --page-background: #A6C9F3;
+    --page-background: #252525;
     --subtle-text: #AFAFAF;
     --container: #FDFDFD;
     --error-text: rgb(240, 85, 85);
+
+    /* Account Floating Menu */
+    --action-hover: #AFAFAF;
 
     --close-button: #f05555;
 
     /* Button Colors */
     --tomato-button: #f05555;
-    --blue-button: #86b8f5;
-    --deactivated-button: rgb(173, 173, 173);
+    --login-button: #86b8f5;
+    --deactivated-button: rgb(8, 6, 6);
+    --filter-button: #E8C547;
+    --add-button: #09BC8A;
+    --add-task-button: #5C80BC;
+    --history-button: #d9d9d9;
 
     /* Input Border Colors */
     --border-color: #AFAFAF;
@@ -25,14 +32,16 @@
 
     /* Task Status */
     --not-started: rgb(240, 85, 85);
-    --doing: rgb(141, 252, 150);
-    --finished: #86b8f5;
+    --doing: #FFD644;
+    --finished: #09BC8A;
 
     /* Error Messsage */
     --error-message-border: red;
-    --error-message-bg: rgb(240, 85, 85);
+    --error-message-bg: #f05555;
+
     --alert-message-border: orange;
-    --alert-message-bg: rgb(245, 205, 130);
+    --alert-message-bg: #f5cd82;
+
     --success-message-border: green;
     --success-message-bg: rgb(141, 252, 150);
 }
@@ -51,9 +60,10 @@ header {
         display: flex;
         align-items: center;
 
-        user-select: none;
         color: black;
         text-decoration: none;
+
+        user-select: none;
 
         h1 {
             font-weight: 600;
@@ -71,7 +81,6 @@ header {
     opacity: 80%;
 
     animation: fade-out 1s 5s forwards;
-
     position: absolute;
     top: 3.5rem;
     right: 10px;
@@ -97,6 +106,44 @@ header {
 .success {
     border: 2px solid var(--success-message-border);
     background-color: var(--success-message-bg);
+}
+
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+    background-color: white;
+
+    width: 100%;
+    height: 3rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 1rem;
+
+    .button-wrapper {
+        display: flex;
+        gap: 1rem;
+
+        button {
+            background-color: var(--history-button);
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.314);
+
+            padding: 0.5rem 1rem;
+            border: none;
+
+            font-family: "Poppins";
+        }
+
+        button:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 @keyframes fade-out {

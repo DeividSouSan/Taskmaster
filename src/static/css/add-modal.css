@@ -60,8 +60,12 @@ form {
         border-radius: 5px;
 
         color: white;
-        background-color: var(--blue-button);
+        background-color: var(--add-task-button);
 
         font-weight: 500;
+    }
+
+    input[type="submit"]:hover {
+        cursor: pointer;
     }
 }
