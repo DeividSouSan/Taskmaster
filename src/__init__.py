@@ -1,45 +1,29 @@
-import os
 from flask import Flask
-from dotenv import load_dotenv
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_htmx import HTMX
+from flask_wtf import CSRFProtect
 from datetime import timedelta
-
-load_dotenv()
-
-USER = os.environ.get("USER")
-PASSWORD = os.environ.get("PASSWORD")
-DATABASE = os.environ.get("DATABASE")
-
-DATABASE_URI = f'mysql+pymysql://{USER}:{PASSWORD}@localhost/{DATABASE}'
 
 # Initialize Plugins
 db = SQLAlchemy()
 login_manager = LoginManager()
 htmx = HTMX()
-# CSRF_TOKEN
+csrf = CSRFProtect()
 
 
 def create_app():
     # Creating App
-    app = Flask(__name__,
-                template_folder="templates",
-                static_folder="static",
-                instance_relative_config=True)
+    app = Flask(__name__)
 
     # Configuring App
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI=DATABASE_URI,
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        PERMANENT_SESSION_LIFETIME=timedelta(minutes=30)
-    )
+    app.config.from_object('src.config.DevelopmentConfig')
 
     # Initializing Plugins
     db.init_app(app)
     login_manager.init_app(app)
     htmx.init_app(app)
+    csrf.init_app(app)
 
     with app.app_context():
         # Create tables
