@@ -8,7 +8,6 @@ main {
     font-family: "Roboto slab", sans-serif;
 }
 
-
 .container {
     display: flex;
     flex-direction: column;
@@ -21,14 +20,18 @@ main {
     h1 {
         font-size: 4rem;
         text-align: center;
-        color: var(--pseudo-white)
+        color: var(--title)
     }
 
     p {
+        text-align: justify;
         font-family: "Poppins", sans-serif;
 
-        text-align: justify;
-        color: var(--dark-gray);
+        color: var(--text);
+    }
+
+    img {
+        width: 150%;
     }
 
     .register-button {

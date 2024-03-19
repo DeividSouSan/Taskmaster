@@ -27,7 +27,7 @@ main {
     width: 30%;
 
     margin: auto;
-    background-color: var(--container);
+    background-color: var(--container-background);
 
     padding: 1rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.27);
