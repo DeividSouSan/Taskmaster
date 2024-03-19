@@ -21,6 +21,7 @@ class LoginUserUseCase():
 
         if valid_credentials:
             user = self.__repository.get_user_by_username(username)
+            # Essa é a única dependência desse código
             result = login_user(user)
 
             if result:
@@ -47,8 +48,8 @@ class LoginUserUseCase():
         self.notify_user_not_found()
         return False
 
-    def notify_user_not_found() -> None:
+    def notify_user_not_found(self) -> None:
         flash("Usuário não encontrado", "error")
 
-    def notify_wrong_password() -> None:
+    def notify_wrong_password(self) -> None:
         flash("Senha incorreta", "error")
