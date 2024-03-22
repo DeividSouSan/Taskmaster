@@ -21,9 +21,10 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/pages-navigation.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/user-account-button.css') }}">
   <!-- HTMX -->
-  <script src="https://unpkg.com/htmx.org@1.9.10"
-    integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+  <script src="https://unpkg.com/htmx.org@1.9.11"
+    integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
     crossorigin="anonymous"></script>
+
 
   {% block head %}
 
@@ -42,7 +43,7 @@
   <header>
     {% if not current_user.is_authenticated %}
     <div class="logo">
-      <a href="{{ url_for('main.index')}}" class="active">
+      <a href="{{ url_for('view.index')}}" class="active">
         {% include 'partials/logo.html' %}
       </a>
     </div>
@@ -62,14 +63,12 @@
   </main>
 
   <footer>
-    <p>criado por <strong>Deivid Santana</strong></p>
-
     {% if current_user.is_authenticated %}
     <section class="button-wrapper">
-      <button class="history-btn" hx-get="{{ url_for('user.board', filter='deleted') }}" hx-target=".task-wrapper">
+      <button class="history-btn" hx-get="{{ url_for('task.get', filter='deleted') }}" hx-target=".task-wrapper">
         Histórico
       </button>
-      <button class="history-btn" hx-get="{{ url_for('user.board') }}" hx-target=".task-wrapper">
+      <button class="history-btn" hx-get="{{ url_for('task.get') }}" hx-target=".task-wrapper">
         Atuais
       </button>
     </section>
