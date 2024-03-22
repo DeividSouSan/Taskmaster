@@ -36,10 +36,11 @@
     /* Input Border Colors */
     --border-color: #AFAFAF;
 
-    /* Task Description */
+    /* Task */
     --task-desc: #252525;
 
-    /* Task Status */
+    --empty-task-wrapper-text: #AFAFAF;
+
     --not-started: rgb(240, 85, 85);
     --doing: #FFD644;
     --finished: #09BC8A;
@@ -143,7 +144,7 @@ footer {
 
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 
     padding: 0 1rem;
