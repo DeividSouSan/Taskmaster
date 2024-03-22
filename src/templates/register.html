@@ -6,19 +6,7 @@
 
 {% block content %}
 
-<section class="container">
-	<h1>Cadastro</h1>
-	<form action="/register" method="POST">
-
-		{% for field in form if field.name not in ["csrf_token", "submit"] %}
-		<section class="field-wrapper">
-			{{ field.label }}
-			{{ field(placeholder=field.name)}}
-		</section>
-		{% endfor %}
-		{{ form.submit}}
-		{{ form.csrf_token}}
-		{{ form.hidden_tag()}}
-	</form>
+<section class="container" hx-get="{{ url_for('form.register_form')}}" hx-trigger="load" hx-target="this">
+ <!-- Content will be loaded at load -->
 </section>
 {% endblock %}
