@@ -9,47 +9,27 @@
 
 <section class="board-menu">
   <section class="search-bar">
-    <h2>Procurar:</h2>
-    <input type="search" placeholder="Palavra-chave">
-    <button>
-      <img src=" {{ url_for('static', filename='img/search.svg')}}" alt="" srcset="">
-    </button>
+    <form hx-get="{{ url_for('task.search') }}" hx-target=".task-wrapper" hx-trigger="keyup delay:500ms"
+      onkeydown="return event.key != 'Enter';">
+      <!--O onkeydown verifica se a tecla pressionada foi a tecla ENTER. Se foi, o evento retorna false, o que cancela a submissão do formulário. -->
+      <label for="">Procurar:</label>
+      <input type="search" name="text-to-search">
+    </form>
   </section>
   <section class="action-buttons">
     <button class="filter-task-button">
       Filtrar
     </button>
-    <button class="add-task-button">
+    <button class="add-task-button" hx-get="{{ url_for('form.add_task_form')}}" hx-trigger="click"
+      hx-target=".task-wrapper">
       Adicionar
     </button>
   </section>
 </section>
 
-
-
-<section class="task-wrapper">
+<section class="task-wrapper" hx-get="{{ url_for('task.get')}}" hx-trigger="load" hx-target="this">
   {% include "partials/task-container.html" %}
 </section>
-
-<!-- Modal com o Formulário das Tarefas -->
-<template class=" add-task-template">
-  <div class="modal-container">
-    <section class="add-task-modal">
-      <h1>Adicionar Task</h1>
-      <form action="/add_task" method="POST">
-        {% for field in form if field.name not in ["csrf_token", "submit"] %}
-        <div class="field-wrapper">
-          {{ field.label }}
-          {{ field }}
-        </div>
-        {% endfor %}
-        {{form.submit}}
-        {{ form.csrf_token}}
-        {{ form.hidden_tag()}}
-      </form>
-    </section>
-  </div>
-</template>
 
 
 {% block javascript %}
