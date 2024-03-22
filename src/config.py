@@ -4,6 +4,7 @@ from datetime import timedelta
 
 load_dotenv()
 
+
 class Config:
     DEBUG = False
     TESTING = False
@@ -16,7 +17,7 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     DEBUG = True
-    PERMANENT_SESSION_LIFETIME = timedelta(minutes=1)
+    PERMANENT_SESSION_LIFETIME = timedelta(minutes=30)
 
 
 class ProductionConfig(Config):
