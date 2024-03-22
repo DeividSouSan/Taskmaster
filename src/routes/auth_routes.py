@@ -46,25 +46,21 @@ def register():
         form=form)
 
 
-@auth.route("/login", methods=["GET", "POST"])
+@auth.route("/login", methods=["POST"])
 def login():
+    print("Ola")
     form = LoginForm()
     repository = UserRepository()
     pwd_hasher = PasswordHash()
 
-    if request.method == "POST":
-        if form.validate_on_submit():
+    if form.validate_on_submit():
+        use_case = LoginUserUseCase(form, repository, pwd_hasher)
+        result = use_case.attempt_login_user()
 
-            use_case = LoginUserUseCase(form, repository, pwd_hasher)
-            result = use_case.attempt_login_user()
+        if result:
+           return redirect(url_for("view.board"))
 
-            if result:
-                return redirect(url_for("user.board"))
-
-    return render_template(
-        "login.html",
-        title="Login - Taskmaster",
-        form=form)
+    return redirect(url_for("view.login"))
 
 
 @auth.route("/logout", methods=["GET"])
