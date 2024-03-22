@@ -5,21 +5,18 @@
 {% endblock %}
 
 {% block content %}
-
 <section class="container">
-	<h1>Login</h1>
-	<form action="/login" method="POST">
-
-		{% for field in form if field.name not in ["csrf_token", "submit"] %}
-		<section class="field-wrapper">
-			{{ field.label }}
-			{{ field(placeholder=field.name) }}
-		</section>
-		{% endfor %}
-		{{ form.submit }}
-		{{ form.csrf_token}}
-		{{form.hidden_tag()}}
-	</form>
-	<a href="{{ url_for('auth.register') }}">Não possui uma conta? Registre-se aqui.</a>
+  <form action="{{ url_for('auth.login')}}" method="POST">
+    <h1>Login</h1>
+    {{ form.hidden_tag() }}
+    {% for field in form if field.name not in ["csrf_token", "submit"] %}
+    <section class="field-wrapper">
+      {{ field.label }}
+      {{ field(placeholder=field.name) }}
+    </section>
+    {% endfor %}
+    {{ form.submit }}
+  </form>
+  <a href="{{ url_for('auth.register') }}">Não possui uma conta? Registre-se aqui.</a>
 </section>
 {% endblock %}
