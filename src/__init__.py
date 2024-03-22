@@ -5,6 +5,7 @@ from flask_htmx import HTMX
 from flask_wtf import CSRFProtect
 from datetime import timedelta
 
+
 # Initialize Plugins
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -33,9 +34,10 @@ def create_app():
         db.create_all()
 
         # Register Routes
-        from .routes import user_routes, auth_routes, main_routes
-        app.register_blueprint(user_routes.user)
+        from .routes import auth_routes, view_routes, task_routes, form_routes
+        app.register_blueprint(task_routes.task)
         app.register_blueprint(auth_routes.auth)
-        app.register_blueprint(main_routes.main)
+        app.register_blueprint(view_routes.view)
+        app.register_blueprint(form_routes.form)
 
     return app
