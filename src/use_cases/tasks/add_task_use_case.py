@@ -9,17 +9,17 @@ class AddTaskUseCase:
         self.__form = form
         self.__repository = repository
 
-    def add_task(self):
-        task = self._set_task()
+    def add(self):
+        task = self._create_object(self.__form)
         self.__repository.add_task(task)
 
-    def _set_task(self):
+    def _create_object(self, form):
         return Task(
             user_id=self.__user_id,
-            title=self.__form.title.data,
-            description=self.__form.description.data,
-            due_date=self.__form.due_date.data,
-            status=int(self.__form.status.data),
+            title=form.title.data,
+            description=form.description.data,
+            due_date=form.due_date.data,
+            status=int(form.status.data),
             deleted=False
             )
         
