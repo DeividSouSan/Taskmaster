@@ -11,3 +11,6 @@ class GetTasksUseCase():
 
     def get_deleted_tasks(self):
         return self.__repository.get_deleted_tasks(self.__user_id)
+    
+    def get_tasks_like(self, text):
+        return self.__repository.get_tasks_like(self.__user_id, text)
