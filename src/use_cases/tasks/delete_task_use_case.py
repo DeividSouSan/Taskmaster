@@ -7,5 +7,4 @@ class MoveTaskToTrashUseCase:
         self.__repository = repository
 
     def move_task_to_trash(self):
-        print("Entrou dentro do use case")
-        return self.__repository.delete_task(self.__task_id)
+        return self.__repository.move_to_trash(self.__task_id)
