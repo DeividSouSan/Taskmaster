@@ -126,3 +126,5 @@ mysql> CREATE DATABASE nome_do_seu_banco_de_dados;
 ## Finalmente Rodando a Aplicação
 
 Para rodar a aplicação rode o arquivo nomeado como `wsgi.py`.
+
+![HTMX](https://img.shields.io/badge/%3C/%3E%20htmx-3D72D7?style=for-the-badge&logo=mysl&logoColor=white)
