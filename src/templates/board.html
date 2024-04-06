@@ -2,7 +2,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css')}}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/add-modal.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/task-form-modal.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -20,8 +20,7 @@
     <button class="filter-task-button">
       Filtrar
     </button>
-    <button class="add-task-button" hx-get="{{ url_for('form.add_task_form')}}" hx-trigger="click"
-      hx-target=".task-wrapper">
+    <button class="task-modal-button">
       Adicionar
     </button>
   </section>
@@ -31,9 +30,30 @@
   {% include "partials/task-container.html" %}
 </section>
 
+<!-- Template Não renderizado  -->
+<template class="task-modal-template">
+  <section class="task-modal-window">
+    <section class="task-modal-container">
+      <h1>Adicionar Task</h1>
+      <form action="{{ url_for('task.add')}}" method="POST">
+        {{ form.hidden_tag()}}
+        {% for field in form if field.name not in ["csrf_token", "submit"] %}
+        <div class="field-wrapper">
+          {{ field.label }}
+          {{ field }}
+        </div>
+        {% endfor %}
+        {{form.submit}}
+      </form>
+    </section>
+  </section>
+</template>
+
 
 {% block javascript %}
 <script src="{{ url_for('static', filename='javascript/board.js')}}"></script>
+<script src="{{ url_for('static', filename='javascript/add-task-button.js')}}"></script>
+<script src="{{ url_for('static', filename='javascript/account-float-menu.js')}}"></script>
 {% endblock %}
 
 {% endblock %}

@@ -1,15 +1,13 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" href=" {{ url_for('static', filename='css/forms.css') }}">
+<link rel="stylesheet" href=" {{ url_for('static', filename='css/forms.css') }} ">
 {% endblock %}
 
 {% block content %}
-
 <section class="container">
-  <form action="/register" method="POST">
+  <form action=" {{ url_for('auth.register') }} " method="POST">
     <h1>Cadastro</h1>
-  
     {% for field in form if field.name not in ["csrf_token", "submit"] %}
     <section class="field-wrapper">
       {{ field.label }}
@@ -20,6 +18,6 @@
     {{ form.csrf_token}}
     {{ form.hidden_tag()}}
   </form>
-  </section>
+</section>
 </section>
 {% endblock %}
