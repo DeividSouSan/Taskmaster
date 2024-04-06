@@ -18,6 +18,10 @@ class RegisterUserUseCase:
 
     def attempt_registration(self) -> bool:
 
+        if self.is_field_with_whitespaces():
+            self.notify_field_with_whitespaces()
+            return False
+
         user = self.create_user()
 
         if self.is_field_taken("username", user.username):
@@ -36,10 +40,17 @@ class RegisterUserUseCase:
         field_is_taken = self.__repository.exists_user_with_field(field, value)
         return field_is_taken
 
+    def is_field_with_whitespaces(self) -> bool:
+        for field in self.__form:
+            if field.data.startswith(" ") or field.data.endswith(" "):
+                return True
+        return False
+
     def create_user(self) -> User:
         return User(
             username=self.__form.username.data,
-            password_hash=self.__pwd_hasher.hash_password(self.__form.password.data),
+            password_hash=self.__pwd_hasher.hash_password(
+                self.__form.password.data),
             fullname=self.__form.fullname.data,
             email=self.__form.email.data,
             registration=datetime.now(),
@@ -53,3 +64,5 @@ class RegisterUserUseCase:
 
     def notify_username_alredy_used(self) -> None:
         flash("Nome de usuário já foi utilizado", "error")
+
+    

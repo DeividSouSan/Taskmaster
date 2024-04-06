@@ -16,6 +16,11 @@ class LoginUserUseCase:
         self.__pwd_hasher = pwd_hasher
 
     def attempt_login_user(self) -> bool:
+
+        if self.is_field_with_whitespaces():
+            self.notify_field_with_whitespaces()
+            return False
+
         username = self.__form.username.data
         password = self.__form.password.data
 
@@ -31,8 +36,16 @@ class LoginUserUseCase:
 
         return False
 
+    def is_field_with_whitespaces(self) -> bool:
+        for field in self.__form:
+            if field.name in ["username", "password"]:
+                if field.data.startswith(" ") or field.data.endswith(" "):
+                    return True
+        return False
+
     def verify_credentials(self, username: str, password: str) -> bool:
-        user_exists = self.__repository.exists_user_with_field("username", username)
+        user_exists = self.__repository.exists_user_with_field(
+            "username", username)
 
         if user_exists:
             database_password = self.__repository.get_user_password_by_username(
@@ -56,3 +69,6 @@ class LoginUserUseCase:
 
     def notify_wrong_password(self) -> None:
         flash("Senha incorreta", "error")
+
+    def notify_field_with_whitespaces(self) -> None:
+        flash("Os campos não podem começar ou terminar com espaços", "error")
