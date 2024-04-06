@@ -38,7 +38,7 @@
 
   <section class="delete-task-confirm">
     <section class="button-wrapper">
-      <button class="confirm-delete-task-button" hx-patch="{{ url_for('task.delete', id=task.id) }}"
+      <button class="confirm-delete-task-button" hx-delete="{{ url_for('task.delete', id=task.id) }}"
         hx-target=".task-wrapper" hx-vals='{"csrf_token": "{{ csrf_token() }}"}'>
         Deletar
       </button>
