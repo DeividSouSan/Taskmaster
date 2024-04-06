@@ -85,11 +85,11 @@ main {
             filter: brightness(0.7);
         }
 
-        .add-task-button {
+        .task-modal-button {
             background-color: var(--add-button);
         }
 
-        .add-task-button::after {
+        .task-modal-button::after {
             display: inline-block;
             content: "";
             width: 24px;
@@ -99,7 +99,6 @@ main {
         }
 
         .filter-task-button {
-
             background-color: var(--filter-button);
         }
 
