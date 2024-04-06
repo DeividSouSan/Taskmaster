@@ -17,10 +17,10 @@ class TaskRepository:
             session.add(task)
             session.commit()
 
-    def get_active_tasks(self, user_id: int):
+    def get_tasks(self, user_id: int):
         with Session(self.__engine) as session:
             tasks = session.query(Task).filter(
-                Task.user_id == user_id, Task.deleted == False
+                Task.user_id == user_id
             )
             return tasks
 
@@ -36,13 +36,6 @@ class TaskRepository:
                 Task.user_id == user_id,
                 Task.title.like(f"%{text}%"),
                 Task.deleted == False,
-            )
-            return tasks
-
-    def get_deleted_tasks(self, user_id: int):
-        with Session(self.__engine) as session:
-            tasks = session.query(Task).filter(
-                Task.user_id == user_id, Task.deleted == True
             )
             return tasks
 
