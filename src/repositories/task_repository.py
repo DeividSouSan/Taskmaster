@@ -19,9 +19,7 @@ class TaskRepository:
 
     def get_tasks(self, user_id: int):
         with Session(self.__engine) as session:
-            tasks = session.query(Task).filter(
-                Task.user_id == user_id
-            )
+            tasks = session.query(Task).filter(Task.user_id == user_id)
             return tasks
 
     def get_task_by_id(self, task_id: int):
@@ -33,15 +31,13 @@ class TaskRepository:
         with Session(self.__engine) as session:
             print(text)
             tasks = session.query(Task).filter(
-                Task.user_id == user_id,
-                Task.title.like(f"%{text}%")
+                Task.user_id == user_id, Task.title.like(f"%{text}%")
             )
             return tasks
 
     def update_task(self, task_id, columns, value):
         with Session(self.__engine) as session:
-            session.query(Task).filter(
-                Task.id == task_id).update({columns: value})
+            session.query(Task).filter(Task.id == task_id).update({columns: value})
             session.commit()
 
     def delete_task(self, task_id: int):

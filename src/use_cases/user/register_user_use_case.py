@@ -5,8 +5,8 @@ from flask import flash
 from ...forms.register_form import RegisterForm
 from ...models.user import User
 from ...repositories.user_repository import UserRepository
-from ...utils.password_hasher import PasswordHash
 from ...utils.check_field_whitespaces import CheckFieldWhitespaces
+from ...utils.password_hasher import PasswordHash
 
 
 class RegisterUserUseCase:
@@ -44,8 +44,7 @@ class RegisterUserUseCase:
     def create_user(self) -> User:
         return User(
             username=self.__form.username.data,
-            password_hash=self.__pwd_hasher.hash_password(
-                self.__form.password.data),
+            password_hash=self.__pwd_hasher.hash_password(self.__form.password.data),
             fullname=self.__form.fullname.data,
             email=self.__form.email.data,
             registration=datetime.now(),

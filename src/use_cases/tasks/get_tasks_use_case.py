@@ -8,5 +8,3 @@ class GetTasksUseCase:
 
     def execute(self):
         return self.__repository.get_tasks(self.__user_id)
-
-    

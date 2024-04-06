@@ -39,8 +39,7 @@ class LoginUserUseCase:
         return False
 
     def verify_credentials(self, username: str, password: str) -> bool:
-        user_exists = self.__repository.exists_user_with_field(
-            "username", username)
+        user_exists = self.__repository.exists_user_with_field("username", username)
 
         if user_exists:
             database_password = self.__repository.get_user_password_by_username(

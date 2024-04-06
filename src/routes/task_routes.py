@@ -28,9 +28,7 @@ def get():
     tasks = use_case.execute()
 
     return render_template(
-        "partials/task-container.html",
-        tasks=tasks,
-        TaskStatus=TaskStatus
+        "partials/task-container.html", tasks=tasks, TaskStatus=TaskStatus
     )
 
 
@@ -58,6 +56,7 @@ def add():
         use_case.execute()
 
     return redirect(url_for("view.board"))
+
 
 @task.route("/delete/<id>", methods=["DELETE"])
 @login_required

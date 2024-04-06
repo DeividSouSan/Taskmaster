@@ -17,12 +17,11 @@ auth = Blueprint("auth", __name__)
 # Utilities functions
 
 
-
-
 def redirectResponse(route: str):
     response = Response()
     response.headers["hx-redirect"] = url_for(route)
     return response
+
 
 # Login manager
 
@@ -30,6 +29,7 @@ def redirectResponse(route: str):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
+
 
 # Routes
 
@@ -41,7 +41,7 @@ def register():
     pwd_hasher = PasswordHash()
 
     if form.validate_on_submit():
-    
+
         use_case = RegisterUserUseCase(form, repository, pwd_hasher)
         result = use_case.attempt_registration()
 
@@ -58,8 +58,7 @@ def login():
     pwd_hasher = PasswordHash()
 
     if form.validate_on_submit():
-        
-        
+
         use_case = LoginUserUseCase(form, repository, pwd_hasher)
         result = use_case.attempt_login_user()
 
