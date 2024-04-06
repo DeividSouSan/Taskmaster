@@ -4,8 +4,7 @@ from wtforms.validators import DataRequired, Length, Optional
 
 
 class TaskForm(FlaskForm):
-    title = StringField("Titulo: ", validators=[
-                        DataRequired(), Length(max=50)])
+    title = StringField("Titulo: ", validators=[DataRequired(), Length(max=50)])
 
     description = TextAreaField("Descrição: ", validators=[DataRequired()])
 
