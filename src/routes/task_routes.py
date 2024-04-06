@@ -6,8 +6,9 @@ from src.forms.task_form import TaskForm
 from src.models.task import TaskStatus
 from src.repositories.task_repository import TaskRepository
 from src.use_cases.tasks.add_task_use_case import AddTaskUseCase
-from src.use_cases.tasks.delete_task_use_case import MoveTaskToTrashUseCase
+from src.use_cases.tasks.delete_task_use_case import DeleteTaskUseCase
 from src.use_cases.tasks.get_tasks_use_case import GetTasksUseCase
+from src.use_cases.tasks.search_tasks_use_case import SearchTasksUseCase
 
 task = Blueprint("task", __name__, url_prefix="/task")
 
@@ -24,32 +25,22 @@ def get():
     repository = TaskRepository()
 
     use_case = GetTasksUseCase(current_user.id, repository)
-
-    filter_option = request.args.get("filter", "normal")
-
-    get_tasks_with_filter = {
-        "normal": use_case.get_active_tasks(),
-        "deleted": use_case.get_deleted_tasks(),
-    }
-
-    tasks = get_tasks_with_filter[filter_option]
+    tasks = use_case.execute()
 
     return render_template(
         "partials/task-container.html",
         tasks=tasks,
-        TaskStatus=TaskStatus,
-        filter=filter_option,
+        TaskStatus=TaskStatus
     )
 
 
 @task.route("/search", methods=["GET"])
 def search():
     text = request.args.get("text-to-search")
-    print("Texto para procurar:", text)
     repository = TaskRepository()
 
-    use_case = GetTasksUseCase(current_user.id, repository)
-    tasks = use_case.get_tasks_like(text)
+    use_case = SearchTasksUseCase(current_user.id, repository)
+    tasks = use_case.execute(text)
 
     return render_template(
         "partials/task-container.html", tasks=tasks, TaskStatus=TaskStatus
@@ -64,7 +55,7 @@ def add():
 
     if form.validate_on_submit():
         use_case = AddTaskUseCase(current_user.id, form, repository)
-        use_case.add()
+        use_case.execute()
 
     return redirect(url_for("view.board"))
 
@@ -75,7 +66,7 @@ def delete(id):
     repository = TaskRepository()
 
     if form.validate_on_submit():
-        use_case = AddTaskUseCase(current_user.id, form, repository)
-        use_case.add()
+        use_case = DeleteTaskUseCase(current_user.id, form, repository)
+        use_case.execute()
 
     return redirect(url_for("view.board"))
