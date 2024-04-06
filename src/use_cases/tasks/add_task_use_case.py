@@ -9,7 +9,7 @@ class AddTaskUseCase:
         self.__form = form
         self.__repository = repository
 
-    def add(self):
+    def execute(self):
         task = self._create_object(self.__form)
         self.__repository.add_task(task)
 
@@ -20,5 +20,4 @@ class AddTaskUseCase:
             description=form.description.data,
             due_date=form.due_date.data,
             status=int(form.status.data),
-            deleted=False,
         )
