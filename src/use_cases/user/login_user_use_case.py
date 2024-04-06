@@ -19,7 +19,7 @@ class LoginUserUseCase:
 
     def attempt_login_user(self) -> bool:
 
-        if CheckFieldWhitespaces():
+        if CheckFieldWhitespaces.is_field_with_whitespaces(self.__form):
             self.notify_field_with_whitespaces()
             return False
 

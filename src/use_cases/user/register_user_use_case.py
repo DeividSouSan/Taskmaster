@@ -19,7 +19,7 @@ class RegisterUserUseCase:
 
     def attempt_registration(self) -> bool:
 
-        if CheckFieldWhitespaces():
+        if CheckFieldWhitespaces.is_field_with_whitespaces(self.__form):
             self.notify_field_with_whitespaces()
             return False
 
