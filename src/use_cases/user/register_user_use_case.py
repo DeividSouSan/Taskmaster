@@ -6,6 +6,7 @@ from ...forms.register_form import RegisterForm
 from ...models.user import User
 from ...repositories.user_repository import UserRepository
 from ...utils.password_hasher import PasswordHash
+from ...utils.check_field_whitespaces import CheckFieldWhitespaces
 
 
 class RegisterUserUseCase:
@@ -18,7 +19,7 @@ class RegisterUserUseCase:
 
     def attempt_registration(self) -> bool:
 
-        if self.is_field_with_whitespaces():
+        if CheckFieldWhitespaces():
             self.notify_field_with_whitespaces()
             return False
 
@@ -40,12 +41,6 @@ class RegisterUserUseCase:
         field_is_taken = self.__repository.exists_user_with_field(field, value)
         return field_is_taken
 
-    def is_field_with_whitespaces(self) -> bool:
-        for field in self.__form:
-            if field.data.startswith(" ") or field.data.endswith(" "):
-                return True
-        return False
-
     def create_user(self) -> User:
         return User(
             username=self.__form.username.data,
@@ -65,4 +60,5 @@ class RegisterUserUseCase:
     def notify_username_alredy_used(self) -> None:
         flash("Nome de usuário já foi utilizado", "error")
 
-    
+    def notify_field_with_whitespaces(self) -> None:
+        flash("Os campos não podem começar ou terminar com espaços", "error")

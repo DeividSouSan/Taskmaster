@@ -1,6 +1,8 @@
 from flask import flash
 from flask_login import login_user
 
+from src.utils.check_field_whitespaces import CheckFieldWhitespaces
+
 from ...forms.login_form import LoginForm
 from ...repositories.user_repository import UserRepository
 from ...utils.password_hasher import PasswordHash
@@ -17,7 +19,7 @@ class LoginUserUseCase:
 
     def attempt_login_user(self) -> bool:
 
-        if self.is_field_with_whitespaces():
+        if CheckFieldWhitespaces():
             self.notify_field_with_whitespaces()
             return False
 
@@ -34,13 +36,6 @@ class LoginUserUseCase:
             if result:
                 return True
 
-        return False
-
-    def is_field_with_whitespaces(self) -> bool:
-        for field in self.__form:
-            if field.name in ["username", "password"]:
-                if field.data.startswith(" ") or field.data.endswith(" "):
-                    return True
         return False
 
     def verify_credentials(self, username: str, password: str) -> bool:
