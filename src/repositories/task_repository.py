@@ -34,17 +34,17 @@ class TaskRepository:
             print(text)
             tasks = session.query(Task).filter(
                 Task.user_id == user_id,
-                Task.title.like(f"%{text}%"),
-                Task.deleted == False,
+                Task.title.like(f"%{text}%")
             )
             return tasks
 
     def update_task(self, task_id, columns, value):
         with Session(self.__engine) as session:
-            session.query(Task).filter(Task.id == task_id).update({columns: value})
+            session.query(Task).filter(
+                Task.id == task_id).update({columns: value})
             session.commit()
 
-    def move_to_trash(self, task_id: int):
+    def delete_task(self, task_id: int):
         with Session(self.__engine) as session:
-            session.query(Task).filter(Task.id == task_id).update({Task.deleted: True})
+            session.query(Task).filter(Task.id == task_id).delete()
             session.commit()
