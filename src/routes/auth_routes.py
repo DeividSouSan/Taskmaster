@@ -1,13 +1,14 @@
-from flask import Blueprint, request, redirect, url_for, render_template, Response
+from flask import Blueprint, Response, redirect, render_template, request, url_for
 from flask_login import login_required
-from src import login_manager, htmx
+
+from src import htmx, login_manager
 from src.forms.login_form import LoginForm
 from src.forms.register_form import RegisterForm
 from src.models.user import User
 from src.repositories.user_repository import UserRepository
 from src.use_cases.user.delete_account_use_case import DeleteAccountUseCase
-from src.use_cases.user.logout_user_use_case import LogoutUserUseCase
 from src.use_cases.user.login_user_use_case import LoginUserUseCase
+from src.use_cases.user.logout_user_use_case import LogoutUserUseCase
 from src.use_cases.user.register_user_use_case import RegisterUserUseCase
 from src.utils.password_hasher import PasswordHash
 
@@ -25,25 +26,20 @@ def redirectResponse(route: str):
     return response
 
 
-@auth.route("/register", methods=["GET", "POST"])
+@auth.route("/register", methods=["POST"])
 def register():
     form = RegisterForm()
     repository = UserRepository()
     pwd_hasher = PasswordHash()
 
-    if request.method == "POST":
-        if form.validate_on_submit():
-            
-            use_case = RegisterUserUseCase(form, repository, pwd_hasher)
-            success = use_case.attempt_registration()
+    if form.validate_on_submit():
+        use_case = RegisterUserUseCase(form, repository, pwd_hasher)
+        result = use_case.attempt_registration()
 
-            if success:
-                return redirect(url_for("auth.login"))
+        if result:
+            return redirect(url_for("view.login"))
 
-    return render_template(
-        "register.html",
-        title="Cadastro - Taskmaster",
-        form=form)
+    return redirect(url_for("view.register"))
 
 
 @auth.route("/login", methods=["POST"])
@@ -58,7 +54,7 @@ def login():
         result = use_case.attempt_login_user()
 
         if result:
-           return redirect(url_for("view.board"))
+            return redirect(url_for("view.board"))
 
     return redirect(url_for("view.login"))
 
