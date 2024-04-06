@@ -14,16 +14,28 @@ from src.utils.password_hasher import PasswordHash
 
 auth = Blueprint("auth", __name__)
 
+# Utilities functions
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
+
+def strip_whitespace(form):
+    for field in form:
+        if isinstance(field.data, str):
+            field.data = field.data.strip()
 
 
 def redirectResponse(route: str):
     response = Response()
     response.headers["hx-redirect"] = url_for(route)
     return response
+
+# Login manager
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
+# Routes
 
 
 @auth.route("/register", methods=["POST"])
@@ -33,6 +45,8 @@ def register():
     pwd_hasher = PasswordHash()
 
     if form.validate_on_submit():
+        strip_whitespace(form)
+        
         use_case = RegisterUserUseCase(form, repository, pwd_hasher)
         result = use_case.attempt_registration()
 
@@ -44,12 +58,13 @@ def register():
 
 @auth.route("/login", methods=["POST"])
 def login():
-    print("Ola")
     form = LoginForm()
     repository = UserRepository()
     pwd_hasher = PasswordHash()
 
     if form.validate_on_submit():
+        strip_whitespace(form)
+        
         use_case = LoginUserUseCase(form, repository, pwd_hasher)
         result = use_case.attempt_login_user()
 
