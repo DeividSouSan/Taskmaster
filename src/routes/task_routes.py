@@ -68,7 +68,7 @@ def add():
 
     return redirect(url_for("view.board"))
 
-@task.route("/delete/<id>", methods=["POST"])
+@task.route("/delete/<id>", methods=["DELETE"])
 @login_required
 def delete(id):
     form = TaskForm()
