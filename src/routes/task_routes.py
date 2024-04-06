@@ -9,7 +9,7 @@ from src.use_cases.tasks.add_task_use_case import AddTaskUseCase
 from src.use_cases.tasks.delete_task_use_case import MoveTaskToTrashUseCase
 from src.use_cases.tasks.get_tasks_use_case import GetTasksUseCase
 
-task = Blueprint("task", __name__)
+task = Blueprint("task", __name__, url_prefix="/task")
 
 
 def redirectResponse(route: str):
@@ -18,7 +18,7 @@ def redirectResponse(route: str):
     return response
 
 
-@task.route("/get-tasks", methods=["GET"])
+@task.route("/get", methods=["GET"])
 @login_required
 def get():
     repository = TaskRepository()
@@ -42,7 +42,7 @@ def get():
     )
 
 
-@task.route("/search-tasks", methods=["GET"])
+@task.route("/search", methods=["GET"])
 def search():
     text = request.args.get("text-to-search")
     print("Texto para procurar:", text)
@@ -56,7 +56,7 @@ def search():
     )
 
 
-@task.route("/add-task", methods=["POST"])
+@task.route("/add", methods=["POST"])
 @login_required
 def add():
     form = TaskForm()
@@ -68,22 +68,7 @@ def add():
 
     return redirect(url_for("view.board"))
 
-
-@task.route("/trash-task/<task_id>", methods=["PATCH"])
-@login_required
-def trash(task_id):
-    repository = TaskRepository()
-
-    use_case = MoveTaskToTrashUseCase(task_id, repository)
-    use_case.move_task_to_trash()
-
-    if htmx:
-        return redirectResponse("view.board")
-
-    return redirect(url_for("view.board"))
-
-
-@task.route("/delete-task/<id>", methods=["POST"])
+@task.route("/delete/<id>", methods=["POST"])
 @login_required
 def delete(id):
     form = TaskForm()
