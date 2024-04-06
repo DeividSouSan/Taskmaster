@@ -17,10 +17,6 @@ auth = Blueprint("auth", __name__)
 # Utilities functions
 
 
-def strip_whitespace(form):
-    for field in form:
-        if isinstance(field.data, str):
-            field.data = field.data.strip()
 
 
 def redirectResponse(route: str):
@@ -45,8 +41,7 @@ def register():
     pwd_hasher = PasswordHash()
 
     if form.validate_on_submit():
-        strip_whitespace(form)
-        
+    
         use_case = RegisterUserUseCase(form, repository, pwd_hasher)
         result = use_case.attempt_registration()
 
@@ -63,7 +58,7 @@ def login():
     pwd_hasher = PasswordHash()
 
     if form.validate_on_submit():
-        strip_whitespace(form)
+        
         
         use_case = LoginUserUseCase(form, repository, pwd_hasher)
         result = use_case.attempt_login_user()
