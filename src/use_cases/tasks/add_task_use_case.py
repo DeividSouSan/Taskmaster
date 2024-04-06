@@ -1,5 +1,5 @@
-from src.models.task import Task
 from src.forms.task_form import TaskForm
+from src.models.task import Task
 from src.repositories.task_repository import TaskRepository
 
 
@@ -20,6 +20,5 @@ class AddTaskUseCase:
             description=form.description.data,
             due_date=form.due_date.data,
             status=int(form.status.data),
-            deleted=False
-            )
-        
+            deleted=False,
+        )

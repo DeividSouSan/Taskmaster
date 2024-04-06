@@ -1,7 +1,9 @@
 from datetime import datetime
+
+from flask_login import UserMixin
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column
-from flask_login import UserMixin
+
 from src import db
 
 

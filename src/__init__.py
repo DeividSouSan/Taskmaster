@@ -1,10 +1,10 @@
-from flask import Flask
-from flask_login import LoginManager
-from flask_sqlalchemy import SQLAlchemy
-from flask_htmx import HTMX
-from flask_wtf import CSRFProtect
 from datetime import timedelta
 
+from flask import Flask
+from flask_htmx import HTMX
+from flask_login import LoginManager
+from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import CSRFProtect
 
 # Initialize Plugins
 db = SQLAlchemy()
@@ -18,7 +18,7 @@ def create_app():
     app = Flask(__name__)
 
     # Configuring App
-    app.config.from_object('src.config.DevelopmentConfig')
+    app.config.from_object("src.config.DevelopmentConfig")
 
     # Initializing Plugins
     db.init_app(app)
@@ -34,7 +34,8 @@ def create_app():
         db.create_all()
 
         # Register Routes
-        from .routes import auth_routes, view_routes, task_routes, form_routes
+        from .routes import auth_routes, form_routes, task_routes, view_routes
+
         app.register_blueprint(task_routes.task)
         app.register_blueprint(auth_routes.auth)
         app.register_blueprint(view_routes.view)

@@ -1,12 +1,13 @@
 from flask import Blueprint, Response, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
+
 from src import htmx
 from src.forms.task_form import TaskForm
+from src.models.task import TaskStatus
 from src.repositories.task_repository import TaskRepository
 from src.use_cases.tasks.add_task_use_case import AddTaskUseCase
 from src.use_cases.tasks.delete_task_use_case import MoveTaskToTrashUseCase
 from src.use_cases.tasks.get_tasks_use_case import GetTasksUseCase
-from src.models.task import TaskStatus
 
 task = Blueprint("task", __name__)
 
@@ -24,11 +25,11 @@ def get():
 
     use_case = GetTasksUseCase(current_user.id, repository)
 
-    filter_option = request.args.get('filter', 'normal')
+    filter_option = request.args.get("filter", "normal")
 
     get_tasks_with_filter = {
         "normal": use_case.get_active_tasks(),
-        "deleted": use_case.get_deleted_tasks()
+        "deleted": use_case.get_deleted_tasks(),
     }
 
     tasks = get_tasks_with_filter[filter_option]
@@ -37,7 +38,8 @@ def get():
         "partials/task-container.html",
         tasks=tasks,
         TaskStatus=TaskStatus,
-        filter=filter_option)
+        filter=filter_option,
+    )
 
 
 @task.route("/search-tasks", methods=["GET"])
@@ -50,9 +52,8 @@ def search():
     tasks = use_case.get_tasks_like(text)
 
     return render_template(
-        "partials/task-container.html",
-        tasks=tasks,
-        TaskStatus=TaskStatus)
+        "partials/task-container.html", tasks=tasks, TaskStatus=TaskStatus
+    )
 
 
 @task.route("/add-task", methods=["POST"])

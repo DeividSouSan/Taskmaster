@@ -1,14 +1,16 @@
 from flask import flash
 from flask_login import login_user
 
-from ...utils.password_hasher import PasswordHash
 from ...forms.login_form import LoginForm
 from ...repositories.user_repository import UserRepository
+from ...utils.password_hasher import PasswordHash
 
 
-class LoginUserUseCase():
+class LoginUserUseCase:
 
-    def __init__(self, form: LoginForm, repository: UserRepository, pwd_hasher: PasswordHash):
+    def __init__(
+        self, form: LoginForm, repository: UserRepository, pwd_hasher: PasswordHash
+    ):
         self.__repository = repository
         self.__form = form
         self.__pwd_hasher = pwd_hasher
@@ -30,15 +32,16 @@ class LoginUserUseCase():
         return False
 
     def verify_credentials(self, username: str, password: str) -> bool:
-        user_exists = self.__repository.exists_user_with_field(
-            "username", username)
+        user_exists = self.__repository.exists_user_with_field("username", username)
 
         if user_exists:
             database_password = self.__repository.get_user_password_by_username(
-                username)
+                username
+            )
 
             pwd_is_correct = self.__pwd_hasher.check_password(
-                password, database_password)
+                password, database_password
+            )
 
             if not pwd_is_correct:
                 self.notify_wrong_password()

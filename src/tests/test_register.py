@@ -1,8 +1,9 @@
 import unittest
 
-from ..server.server import create_app
-from ..forms.register_form import RegisterForm
 from flask_wtf.csrf import generate_csrf
+
+from .. import create_app
+from ..forms.register_form import RegisterForm
 
 
 class TestRegisterForm(unittest.TestCase):
@@ -24,11 +25,11 @@ class TestRegisterForm(unittest.TestCase):
                 "fullname": "test",
                 "email": "test@gmail.com",
                 "submit": True,
-                "csrf_token": csrf_token
+                "csrf_token": csrf_token,
             }
 
             form = RegisterForm(data=form_data)
-            
+
             self.assertEqual(form.validate(), True, "Form is not valid")
 
         self.assertNotEqual(form, None, "Form is None")
@@ -45,57 +46,57 @@ class TestRegisterForm(unittest.TestCase):
                 "fullname": "test",
                 "email": "test@gmail.com",
                 "submit": True,
-                "csrf_token": csrf_token
+                "csrf_token": csrf_token,
             }
 
             form = RegisterForm(data=form_data)
-            
+
             self.assertEqual(form.validate(), False, "Form is valid")
 
         self.assertNotEqual(form, None, "Form is None")
         self.assertEqual(form.data, form_data, "Form data different from expected")
-        
+
     def test_register_email_not_valid(self):
 
-            with self.app.test_request_context():
-                csrf_token = generate_csrf()
+        with self.app.test_request_context():
+            csrf_token = generate_csrf()
 
-                form_data = {
-                    "username": "test",
-                    "password": "12345678",
-                    "fullname": "test",
-                    "email": "aaaa",
-                    "submit": True,
-                    "csrf_token": csrf_token
-                }
+            form_data = {
+                "username": "test",
+                "password": "12345678",
+                "fullname": "test",
+                "email": "aaaa",
+                "submit": True,
+                "csrf_token": csrf_token,
+            }
 
-                form = RegisterForm(data=form_data)
-                self.assertEqual(form.validate_on_submit(), False, "Form is valid")
+            form = RegisterForm(data=form_data)
+            self.assertEqual(form.validate_on_submit(), False, "Form is valid")
 
-            self.assertNotEqual(form, None, "Form is None")
-            self.assertEqual(form.data, form_data, "Form data different from expected")
-            
+        self.assertNotEqual(form, None, "Form is None")
+        self.assertEqual(form.data, form_data, "Form data different from expected")
+
     def test_register_csrf_token_invalid(self):
 
-            with self.app.test_request_context():
-                csrf_token = generate_csrf()
+        with self.app.test_request_context():
+            csrf_token = generate_csrf()
 
-                form_data = {
-                    "username": "test",
-                    "password": "12345678",
-                    "fullname": "test",
-                    "email": "test@gmail.com",
-                    "submit": True,
-                    "csrf_token": "1234"
-                }
+            form_data = {
+                "username": "test",
+                "password": "12345678",
+                "fullname": "test",
+                "email": "test@gmail.com",
+                "submit": True,
+                "csrf_token": "1234",
+            }
 
-                form = RegisterForm(data=form_data)
-                
-                self.assertEqual(form.validate(), False, "Form is valid")
+            form = RegisterForm(data=form_data)
 
-            self.assertNotEqual(form, None, "Form is None")
-            self.assertEqual(form.data, form_data, "Form data different from expected")
-            
+            self.assertEqual(form.validate(), False, "Form is valid")
+
+        self.assertNotEqual(form, None, "Form is None")
+        self.assertEqual(form.data, form_data, "Form data different from expected")
+
     def test_register_username_too_long(self):
 
         with self.app.test_request_context():
@@ -107,11 +108,11 @@ class TestRegisterForm(unittest.TestCase):
                 "fullname": "test",
                 "email": "test@gmail.com",
                 "submit": True,
-                "csrf_token": csrf_token
+                "csrf_token": csrf_token,
             }
 
             form = RegisterForm(data=form_data)
-            
+
             self.assertEqual(form.validate(), False, "Form is valid")
 
         self.assertNotEqual(form, None, "Form is None")

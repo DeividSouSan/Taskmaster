@@ -1,14 +1,17 @@
 from datetime import datetime
+
 from flask import flash
 
-from ...repositories.user_repository import UserRepository
-from ...models.user import User
-from ...utils.password_hasher import PasswordHash
 from ...forms.register_form import RegisterForm
+from ...models.user import User
+from ...repositories.user_repository import UserRepository
+from ...utils.password_hasher import PasswordHash
 
 
-class RegisterUserUseCase():
-    def __init__(self, form: RegisterForm, repository: UserRepository, pwd_hahser: PasswordHash):
+class RegisterUserUseCase:
+    def __init__(
+        self, form: RegisterForm, repository: UserRepository, pwd_hahser: PasswordHash
+    ):
         self.__form = form
         self.__repository = repository
         self.__pwd_hasher = pwd_hahser
@@ -36,8 +39,7 @@ class RegisterUserUseCase():
     def create_user(self) -> User:
         return User(
             username=self.__form.username.data,
-            password_hash=self.__pwd_hasher.hash_password(
-                self.__form.password.data),
+            password_hash=self.__pwd_hasher.hash_password(self.__form.password.data),
             fullname=self.__form.fullname.data,
             email=self.__form.email.data,
             registration=datetime.now(),
