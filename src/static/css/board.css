@@ -22,6 +22,7 @@ main {
     padding: 0.5rem 1rem;
     border-radius: 5px;
 
+
     .search-bar {
         display: flex;
         flex-direction: row;
@@ -31,9 +32,11 @@ main {
             display: flex;
             flex-direction: row;
             align-items: center;
+            gap: 0.25rem;
 
             label {
-                font-weight: 200;
+                letter-spacing: 2px;
+                font-weight: 400;
             }
 
             input[type="search"] {
@@ -63,7 +66,7 @@ main {
         flex-direction: row;
         gap: 1rem;
 
-        button {
+        >button {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -80,7 +83,7 @@ main {
             /*box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.265);*/
         }
 
-        button:hover {
+        >button:hover {
             cursor: pointer;
             filter: brightness(0.7);
         }
@@ -213,12 +216,6 @@ main {
         }
     }
 
-    .task:hover {
-        outline: 3px solid var(--add-button);
-        user-select: none;
-        cursor: pointer;
-    }
-
     .delete-task-confirm {
         display: none;
         background-color: rgba(0, 0, 0, 0.316);
@@ -237,7 +234,7 @@ main {
             translate: -50% -50%;
 
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             justify-content: center;
             align-items: center;
 
@@ -245,25 +242,27 @@ main {
 
             button {
 
-                font-size: 1rem;
-                font-family: "Poppins";
-                font-weight: 500;
+                background-color: transparent;
 
-                color: black;
-                border: 2px solid black;
+                width: 48px;
+                height: 48px;
 
-                border-radius: 10px;
-                padding: 0.5rem 2rem;
+                border: none;
+            }
 
-                width: 100%;
+            button:hover {
+                animation: shake 0.5s;
             }
 
             .confirm-delete-task-button {
-                background-color: var(--confirm-delete-task-button);
+                background-image: url("../img/red-trash.svg");
+                background-size: cover;
             }
 
             .cancel-delete-task-button {
-                background-color: var(--cancel-delete-task-button);
+                background-image: url("../img/close_6.svg");
+                background-size: cover;
+
             }
         }
     }
