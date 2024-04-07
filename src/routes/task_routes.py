@@ -13,7 +13,7 @@ from src.use_cases.tasks.search_tasks_use_case import SearchTasksUseCase
 task = Blueprint("task", __name__, url_prefix="/task")
 
 
-def redirectResponse(route: str):
+def redirect_response(route: str):
     response = Response()
     response.headers["hx-redirect"] = url_for(route)
     return response
@@ -61,11 +61,10 @@ def add():
 @task.route("/delete/<id>", methods=["DELETE"])
 @login_required
 def delete(id):
-    form = TaskForm()
+    print("entrei")
     repository = TaskRepository()
 
-    if form.validate_on_submit():
-        use_case = DeleteTaskUseCase(current_user.id, form, repository)
-        use_case.execute()
+    use_case = DeleteTaskUseCase(id, repository)
+    use_case.execute()
 
-    return redirect(url_for("view.board"))
+    return redirect_response("view.board")
