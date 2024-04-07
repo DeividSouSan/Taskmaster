@@ -5,11 +5,15 @@ from flask import flash
 from ...forms.register_form import RegisterForm
 from ...models.user import User
 from ...repositories.user_repository import UserRepository
-from ...utils.check_field_whitespaces import CheckFieldWhitespaces
+from ...utils.check_form_fields import CheckFormFields
 from ...utils.password_hasher import PasswordHash
 
 
 class RegisterUserUseCase:
+    form: RegisterForm
+    repository: UserRepository
+    pwd_hasher: PasswordHash
+
     def __init__(
         self, form: RegisterForm, repository: UserRepository, pwd_hahser: PasswordHash
     ):
@@ -19,27 +23,32 @@ class RegisterUserUseCase:
 
     def attempt_registration(self) -> bool:
 
-        if CheckFieldWhitespaces.is_field_with_whitespaces(self.__form):
+        user = self.create_user()
+
+        if CheckFormFields.is_field_with_whitespaces(self.__form):
             self.notify_field_with_whitespaces()
             return False
 
-        user = self.create_user()
+        unique_fields = [
+            {"name": "username", "value": user.username},
+            {"name": "email", "value": user.email},
+        ]
 
-        if self.is_field_taken("username", user.username):
-            self.notify_username_alredy_used()
-            return False
+        if field := CheckFormFields.is_field_taken(
+            self, unique_fields, self.__repository
+        ):
+            notify = {
+                "username": self.notify_username_alredy_used,
+                "email": self.notify_email_already_used,
+            }
 
-        if self.is_field_taken("email", user.email):
-            self.notify_email_already_used()
+            notify[field]()
+
             return False
 
         self.__repository.add_user(user)
         self.notify_successful_register()
         return True
-
-    def is_field_taken(self, field: str, value: any) -> bool:
-        field_is_taken = self.__repository.exists_user_with_field(field, value)
-        return field_is_taken
 
     def create_user(self) -> User:
         return User(
