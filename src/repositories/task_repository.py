@@ -37,10 +37,15 @@ class TaskRepository:
 
     def update_task(self, task_id, columns, value):
         with Session(self.__engine) as session:
-            session.query(Task).filter(Task.id == task_id).update({columns: value})
+            session.query(Task).filter(
+                Task.id == task_id).update({columns: value})
             session.commit()
 
     def delete_task(self, task_id: int):
         with Session(self.__engine) as session:
-            session.query(Task).filter(Task.id == task_id).delete()
+            task = session.query(Task).filter(Task.id == task_id).first()
+            
+            if task is not None:
+                session.delete(task)
+
             session.commit()
