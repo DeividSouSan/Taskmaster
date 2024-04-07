@@ -63,16 +63,6 @@
   </main>
 
   <footer>
-    {% if current_user.is_authenticated %}
-    <section class="button-wrapper">
-      <button class="history-btn" hx-get="{{ url_for('task.get', filter='deleted') }}" hx-target=".task-wrapper">
-        Histórico
-      </button>
-      <button class="history-btn" hx-get="{{ url_for('task.get') }}" hx-target=".task-wrapper">
-        Atuais
-      </button>
-    </section>
-    {% endif %}
   </footer>
 
   {% block javascript %}
