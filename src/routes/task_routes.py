@@ -1,7 +1,6 @@
 from flask import Blueprint, Response, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
-from src import htmx
 from src.forms.task_form import TaskForm
 from src.models.task import TaskStatus
 from src.repositories.task_repository import TaskRepository
@@ -12,7 +11,10 @@ from src.use_cases.tasks.search_tasks_use_case import SearchTasksUseCase
 
 task = Blueprint("task", __name__, url_prefix="/task")
 
+repository = TaskRepository()
 
+
+# This function is used to redirect the user to a specific route
 def redirect_response(route: str):
     response = Response()
     response.headers["hx-redirect"] = url_for(route)
@@ -22,7 +24,6 @@ def redirect_response(route: str):
 @task.route("/get", methods=["GET"])
 @login_required
 def get():
-    repository = TaskRepository()
 
     use_case = GetTasksUseCase(current_user.id, repository)
     tasks = use_case.execute()
@@ -33,9 +34,9 @@ def get():
 
 
 @task.route("/search", methods=["GET"])
+@login_required
 def search():
     text = request.args.get("text-to-search")
-    repository = TaskRepository()
 
     use_case = SearchTasksUseCase(current_user.id, repository)
     tasks = use_case.execute(text)
@@ -49,7 +50,6 @@ def search():
 @login_required
 def add():
     form = TaskForm()
-    repository = TaskRepository()
 
     if form.validate_on_submit():
         use_case = AddTaskUseCase(current_user.id, form, repository)
@@ -61,9 +61,6 @@ def add():
 @task.route("/delete/<id>", methods=["DELETE"])
 @login_required
 def delete(id):
-    print("entrei")
-    repository = TaskRepository()
-
     use_case = DeleteTaskUseCase(id, repository)
     use_case.execute()
 
