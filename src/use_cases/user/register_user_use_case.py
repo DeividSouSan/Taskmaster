@@ -5,7 +5,7 @@ from flask import flash
 from ...forms.register_form import RegisterForm
 from ...models.user import User
 from ...repositories.user_repository import UserRepository
-from ...utils.check_form_fields import CheckFormFields
+from ...utils.check_form_fields import FieldUniquenessChecker, FieldWhitespaceChecker
 from ...utils.password_hasher import PasswordHash
 
 
@@ -15,17 +15,24 @@ class RegisterUserUseCase:
     pwd_hasher: PasswordHash
 
     def __init__(
-        self, form: RegisterForm, repository: UserRepository, pwd_hahser: PasswordHash
+        self,
+        form: RegisterForm,
+        repository: UserRepository,
+        pwd_hahser: PasswordHash,
+        whitespaces_checker: FieldWhitespaceChecker,
+        uniqueness_checker: FieldUniquenessChecker,
     ):
         self.__form = form
         self.__repository = repository
         self.__pwd_hasher = pwd_hahser
+        self.__whitespaces_checker = whitespaces_checker
+        self.__uniqueness_checker = uniqueness_checker
 
     def attempt_registration(self) -> bool:
 
         user = self.__create_user()
 
-        if CheckFormFields.is_field_with_whitespaces(self.__form):
+        if self.__whitespaces_checker.is_field_with_whitespaces(self.__form):
             self.notify_field_with_whitespaces()
             return False
 
@@ -34,9 +41,7 @@ class RegisterUserUseCase:
             {"name": "email", "value": user.email},
         ]
 
-        if field := CheckFormFields.is_field_taken(
-            self, unique_fields, self.__repository
-        ):
+        if field := self.__uniqueness_checker.is_field_taken(unique_fields):
             notify = {
                 "username": self.notify_username_alredy_used,
                 "email": self.notify_email_already_used,
