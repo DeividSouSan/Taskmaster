@@ -23,7 +23,7 @@ class RegisterUserUseCase:
 
     def attempt_registration(self) -> bool:
 
-        user = self.create_user()
+        user = self.__create_user()
 
         if CheckFormFields.is_field_with_whitespaces(self.__form):
             self.notify_field_with_whitespaces()
@@ -50,7 +50,7 @@ class RegisterUserUseCase:
         self.notify_successful_register()
         return True
 
-    def create_user(self) -> User:
+    def __create_user(self) -> User:
         return User(
             username=self.__form.username.data,
             password_hash=self.__pwd_hasher.hash_password(self.__form.password.data),
