@@ -5,25 +5,30 @@ from src.utils.user_login_notifier import UserLoginNotifier
 
 from ...forms.login_form import LoginForm
 from ...repositories.user_repository import UserRepository
-from ...utils.check_form_fields import CheckFormFields
+from ...utils.check_form_fields import FieldWhitespaceChecker
 from ...utils.password_hasher import PasswordHash
 
 
 class LoginUserUseCase:
 
     def __init__(
-        self, form: LoginForm, repository: UserRepository, pwd_hasher: PasswordHash, check_form_fields: CheckFormFields, notifier: UserLoginNotifier
+        self,
+        form: LoginForm,
+        repository: UserRepository,
+        pwd_hasher: PasswordHash,
+        whistespace_checker: FieldWhitespaceChecker,
+        notifier: UserLoginNotifier,
     ):
         self.__repository = repository
         self.__form = form
         self.__pwd_hasher = pwd_hasher
-        self.__check_form_fields = check_form_fields
+        self.__whitespace_checker = whistespace_checker
         self.__notifier = notifier
 
     def attempt_login_user(self) -> bool:
 
         # Checa se os dados possuem espaços em branco
-        if self.__check_form_fields.is_field_with_whitespaces(self.__form):
+        if self.__whitespace_checker.is_field_with_whitespaces(self.__form):
             self.__notifier.notify_field_with_whitespaces()
             return False
 
@@ -62,5 +67,3 @@ class LoginUserUseCase:
 
         self.__notifier.notify_user_not_found()
         return False
-
-    
