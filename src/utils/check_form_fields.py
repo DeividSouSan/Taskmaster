@@ -1,5 +1,7 @@
 from flask_wtf import FlaskForm
+
 from ..repositories.user_repository import UserRepository
+
 
 class FieldWhitespaceChecker:
     def is_field_with_whitespaces(self, form: FlaskForm):
@@ -8,6 +10,7 @@ class FieldWhitespaceChecker:
                 if field.data.startswith(" ") or field.data.endswith(" "):
                     return True
         return False
+
 
 class FieldUniquenessChecker:
     def __init__(self, repository: UserRepository):
