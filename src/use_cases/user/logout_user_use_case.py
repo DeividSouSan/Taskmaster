@@ -1,5 +1,5 @@
-
 from typing import Literal
+
 from flask import flash
 from flask_login import logout_user
 

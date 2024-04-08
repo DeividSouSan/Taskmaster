@@ -22,45 +22,51 @@ main {
     padding: 0.5rem 1rem;
     border-radius: 5px;
 
+
     .search-bar {
         display: flex;
         flex-direction: row;
         align-items: center;
 
-        gap: 1rem;
+        form {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.25rem;
 
-        h2 {
-            font-weight: 200;
-        }
+            label {
+                letter-spacing: 2px;
+                font-weight: 400;
+            }
 
-        >input[type="search"] {
-            border-radius: 50px;
-            border: 1px solid #d9d9d9;
-            background-color: #EEEEEE;
-            padding-left: 1rem;
-            color: black;
-            height: 2rem;
-        }
+            input[type="search"] {
+                border-radius: 50px;
+                border: 1px solid #d9d9d9;
+                background-color: #EEEEEE;
+                padding-left: 1rem;
+                color: black;
+                height: 2rem;
+            }
 
-        button {
-            border-radius: 50px;
-            border: none;
-            width: 32px;
-            height: 32px;
+            input[type="submit"] {
+                border-radius: 50px;
+                border: none;
+                width: 32px;
+                height: 32px;
 
-            >img {
-                width: 28px;
-                height: 28px;
+                background-image: url("../img/search.svg");
+                background-size: cover;
             }
         }
     }
+
 
     .action-buttons {
         display: flex;
         flex-direction: row;
         gap: 1rem;
 
-        button {
+        >button {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -74,19 +80,19 @@ main {
             font-size: 1rem;
             font-weight: 700;
 
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.265);
+            /*box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.265);*/
         }
 
-        button:hover {
+        >button:hover {
             cursor: pointer;
             filter: brightness(0.7);
         }
 
-        .add-task-button {
+        .task-modal-button {
             background-color: var(--add-button);
         }
 
-        .add-task-button::after {
+        .task-modal-button::after {
             display: inline-block;
             content: "";
             width: 24px;
@@ -96,7 +102,6 @@ main {
         }
 
         .filter-task-button {
-
             background-color: var(--filter-button);
         }
 
@@ -110,7 +115,6 @@ main {
         }
     }
 }
-
 
 .task-wrapper {
     display: flex;
@@ -212,12 +216,6 @@ main {
         }
     }
 
-    .task:hover {
-        outline: 3px solid var(--add-button);
-        user-select: none;
-        cursor: pointer;
-    }
-
     .delete-task-confirm {
         display: none;
         background-color: rgba(0, 0, 0, 0.316);
@@ -236,7 +234,7 @@ main {
             translate: -50% -50%;
 
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             justify-content: center;
             align-items: center;
 
@@ -244,32 +242,38 @@ main {
 
             button {
 
-                font-size: 1rem;
-                font-family: "Poppins";
-                font-weight: 500;
+                background-color: transparent;
 
-                color: black;
-                border: 2px solid black;
+                width: 48px;
+                height: 48px;
 
-                border-radius: 10px;
-                padding: 0.5rem 2rem;
+                border: none;
+            }
 
-                width: 100%;
+            button:hover {
+                animation: shake 0.5s;
             }
 
             .confirm-delete-task-button {
-                background-color: var(--confirm-delete-task-button);
+                background-image: url("../img/red-trash.svg");
+                background-size: cover;
             }
 
             .cancel-delete-task-button {
-                background-color: var(--cancel-delete-task-button);
+                background-image: url("../img/close_6.svg");
+                background-size: cover;
+
             }
         }
     }
+
+    .empty-task-wrapper-text {
+        font-size: 2rem;
+        font-weight: 300;
+        color: var(--empty-task-wrapper-text);
+        text-decoration: underline;
+    }
 }
-
-
-
 
 @keyframes shake {
     0% {

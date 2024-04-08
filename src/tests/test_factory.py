@@ -1,10 +1,10 @@
 import unittest
 
-from ..server.server import create_app
+from .. import create_app
 
 
 class TestFactory(unittest.TestCase):
-    
+
     def setUp(self) -> None:
         self.app = None
 
@@ -14,5 +14,3 @@ class TestFactory(unittest.TestCase):
         self.app.testing = True
 
         self.assertNotEqual(self.app, None)
-
-  

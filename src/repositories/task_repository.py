@@ -1,6 +1,7 @@
+from flask import current_app
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from flask import current_app
+
 from src.models.task import Task
 
 
@@ -16,10 +17,9 @@ class TaskRepository:
             session.add(task)
             session.commit()
 
-    def get_active_tasks(self, user_id: int):
+    def get_tasks(self, user_id: int):
         with Session(self.__engine) as session:
-            tasks = session.query(Task).filter(
-                Task.user_id == user_id, Task.deleted == False)
+            tasks = session.query(Task).filter(Task.user_id == user_id)
             return tasks
 
     def get_task_by_id(self, task_id: int):
@@ -27,20 +27,25 @@ class TaskRepository:
             task = session.query(Task).filter(Task.id == task_id).first()
             return task
 
-    def get_deleted_tasks(self, user_id: int):
+    def get_tasks_like(self, user_id: int, text: str):
         with Session(self.__engine) as session:
+            print(text)
             tasks = session.query(Task).filter(
-                Task.user_id == user_id, Task.deleted == True)
+                Task.user_id == user_id, Task.title.like(f"%{text}%")
+            )
             return tasks
 
-    def update_task(self, task_id, columns, value):
+    def update_task(self, task_id: int, values: dict[str, any]):
+        # It has to be fixed to handle multiple columns update
         with Session(self.__engine) as session:
-            session.query(Task).filter(
-                Task.id == task_id).update({columns: value})
+            session.query(Task).filter(Task.id == task_id).update(values)
             session.commit()
 
     def delete_task(self, task_id: int):
         with Session(self.__engine) as session:
-            session.query(Task).filter(
-                Task.id == task_id).update({Task.deleted: True})
+            task = session.query(Task).filter(Task.id == task_id).first()
+
+            if task is not None:
+                session.delete(task)
+
             session.commit()

@@ -2,11 +2,9 @@
 <section class="task">
   <section class="task-header">
     <h3>{{ task.title }}</h3>
-    {% if task.deleted == False %}
     <button class="delete-task">
       <!-- Delete Task  -->
     </button>
-    {% endif %}
   </section>
   <hr>
   <section class="task-info">
@@ -38,7 +36,8 @@
 
   <section class="delete-task-confirm">
     <section class="button-wrapper">
-      <button class="confirm-delete-task-button" hx-patch="/move_to_trash/{{ task.id }}" hx-target=".task-wrapper" hx-vals='{"csrf_token": "{{ csrf_token() }}"}'>
+      <button class="confirm-delete-task-button" hx-delete="{{ url_for('task.delete', id=task.id) }}"
+        hx-target=".task-wrapper" hx-vals='{"csrf_token": "{{ csrf_token() }}"}'>
         Deletar
       </button>
       <button class="cancel-delete-task-button">
@@ -47,4 +46,6 @@
     </section>
   </section>
 </section>
+{% else %}
+<h1 class="empty-task-wrapper-text">Não há tarefas</h1>
 {% endfor %}
