@@ -5,14 +5,6 @@ from wtforms import EmailField, PasswordField, StringField, SubmitField
 from wtforms.validators import DataRequired, Length
 
 
-class IRegisterForm(Protocol):
-    email: EmailField
-    password: PasswordField
-    full_name: StringField
-    email: EmailField
-    submit: SubmitField
-
-
 class RegisterForm(FlaskForm):
     username = StringField(
         "Nome de Usuário: ", validators=[DataRequired(), Length(max=20)]
