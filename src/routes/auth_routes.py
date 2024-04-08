@@ -10,7 +10,9 @@ from src.use_cases.user.delete_account_use_case import DeleteAccountUseCase
 from src.use_cases.user.login_user_use_case import LoginUserUseCase
 from src.use_cases.user.logout_user_use_case import LogoutUserUseCase
 from src.use_cases.user.register_user_use_case import RegisterUserUseCase
+from src.utils.check_form_fields import FieldUniquenessChecker, FieldWhitespaceChecker
 from src.utils.password_hasher import PasswordHash
+from src.utils.user_login_notifier import UserLoginNotifier
 
 auth = Blueprint("auth", __name__)
 
@@ -39,10 +41,14 @@ def register():
     form = RegisterForm()
     repository = UserRepository()
     pwd_hasher = PasswordHash()
+    whitespace_checker = FieldWhitespaceChecker()
+    uniqueness_checker = FieldUniquenessChecker(repository)
 
     if form.validate_on_submit():
 
-        use_case = RegisterUserUseCase(form, repository, pwd_hasher)
+        use_case = RegisterUserUseCase(
+            form, repository, pwd_hasher, whitespace_checker, uniqueness_checker
+        )
         result = use_case.attempt_registration()
 
         if result:
@@ -56,10 +62,14 @@ def login():
     form = LoginForm()
     repository = UserRepository()
     pwd_hasher = PasswordHash()
+    whitespace_checker = FieldWhitespaceChecker()
+    notifier = UserLoginNotifier()
 
     if form.validate_on_submit():
 
-        use_case = LoginUserUseCase(form, repository, pwd_hasher)
+        use_case = LoginUserUseCase(
+            form, repository, pwd_hasher, whitespace_checker, notifier
+        )
         result = use_case.attempt_login_user()
 
         if result:
