@@ -2,76 +2,41 @@ from datetime import datetime
 
 from flask import flash
 
-from ...forms.register_form import RegisterForm
 from ...models.user import User
 from ...repositories.user_repository import UserRepository
-from ...utils.check_form_fields import FieldUniquenessChecker, FieldWhitespaceChecker
-from ...utils.password_hasher import PasswordHash
+from ...utils.user_registration_notifier import UserRegistrationNotifier
 
 
 class RegisterUserUseCase:
-    form: RegisterForm
     repository: UserRepository
-    pwd_hasher: PasswordHash
+    notifier: UserRegistrationNotifier
 
-    def __init__(
-        self,
-        form: RegisterForm,
-        repository: UserRepository,
-        pwd_hahser: PasswordHash,
-        whitespaces_checker: FieldWhitespaceChecker,
-        uniqueness_checker: FieldUniquenessChecker,
-    ):
-        self.__form = form
+    def __init__(self, repository: UserRepository, notifier: UserRegistrationNotifier):
         self.__repository = repository
-        self.__pwd_hasher = pwd_hahser
-        self.__whitespaces_checker = whitespaces_checker
-        self.__uniqueness_checker = uniqueness_checker
+        self.__notifier = notifier
 
-    def attempt_registration(self) -> bool:
-
-        user = self.__create_user()
-
-        if self.__whitespaces_checker.is_field_with_whitespaces(self.__form):
-            self.notify_field_with_whitespaces()
-            return False
-
-        unique_fields = [
-            {"name": "username", "value": user.username},
-            {"name": "email", "value": user.email},
-        ]
-
-        if field := self.__uniqueness_checker.is_field_taken(unique_fields):
+    def attempt_registration(self, user: User) -> bool:
+        if field_name := self.__check_unique_fields(user):
             notify = {
-                "username": self.notify_username_alredy_used,
-                "email": self.notify_email_already_used,
+                "username": self.__notifier.notify_username_alredy_used,
+                "email": self.__notifier.notify_email_already_used,
             }
 
-            notify[field]()
-
+            notify[field_name]()
             return False
-
+        
         self.__repository.add_user(user)
-        self.notify_successful_register()
+        self.__notifier.notify_successful_register()
         return True
-
-    def __create_user(self) -> User:
-        return User(
-            username=self.__form.username.data,
-            password_hash=self.__pwd_hasher.hash_password(self.__form.password.data),
-            fullname=self.__form.fullname.data,
-            email=self.__form.email.data,
-            registration=datetime.now(),
-        )
-
-    def notify_successful_register(self) -> None:
-        flash("Usuário cadastrado com sucesso", "success")
-
-    def notify_email_already_used(self) -> None:
-        flash("Email já foi utlizado", "error")
-
-    def notify_username_alredy_used(self) -> None:
-        flash("Nome de usuário já foi utilizado", "error")
-
-    def notify_field_with_whitespaces(self) -> None:
-        flash("Os campos não podem começar ou terminar com espaços", "error")
+    
+    def __check_unique_fields(self, user: User) -> str | None:
+        
+        unique_fields = [
+            {"field_name": "username", "value": user.username},
+            {"field_name": "email", "value": user.email},
+        ]
+        
+        for field in unique_fields:
+            if self.__repository.exists_user_with_field(field["field_name"], field["value"]):
+                return field["field_name"]
+                
