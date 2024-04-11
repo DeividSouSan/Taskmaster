@@ -10,55 +10,39 @@ from ...utils.password_hasher import PasswordHash
 
 
 class LoginUserUseCase:
+    user: dict[str, str]
+    repository: UserRepository
+    pwd_hasher: PasswordHash
+    notifier: UserLoginNotifier
 
     def __init__(
         self,
-        form: LoginForm,
+        user: dict[str, str],
         repository: UserRepository,
         pwd_hasher: PasswordHash,
-        whistespace_checker: FieldWhitespaceChecker,
         notifier: UserLoginNotifier,
     ):
         self.__repository = repository
-        self.__form = form
+        self.__user = user
         self.__pwd_hasher = pwd_hasher
-        self.__whitespace_checker = whistespace_checker
         self.__notifier = notifier
 
     def attempt_login_user(self) -> bool:
 
-        # Checa se os dados possuem espaços em branco
-        if self.__whitespace_checker.is_field_with_whitespaces(self.__form):
-            self.__notifier.notify_field_with_whitespaces()
-            return False
+        username = self.__user["username"]
+        password = self.__user["password"]
 
-        username = self.__form.username.data
-        password = self.__form.password.data
-
-        # Checa se o usuário existe e se a senha está correta
-        valid_credentials = self.verify_credentials(username, password)
-
-        if valid_credentials:
+        if self.__is_credentials_valid(username, password):
             user = self.__repository.get_user_by_username(username)
-            # Essa é a única dependência desse código
-            result = login_user(user)
+            login_success = login_user(user)
 
-            if result:
-                return True
+            return True if login_success else False
 
-        return False
+    def __is_credentials_valid(self, username: str, password: str) -> bool:
+        if self.__repository.exists_user_with_field("username", username):
+            database_pwd = self.__repository.get_user_password_by_username(username)
 
-    def verify_credentials(self, username: str, password: str) -> bool:
-        user_exists = self.__repository.exists_user_with_field("username", username)
-
-        if user_exists:
-            database_password = self.__repository.get_user_password_by_username(
-                username
-            )
-
-            pwd_is_correct = self.__pwd_hasher.check_password(
-                password, database_password
-            )
+            pwd_is_correct = self.__pwd_hasher.check_password(password, database_pwd)
 
             if not pwd_is_correct:
                 self.__notifier.notify_wrong_password()

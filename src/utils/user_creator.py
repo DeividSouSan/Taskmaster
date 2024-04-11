@@ -1,7 +1,9 @@
-from src.utils.password_hasher import PasswordHash
-from src.models.user import User
-from src.forms.register_form import RegisterForm
 from datetime import datetime
+
+from src.forms.register_form import RegisterForm
+from src.models.user import User
+from src.utils.password_hasher import PasswordHash
+
 
 class UserCreator:
     def __init__(self, pwd_hasher: PasswordHash):

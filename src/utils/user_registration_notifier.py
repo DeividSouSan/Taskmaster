@@ -1,6 +1,8 @@
 from flask import flash
 
+
 class UserRegistrationNotifier:
+
     def notify_successful_register(self) -> None:
         flash("Usuário cadastrado com sucesso", "success")
 

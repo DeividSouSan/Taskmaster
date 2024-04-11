@@ -21,6 +21,17 @@ class DevelopmentConfig(Config):
     PERMANENT_SESSION_LIFETIME = timedelta(minutes=30)
 
 
+class TestingConfig(Config):
+    SECRET_KEY = os.environ.get("SECRET_KEY_TEST")
+
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI_SQLITE_TEST")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    DEBUG = True
+    PERMANENT_SESSION_LIFETIME = timedelta(minutes=10)
+
+
+
 class ProductionConfig(Config):
     SECRET_KEY = os.environ.get("SECRET_KEY_PRODUCTION")
 
