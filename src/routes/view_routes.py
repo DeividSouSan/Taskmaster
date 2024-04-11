@@ -1,6 +1,5 @@
-from flask import Blueprint, render_template
-from flask_login import login_required
-
+from flask import Blueprint, render_template, redirect, url_for, current_app, request
+from flask_login import login_required, current_user
 from src.forms.login_form import LoginForm
 from src.forms.register_form import RegisterForm
 from src.forms.task_form import TaskForm
@@ -10,17 +9,33 @@ view = Blueprint("view", __name__)
 
 @view.route("/")
 def index():
+    if current_user.is_authenticated:
+        return redirect(url_for("view.board"))
+
     return render_template("index.html", title="Home - Taskmaster")
 
 
 @view.route("/login", methods=["GET"])
 def login():
-    form = LoginForm()
+    if current_user.is_authenticated:
+        return redirect(url_for("view.board"))
+
+    dados = request.args.get("form")
+    if dados:
+        form = LoginForm()
+        form.username = dados["username"]
+        form.password = dados["password"]
+    else:
+        form = LoginForm()
+
     return render_template("login.html", title="Login - Taskmaster", form=form)
 
 
 @view.route("/register", methods=["GET"])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for("view.board"))
+
     form = RegisterForm()
     return render_template("register.html", title="Cadastro - Taskmaster", form=form)
 
