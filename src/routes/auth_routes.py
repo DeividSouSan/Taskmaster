@@ -12,14 +12,16 @@ from src.use_cases.user.logout_user_use_case import LogoutUserUseCase
 from src.use_cases.user.register_user_use_case import RegisterUserUseCase
 from src.utils.check_form_fields import FieldUniquenessChecker, FieldWhitespaceChecker
 from src.utils.password_hasher import PasswordHash
+from src.utils.user_creator import UserCreator
 from src.utils.user_login_notifier import UserLoginNotifier
+from src.utils.user_registration_notifier import UserRegistrationNotifier
 
 auth = Blueprint("auth", __name__)
 
 # Utilities functions
 
 
-def redirectResponse(route: str):
+def redirect_response(route: str):
     response = Response()
     response.headers["hx-redirect"] = url_for(route)
     return response
@@ -42,17 +44,24 @@ def register():
     repository = UserRepository()
     pwd_hasher = PasswordHash()
     whitespace_checker = FieldWhitespaceChecker()
-    uniqueness_checker = FieldUniquenessChecker(repository)
+    notifier = UserRegistrationNotifier()
 
     if form.validate_on_submit():
 
-        use_case = RegisterUserUseCase(
-            form, repository, pwd_hasher, whitespace_checker, uniqueness_checker
-        )
-        result = use_case.attempt_registration()
+        if whitespace_checker.is_field_with_whitespaces(form):
+            notifier.notify_field_with_whitespaces()
+            return redirect(url_for("view.register"))
+
+        user_creator = UserCreator(pwd_hasher)
+        user = user_creator.create(form)
+
+        use_case = RegisterUserUseCase(repository, notifier)
+        result = use_case.attempt_registration(user)
 
         if result:
             return redirect(url_for("view.login"))
+        else:
+            use_case.notify()
 
     return redirect(url_for("view.register"))
 
@@ -67,15 +76,23 @@ def login():
 
     if form.validate_on_submit():
 
+        if whitespace_checker.is_field_with_whitespaces(form):
+            notifier.notify_field_with_whitespaces()
+            return redirect(url_for("view.login"))
+
+        user_data = {
+            "username": form.data["username"],
+            "password": form.data["password"],
+        }
+
         use_case = LoginUserUseCase(
-            form, repository, pwd_hasher, whitespace_checker, notifier
-        )
+            user_data, repository, pwd_hasher, notifier)
         result = use_case.attempt_login_user()
 
         if result:
             return redirect(url_for("view.board"))
 
-    return redirect(url_for("view.login"))
+    return redirect(url_for("view.login", form=form.data))
 
 
 @auth.route("/logout", methods=["GET"])
@@ -86,7 +103,7 @@ def logout():
     use_case.execute_logout()
 
     if htmx:
-        return redirectResponse("auth.login")
+        return redirect_response("auth.login")
 
     return redirect(url_for("auth.login"))
 
@@ -100,11 +117,11 @@ def delete_account(user_id):
 
     if result:
         if htmx:
-            return redirectResponse("auth.login")
+            return redirect_response("auth.login")
 
         return redirect(url_for("auth.login"))
 
     if htmx:
-        return redirectResponse("user.board")
+        return redirect_response("user.board")
 
     return redirect(url_for("user.board"))
