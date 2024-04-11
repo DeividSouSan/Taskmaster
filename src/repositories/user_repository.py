@@ -50,3 +50,9 @@ class UserRepository:
             except:
 
                 return False
+
+    def delete_table(self):
+        with Session(self.engine) as session:
+            session.query(User).delete()
+            session.commit()
+            return True
