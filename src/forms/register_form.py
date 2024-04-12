@@ -20,4 +20,4 @@ class RegisterForm(FlaskForm):
 
     email = EmailField("E-mail: ", validators=[DataRequired(), Length(max=50)])
 
-    submit = SubmitField("Enviar")
+    submit = SubmitField("Enviar", render_kw={"disabled": "true"})
