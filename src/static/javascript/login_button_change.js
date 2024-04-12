@@ -24,17 +24,3 @@ loginForm.addEventListener('keyup', event => {
         loginSubmitButton.disabled = true;
     }
 });
-
-<<<<<<< HEAD
-loginPasswordInput.addEventListener('keyup', event => {
-    const allFieldsFilled = loginUsernameInput.value.length > 0 && loginPasswordInput.value.length > 0
-
-    if (allFieldsFilled) {
-        loginSubmitButton.disabled = false;
-    } else {
-        loginSubmitButton.disabled = true;
-
-    }
-});
-=======
->>>>>>> d306b2048c9997f3e9c6138c6940b73145bdfa1a
