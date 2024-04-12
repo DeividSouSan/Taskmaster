@@ -13,4 +13,4 @@ class LoginForm(FlaskForm):
         "Senha", validators=[DataRequired(), Length(min=8, max=20)]
     )
 
-    submit = SubmitField("Entrar")
+    submit = SubmitField("Entrar", render_kw={"disabled": "true"})
