@@ -1,4 +1,4 @@
-from flask import Blueprint, Response, redirect, render_template, request, url_for
+from flask import Blueprint, Response, redirect, render_template, request, session, url_for
 from flask_login import login_required
 
 from src import htmx, login_manager
@@ -60,9 +60,8 @@ def register():
 
         if result:
             return redirect(url_for("view.login"))
-        else:
-            use_case.notify()
-
+       
+    session["form_data"] = form.data
     return redirect(url_for("view.register"))
 
 
@@ -91,8 +90,9 @@ def login():
 
         if result:
             return redirect(url_for("view.board"))
-
-    return redirect(url_for("view.login", form=form.data))
+            
+    session["form_data"] = form.data
+    return redirect(url_for("view.login"))
 
 
 @auth.route("/logout", methods=["GET"])
