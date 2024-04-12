@@ -24,19 +24,20 @@ class RegisterUserUseCase:
 
             notify[field_name]()
             return False
-        
+
         self.__repository.add_user(user)
         self.__notifier.notify_successful_register()
         return True
-    
+
     def __check_unique_fields(self, user: User) -> str | None:
-        
+
         unique_fields = [
             {"field_name": "username", "value": user.username},
             {"field_name": "email", "value": user.email},
         ]
-        
+
         for field in unique_fields:
-            if self.__repository.exists_user_with_field(field["field_name"], field["value"]):
+            if self.__repository.exists_user_with_field(
+                field["field_name"], field["value"]
+            ):
                 return field["field_name"]
-                

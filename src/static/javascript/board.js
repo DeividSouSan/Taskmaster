@@ -33,5 +33,3 @@ taskWrapper.addEventListener('click', event => {
         });
     }
 });
-
-

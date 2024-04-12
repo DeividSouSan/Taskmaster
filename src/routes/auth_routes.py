@@ -1,4 +1,12 @@
-from flask import Blueprint, Response, redirect, render_template, request, session, url_for
+from flask import (
+    Blueprint,
+    Response,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 from flask_login import login_required
 
 from src import htmx, login_manager
@@ -60,7 +68,7 @@ def register():
 
         if result:
             return redirect(url_for("view.login"))
-       
+
     session["form_data"] = form.data
     return redirect(url_for("view.register"))
 
@@ -84,13 +92,12 @@ def login():
             "password": form.data["password"],
         }
 
-        use_case = LoginUserUseCase(
-            user_data, repository, pwd_hasher, notifier)
+        use_case = LoginUserUseCase(user_data, repository, pwd_hasher, notifier)
         result = use_case.attempt_login_user()
 
         if result:
             return redirect(url_for("view.board"))
-            
+
     session["form_data"] = form.data
     return redirect(url_for("view.login"))
 

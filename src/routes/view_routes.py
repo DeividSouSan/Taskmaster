@@ -1,5 +1,14 @@
-from flask import Blueprint, render_template, redirect, session, url_for, current_app, request
-from flask_login import login_required, current_user
+from flask import (
+    Blueprint,
+    current_app,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
+from flask_login import current_user, login_required
+
 from src.forms.login_form import LoginForm
 from src.forms.register_form import RegisterForm
 from src.forms.task_form import TaskForm

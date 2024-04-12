@@ -31,7 +31,6 @@ class TestingConfig(Config):
     PERMANENT_SESSION_LIFETIME = timedelta(minutes=10)
 
 
-
 class ProductionConfig(Config):
     SECRET_KEY = os.environ.get("SECRET_KEY_PRODUCTION")
 
