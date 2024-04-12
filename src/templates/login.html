@@ -6,7 +6,7 @@
 
 {% block content %}
 <section class="container">
-  <form action="{{ url_for('auth.login')}}" method="POST">
+  <form action="{{ url_for('auth.login')}}" method="POST" class="login-form">
     <h1>Login</h1>
     {{ form.hidden_tag() }}
     {% for field in form if field.name not in ["csrf_token", "submit"] %}
@@ -19,4 +19,8 @@
   </form>
   <a href="{{ url_for('auth.register') }}">Não possui uma conta? Registre-se aqui.</a>
 </section>
+{% endblock %}
+
+{% block javascript %}
+<script src="../static/javascript/login_button_change.js"></script>
 {% endblock %}
