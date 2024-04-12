@@ -102,6 +102,12 @@ main {
             color: white;
             background-color: var(--tomato-button);
         }
+
+        input[type='submit']:disabled {
+            color: white;
+            background-color: var(--disabled-button);
+            cursor: default;
+        }
     }
 
     a {
