@@ -49,11 +49,10 @@
   </section>
 </template>
 
-
-{% block javascript %}
-<script src="{{ url_for('static', filename='javascript/board.js')}}"></script>
-<script src="{{ url_for('static', filename='javascript/add-task-button.js')}}"></script>
-<script src="{{ url_for('static', filename='javascript/account-float-menu.js')}}"></script>
 {% endblock %}
 
+{% block javascript %}
+<script src="{{ url_for('static', filename='javascript/board.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/add-task-button.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/menu.js') }}"></script>
 {% endblock %}
