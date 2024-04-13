@@ -1,10 +1,10 @@
 <!-- Esse HTML é um partials que será adicionado dinâmicamente -->
 <button class="account-button">
-  <!-- Button to open account options  -->
+  <img src="../../static/img/person.svg" alt="">
 </button>
 
 <!-- HTMX doesn't work inside template tag -->
-<section class="floating-menu-container" style="display: none;">
+<section class="floating-menu-container hide">
   <h1>{{ current_user.username }}</h1>
   <ul>
     <li>
