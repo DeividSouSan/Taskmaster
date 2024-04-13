@@ -150,7 +150,7 @@ main {
             justify-content: space-between;
 
             >button {
-                background-image: url("../img/red-trash.svg");
+                background-image: url("../img/gear.svg");
                 background-size: cover;
                 background-color: transparent;
 
@@ -218,9 +218,9 @@ main {
         }
     }
 
-    .delete-task-confirm {
+    .task-config {
         display: none;
-        background-color: rgba(0, 0, 0, 0.556);
+        background-color: rgba(0, 0, 0, 0.701);
 
         position: absolute;
         top: 0;
@@ -229,7 +229,7 @@ main {
         width: 100%;
         height: 100%;
 
-        .button-wrapper {
+        .config-button-wrapper {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -253,16 +253,22 @@ main {
             }
 
             >button:hover {
+                cursor: pointer;
                 animation: shake 0.5s;
             }
 
-            >.confirm-delete-task-button {
+            >.delete-task-btn {
                 background-image: url("../img/red-trash.svg");
                 background-size: cover;
             }
 
-            >.cancel-delete-task-button {
+            >.cancel-action-btn {
                 background-image: url("../img/close_6.svg");
+                background-size: cover;
+            }
+
+            >.edit-task-btn {
+                background-image: url("../img/pencil.svg");
                 background-size: cover;
             }
         }

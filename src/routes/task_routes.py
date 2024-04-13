@@ -1,4 +1,13 @@
-from flask import Blueprint, Response, redirect, render_template, request, url_for
+from flask import (
+    Blueprint,
+    Response,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 from flask_login import current_user, login_required
 
 from src.forms.task_form import TaskForm
@@ -6,8 +15,10 @@ from src.models.task import TaskStatus
 from src.repositories.task_repository import TaskRepository
 from src.use_cases.tasks.add_task_use_case import AddTaskUseCase
 from src.use_cases.tasks.delete_task_use_case import DeleteTaskUseCase
+from src.use_cases.tasks.get_task_by_id_use_case import GetTaskByIdUseCase
 from src.use_cases.tasks.get_tasks_use_case import GetTasksUseCase
 from src.use_cases.tasks.search_tasks_use_case import SearchTasksUseCase
+from src.use_cases.tasks.update_task_use_case import UpdateTaskUseCase
 
 task = Blueprint("task", __name__, url_prefix="/task")
 
@@ -31,6 +42,14 @@ def get():
     return render_template(
         "partials/task-container.html", tasks=tasks, TaskStatus=TaskStatus
     )
+
+
+@task.route("/get/<id>", methods=["GET"])
+def get_by_id(id):
+    use_case = GetTaskByIdUseCase(id, repository)
+    task = use_case.execute()
+    print(task.description)
+    return {"task": "oi"}
 
 
 @task.route("/search", methods=["GET"])
@@ -65,3 +84,47 @@ def delete(id):
     use_case.execute()
 
     return redirect_response("view.board")
+
+
+@task.route("/get-update-form/<id>", methods=["GET", "PUT"])
+@login_required
+def get_update_form(id):
+    form = TaskForm()
+
+    use_case = GetTaskByIdUseCase(id, repository)
+    task = use_case.execute()
+
+    session["task_id"] = id
+
+    task_data = {
+        "title": task.title,
+        "description": task.description,
+        "due_date": task.due_date,
+        "status": task.status,
+    }
+
+    form.process(data=task_data)
+
+    return render_template("partials/update_form.html", form=form)
+
+
+@task.route("/update", methods=["GET", "POST"])
+@login_required
+def update():
+    form = TaskForm()
+
+    id = session.get("task_id")
+
+    new_task_data = {
+        "title": form.data["title"],
+        "description": form.data["description"],
+        "due_date": form.data["due_date"],
+        "status": form.data["status"],
+    }
+
+    use_case = UpdateTaskUseCase(id, new_task_data, repository)
+    use_case.execute()
+
+    session.pop("task_id")
+
+    return redirect(url_for("view.board"))

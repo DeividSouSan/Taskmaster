@@ -1,0 +1,13 @@
+<section class="edit-modal-container">
+    <h1>Atualizar Tarefa</h1>
+    <form action="{{ url_for('task.update') }}" method="POST">
+        {{ form.hidden_tag()}}
+        {% for field in form if field.name not in ["csrf_token", "submit"] %}
+        <div class="field-wrapper">
+            {{ field.label }}
+            {{ field }}
+        </div>
+        {% endfor %}
+        {{form.submit}}
+    </form>
+</section>

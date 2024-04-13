@@ -7,19 +7,34 @@ Se você atribuir o evento de clique diretamente ao botão, o evento será perdi
 Portanto, ao adicionar o evento de clique ao documento e verificar se o alvo do evento é um botão de exclusão, você garante que o evento de clique funcione corretamente, mesmo após re-renderizações do HTMX. Isso é conhecido como delegação de eventos.
 */
 
+const editModalContainer = document.querySelector(".edit-modal-window");
+
+
 const taskWrapper = document.querySelector(".task-wrapper");
 taskWrapper.addEventListener('click', event => {
-    if (event.target.matches('.delete-task')) {
+    if (event.target.matches('.task-config-btn')) {
         const taskHeader = event.target.parentElement;
         const task = taskHeader.parentElement;
 
-        const confirmationSection = task.querySelector(".delete-task-confirm");
-        confirmationSection.style.display = "block";
+        const configSection = task.querySelector(".task-config");
+        configSection.style.display = "block";
 
-        const cancelDeleteTaskButton = confirmationSection.querySelector(".cancel-delete-task-button");
-
-        cancelDeleteTaskButton.addEventListener('click', () => {
-            confirmationSection.style.display = "none";
+        const cancelActionBtn = configSection.querySelector(".cancel-action-btn");
+        cancelActionBtn.addEventListener('click', () => {
+            configSection.style.display = "none";
         });
+
+        const editTaskBtn = configSection.querySelector('.edit-task-btn');
+        editTaskBtn.addEventListener('click', () => {
+            editModalContainer.style.display = "block";
+        });
+
+
+    }
+});
+
+document.addEventListener('click', event => {
+    if (event.target.classList.contains("edit-modal-window")) {
+        editModalContainer.style.display = "none";
     }
 });
