@@ -142,12 +142,14 @@ main {
         padding: 1rem;
         box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.277);
 
+        border-radius: 5px;
+
 
         .task-header {
             display: flex;
             justify-content: space-between;
 
-            button {
+            >button {
                 background-image: url("../img/red-trash.svg");
                 background-size: cover;
                 background-color: transparent;
@@ -160,7 +162,7 @@ main {
                 transition: all 200ms ease-in-out;
             }
 
-            button:hover {
+            >button:hover {
                 cursor: pointer;
                 animation: shake 0.5s;
             }
@@ -218,7 +220,7 @@ main {
 
     .delete-task-confirm {
         display: none;
-        background-color: rgba(0, 0, 0, 0.316);
+        background-color: rgba(0, 0, 0, 0.556);
 
         position: absolute;
         top: 0;
@@ -240,8 +242,8 @@ main {
 
             gap: 1rem;
 
-            button {
-
+            >button {
+                color: transparent;
                 background-color: transparent;
 
                 width: 48px;
@@ -250,19 +252,18 @@ main {
                 border: none;
             }
 
-            button:hover {
+            >button:hover {
                 animation: shake 0.5s;
             }
 
-            .confirm-delete-task-button {
+            >.confirm-delete-task-button {
                 background-image: url("../img/red-trash.svg");
                 background-size: cover;
             }
 
-            .cancel-delete-task-button {
+            >.cancel-delete-task-button {
                 background-image: url("../img/close_6.svg");
                 background-size: cover;
-
             }
         }
     }

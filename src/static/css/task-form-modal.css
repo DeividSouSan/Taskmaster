@@ -11,6 +11,8 @@
 }
 
 .task-modal-container {
+    animation: grow 0.2s ease-in-out;
+
     position: absolute;
     top: 50%;
     left: 50%;
@@ -29,6 +31,11 @@
     width: 40%;
     height: fit-content;
 
+    >h1 {
+        font-size: 2rem;
+        font-weight: 500;
+        text-align: center;
+    }
 
     form {
         display: flex;
@@ -70,5 +77,15 @@
         input[type="submit"]:hover {
             cursor: pointer;
         }
+    }
+}
+
+@keyframes grow {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
     }
 }

@@ -17,7 +17,7 @@
     --container-background: #f5f5f5;
 
     /* Account Floating Menu */
-    --action-hover: #AFAFAF;
+    --action-hover: #e1e1e1;
 
     --close-button: #f05555;
 
@@ -30,6 +30,7 @@
     --add-task-button: #5C80BC;
     --history-button: #d9d9d9;
     --delete-task-button: #DB504A;
+    --delete-account-button: #f05555;
     --confirm-delete-task-button: #DB504A;
     --cancel-delete-task-button: #d9d9d9;
 
