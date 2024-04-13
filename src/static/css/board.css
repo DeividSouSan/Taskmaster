@@ -150,7 +150,7 @@ main {
             justify-content: space-between;
 
             >button {
-                background-image: url("../img/red-trash.svg");
+                background-image: url("../img/gear.svg");
                 background-size: cover;
                 background-color: transparent;
 
