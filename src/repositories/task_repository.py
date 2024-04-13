@@ -36,9 +36,10 @@ class TaskRepository:
             return tasks
 
     def update_task(self, task_id: int, values: dict[str, any]):
-        # It has to be fixed to handle multiple columns update
+
         with Session(self.__engine) as session:
-            session.query(Task).filter(Task.id == task_id).update(values)
+            row_matched = session.query(Task).filter(Task.id == task_id).update(values)
+            print(row_matched)
             session.commit()
 
     def delete_task(self, task_id: int):
