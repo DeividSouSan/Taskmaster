@@ -2,7 +2,7 @@
 <section class="task">
   <section class="task-header">
     <h3>{{ task.title }}</h3>
-    <button class="delete-task">
+    <button class="task-config-btn">
       <!-- Delete Task  -->
     </button>
   </section>
@@ -34,15 +34,22 @@
     </section>
   </section>
 
-  <section class="delete-task-confirm">
-    <section class="button-wrapper">
-      <button class="confirm-delete-task-button" hx-delete="{{ url_for('task.delete', id=task.id) }}"
-        hx-target=".task-wrapper" hx-vals='{"csrf_token": "{{ csrf_token() }}"}'>
-        Deletar
+  <section class="task-config">
+    <section class="config-button-wrapper">
+      <button class="edit-task-btn" hx-get="{{ url_for('task.get_update_form', id=task.id) }}" hx-target=".edit-modal-container"
+        hx-swap="outerHTML">
+        Editar
       </button>
-      <button class="cancel-delete-task-button">
+
+      <button class="cancel-action-btn">
         Cancelar
       </button>
+
+      <button class="delete-task-btn" hx-delete="{{ url_for('task.delete', id=task.id) }}" hx-target=".task-wrapper"
+        hx-vals='{"csrf_token": "{{ csrf_token() }}"}'>
+        Deletar
+      </button>
+
     </section>
   </section>
 </section>
