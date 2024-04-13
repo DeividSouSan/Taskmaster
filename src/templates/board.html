@@ -49,10 +49,15 @@
   </section>
 </template>
 
+<section class="edit-modal-window" style="display: none;">
+  <section class="edit-modal-container">
+
+  </section>
+</section>
 {% endblock %}
 
 {% block javascript %}
-<script src="{{ url_for('static', filename='javascript/board.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/task-config-section.js') }}"></script>
 <script src="{{ url_for('static', filename='javascript/add-task-button.js') }}"></script>
 <script src="{{ url_for('static', filename='javascript/menu.js') }}"></script>
 {% endblock %}
