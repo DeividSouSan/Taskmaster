@@ -164,7 +164,7 @@ main {
 
             >button:hover {
                 cursor: pointer;
-                animation: shake 0.5s;
+                animation: rotate 1s ease-in-out infinite;
             }
         }
 
@@ -301,5 +301,15 @@ main {
 
     100% {
         transform: rotate(0deg);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }
