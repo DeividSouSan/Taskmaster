@@ -63,18 +63,12 @@ class UserRepository:
             result = session.query(User).filter(user_attribute == given_value).first()
             return bool(result)
 
-    def delete_user_by_id(self, user_id) -> bool:
+    def delete_user_by_id(self, user_id) -> None:
         with Session(self._engine) as session:
             user = session.query(User).filter(User.id == user_id).first()
 
-            try:
-                session.delete(user)
-                session.commit()
-
-                return True
-            except:
-
-                return False
+            session.delete(user)
+            session.commit()
 
     def delete_table(self):
         with Session(self._engine) as session:
