@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
         email: The email of the user.
         registration: The registration date of the user.
     """
+
     __tablename__ = "Users"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
