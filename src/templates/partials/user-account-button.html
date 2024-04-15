@@ -13,7 +13,7 @@
       </button>
     </li>
     <li>
-      <button hx-delete="{{ url_for('auth.delete_account', user_id=current_user.id) }}" class="delete-account-button">
+      <button hx-delete="{{ url_for('auth.delete_account', user_id=current_user.id) }}" hx-vals='{"csrf_token": "{{ csrf_token() }}"}' class="delete-account-button">
         Excluir conta
       </button>
     </li>
