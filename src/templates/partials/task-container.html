@@ -36,7 +36,7 @@
 
   <section class="task-config">
     <section class="config-button-wrapper">
-      <button class="edit-task-btn" hx-get="{{ url_for('task.get_update_form', id=task.id) }}" hx-target=".edit-modal-container"
+      <button class="edit-task-btn" hx-get="{{ url_for('task.get_update_form', user_id=task.id) }}" hx-target=".edit-modal-container"
         hx-swap="outerHTML">
         Editar
       </button>
@@ -45,7 +45,7 @@
         Cancelar
       </button>
 
-      <button class="delete-task-btn" hx-delete="{{ url_for('task.delete', id=task.id) }}" hx-target=".task-wrapper"
+      <button class="delete-task-btn" hx-delete="{{ url_for('task.delete', user_id=task.id) }}" hx-target=".task-wrapper"
         hx-vals='{"csrf_token": "{{ csrf_token() }}"}'>
         Deletar
       </button>
