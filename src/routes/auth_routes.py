@@ -1,12 +1,4 @@
-from flask import (
-    Blueprint,
-    Response,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import Blueprint, Response, redirect, session, url_for
 from flask_login import login_required
 
 from src import htmx, login_manager
@@ -18,7 +10,7 @@ from src.use_cases.user.delete_account_use_case import DeleteAccountUseCase
 from src.use_cases.user.login_user_use_case import LoginUserUseCase
 from src.use_cases.user.logout_user_use_case import LogoutUserUseCase
 from src.use_cases.user.register_user_use_case import RegisterUserUseCase
-from src.utils.check_form_fields import FieldUniquenessChecker, FieldWhitespaceChecker
+from src.utils.check_form_fields import FieldWhitespaceChecker
 from src.utils.password_hasher import PasswordHash
 from src.utils.user_creator import UserCreator
 from src.utils.user_login_notifier import UserLoginNotifier
@@ -115,20 +107,24 @@ def logout():
     return redirect(url_for("auth.login"))
 
 
-@auth.route("/delete_account/<user_id>", methods=["GET", "DELETE"])
+@auth.route("/delete_account/<user_id>", methods=["DELETE"])
+@login_required
 def delete_account(user_id):
+    """
+    Deletes user account.
+
+    Deletes the user account from the database trough the DeleteAccountUseCase and redirects to the login page.
+
+    Attributes:
+        user_id: The id of the user to be deleted.
+
+    Returns:
+        Response: Redirects to the login page.
+    """
+    # TODO: needs to delete the tasks too
     repository = UserRepository()
 
-    use_case = DeleteAccountUseCase(repository)
-    result = use_case.delete_account(user_id)
+    use_case = DeleteAccountUseCase(user_id, repository)
+    use_case.execute()
 
-    if result:
-        if htmx:
-            return redirect_response("auth.login")
-
-        return redirect(url_for("auth.login"))
-
-    if htmx:
-        return redirect_response("user.board")
-
-    return redirect(url_for("user.board"))
+    return redirect_response("view.login")
