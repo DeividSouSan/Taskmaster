@@ -51,8 +51,9 @@ def login():
 
 
 @view.route("/board", methods=["GET"])
-@login_required
 def board():
+    if not current_user.is_authenticated:
+        return redirect(url_for("view.login"))
     form = TaskForm()
 
     return render_template(
