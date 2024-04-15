@@ -44,9 +44,9 @@ def get():
     )
 
 
-@task.route("/get/<id>", methods=["GET"])
-def get_by_id(id):
-    use_case = GetTaskByIdUseCase(id, repository)
+@task.route("/get/<user_id>", methods=["GET"])
+def get_by_id(user_id):
+    use_case = GetTaskByIdUseCase(user_id, repository)
     task = use_case.execute()
     return {"task": "oi"}
 
@@ -76,24 +76,24 @@ def add():
     return redirect(url_for("view.board"))
 
 
-@task.route("/delete/<id>", methods=["DELETE"])
+@task.route("/delete/<user_id>", methods=["DELETE"])
 @login_required
-def delete(id):
-    use_case = DeleteTaskUseCase(id, repository)
+def delete(user_id):
+    use_case = DeleteTaskUseCase(user_id, repository)
     use_case.execute()
 
     return redirect_response("view.board")
 
 
-@task.route("/get-update-form/<id>", methods=["GET", "PUT"])
+@task.route("/get-update-form/<user_id>", methods=["GET", "PUT"])
 @login_required
-def get_update_form(id):
+def get_update_form(user_id):
     form = TaskForm()
 
-    use_case = GetTaskByIdUseCase(id, repository)
+    use_case = GetTaskByIdUseCase(user_id, repository)
     task = use_case.execute()
 
-    session["task_id"] = id
+    session["task_id"] = user_id
 
     task_data = {
         "title": task.title,
@@ -112,7 +112,7 @@ def get_update_form(id):
 def update():
     form = TaskForm()
 
-    id = session.get("task_id")
+    user_id = session.get("task_id")
 
     new_task_data = {
         "title": form.data["title"],
@@ -121,7 +121,7 @@ def update():
         "status": form.data["status"],
     }
 
-    use_case = UpdateTaskUseCase(id, new_task_data, repository)
+    use_case = UpdateTaskUseCase(user_id, new_task_data, repository)
     use_case.execute()
 
     session.pop("task_id")
