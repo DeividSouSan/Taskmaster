@@ -10,12 +10,13 @@ from src import db
 class TaskStatus(enum.Enum):
     """
     Enumerator for handling the status of the task.
-    
+
     Attributes:
         NOT_STARTED: The task has not been started.
         DOING: The task is currently being done.
         FINISHED: The task has been finished.
     """
+
     NOT_STARTED: int = 0
     DOING: int = 1
     FINISHED: int = 2
@@ -25,7 +26,7 @@ class Task(db.Model):
     """
     This class is a model for the Tasks table in the database.
 
-    Through this class, we can interact with the Tasks table in the database. It has the fields of the table as attributes. 
+    Through this class, we can interact with the Tasks table in the database. It has the fields of the table as attributes.
 
     Attributes:
         id: The primary key of the table.
