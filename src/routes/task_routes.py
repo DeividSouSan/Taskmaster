@@ -48,7 +48,6 @@ def get():
 def get_by_id(id):
     use_case = GetTaskByIdUseCase(id, repository)
     task = use_case.execute()
-    print(task.description)
     return {"task": "oi"}
 
 
