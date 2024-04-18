@@ -9,11 +9,12 @@ O objetivo do projeto foi aprender mais sobre o desenvolvimento backend utilizan
 # Funcionalidades
 
 - [x] Cadastro do Usuário
-- [x] Autenticação do Usuário
-- [x] Sistema de Gerenciamento de Tarefas (Adicionar e Remover Tarefas)
+- [x] Autenticação do Usuário (Login do Usuário)
+- [x] Sistema de Gerenciamento de Tarefas (Adicionar, Remover e Editar as Tarefas)
 - [x] Feedback de Erros para diversas operações
-- [ ] Ordenar as Tarefas por Status
-- [ ] Exclusão da Conta
+- [ ] Filtrar as tarefas pelo nome
+- [ ] Filtrar as tarefas por status
+- [ ] Excluir a conta
 
 # Demonstração
 
