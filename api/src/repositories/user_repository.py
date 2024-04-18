@@ -47,7 +47,7 @@ class UserRepository:
                 return False
 
     def get_user_password_by_username(self, username) -> str:
-
+        
         with Session(self._engine) as session:
             user = session.query(User).filter(User.username == username).first()
             return user.password_hash
