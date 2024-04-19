@@ -15,7 +15,7 @@ class Config:
 class DevelopmentConfig(Config):
     SECRET_KEY = os.environ.get("SECRET_KEY_DEV")
     
-    db_path = os.path.join(os.path.dirname(__file__), 'taskmaster.db')
+    db_path = os.path.join(os.path.dirname(__file__), 'instance/taskmaster.db')
     db_uri = f'sqlite+pysqlite:///{db_path}'
     SQLALCHEMY_DATABASE_URI = db_uri
     
@@ -33,7 +33,7 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     SECRET_KEY = os.environ.get("SECRET_KEY_PROD")
     
-    db_path = os.path.join(os.path.dirname(__file__), 'taskmaster.db')
+    db_path = os.path.join(os.path.dirname(__file__), 'instance/taskmaster.db')
     db_uri = f'sqlite+pysqlite:///{db_path}'
     SQLALCHEMY_DATABASE_URI = db_uri
     
