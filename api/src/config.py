@@ -34,7 +34,7 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     SECRET_KEY = os.environ.get("SECRET_KEY_PRODUCTION")
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI_MYSQL")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI_SQLITE")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     DEBUG = False
