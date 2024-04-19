@@ -3,7 +3,6 @@ from datetime import datetime
 from unittest.mock import Mock
 
 from flask import current_app
-
 from src import create_app
 from src.models.user import User
 from src.repositories.user_repository import UserRepository

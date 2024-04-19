@@ -8,7 +8,6 @@ from flask import (
     url_for,
 )
 from flask_login import current_user, login_required
-
 from src.forms.login_form import LoginForm
 from src.forms.register_form import RegisterForm
 from src.forms.task_form import TaskForm

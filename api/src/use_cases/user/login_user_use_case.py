@@ -1,6 +1,5 @@
 from flask import flash
 from flask_login import login_user
-
 from src.utils.user_login_notifier import UserLoginNotifier
 
 from ...forms.login_form import LoginForm

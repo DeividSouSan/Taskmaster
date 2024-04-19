@@ -9,7 +9,6 @@ from flask import (
     url_for,
 )
 from flask_login import current_user, login_required
-
 from src.forms.task_form import TaskForm
 from src.models.task import TaskStatus
 from src.repositories.task_repository import TaskRepository

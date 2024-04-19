@@ -2,7 +2,6 @@ import unittest
 from unittest.mock import Mock, patch
 
 from flask import current_app
-
 from src import create_app
 from src.use_cases.user.login_user_use_case import LoginUserUseCase
 

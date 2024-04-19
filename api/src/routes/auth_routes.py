@@ -1,6 +1,5 @@
 from flask import Blueprint, Response, redirect, session, url_for
 from flask_login import login_required
-
 from src import htmx, login_manager
 from src.forms.login_form import LoginForm
 from src.forms.register_form import RegisterForm
