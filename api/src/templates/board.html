@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block content %}
-
 <section class="board-menu">
   <section class="search-bar">
     <form hx-get="{{ url_for('task.search') }}" hx-target=".task-wrapper" hx-trigger="keyup delay:500ms"
