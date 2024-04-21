@@ -1,4 +1,4 @@
-<section class="edit-modal-container">
+<section class="edit-modal-container modal-container">
     <h1>Atualizar Tarefa</h1>
     <form id="update-form" hx-post="{{ url_for('task.update') }}" hx-target=".task-wrapper" hx-swap="innerHTML">
         {{ form.hidden_tag()}}
