@@ -1,5 +1,5 @@
 {% for task in tasks %}
-<section class="task">
+<section class="task task-{{task.id}}">
   <section class="task-header">
     <h3>{{ task.title }}</h3>
     <button class="task-config-btn">
@@ -36,8 +36,8 @@
 
   <section class="task-config">
     <section class="config-button-wrapper">
-      <button class="edit-task-btn" hx-get="{{ url_for('task.get_update_form', user_id=task.id) }}" hx-target=".edit-modal-container"
-        hx-swap="outerHTML">
+      <button class="edit-task-btn" hx-get="{{ url_for('task.get_update_form', task_id=task.id) }}"
+        hx-target=".edit-modal-window" hx-swap="innerHTML">
         Editar
       </button>
 
@@ -45,10 +45,11 @@
         Cancelar
       </button>
 
-      <button class="delete-task-btn" hx-delete="{{ url_for('task.delete', user_id=task.id) }}" hx-target=".task-wrapper"
-        hx-vals='{"csrf_token": "{{ csrf_token() }}"}'>
+      <button id="deleteButton" class="delete-task-btn" hx-delete="{{ url_for('task.delete', task_id=task.id) }}"
+        hx-trigger="click" hx-vals='{"csrf_token": "{{ csrf_token() }}"}' hx-target=".task-{{task.id}}" hx-swap="delete">
         Deletar
       </button>
+
 
     </section>
   </section>
