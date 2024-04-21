@@ -28,19 +28,16 @@ taskWrapper.addEventListener('click', event => {
         const editTaskBtn = configSection.querySelector('.edit-task-btn');
         editTaskBtn.addEventListener('click', () => {
             editModalWindow.style.display = "block";
-
-            const editModalContainer = editModalWindow.querySelector(".edit-modal-container");
-            const updateTaskSubmit = editModalContainer.querySelector('.update-task-submit');
-
-            updateTaskSubmit.addEventListener('click', () => {
-                editModalWindow.style.display = "none";
-            });
         });
     }
 });
 
 document.addEventListener('click', event => {
     if (event.target.classList.contains("edit-modal-window")) {
+        editModalWindow.style.display = "none";
+    }
+
+    if (event.target.classList.contains("update-task-submit")) {
         editModalWindow.style.display = "none";
     }
 });
