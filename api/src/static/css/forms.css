@@ -63,7 +63,9 @@ main {
             width: 80%;
 
             label {
-                font-weight: 300;
+                font-weight: var(--label-weight);
+                color: var(--label-color);
+                font-size: var(--label-size);
 
             }
 

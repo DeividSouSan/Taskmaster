@@ -23,7 +23,7 @@ class TaskForm(FlaskForm):
 
     description = TextAreaField("Descrição: ", validators=[DataRequired()])
 
-    due_date = DateField("Para: ", validators=[Optional()])
+    due_date = DateField("Para (opcional): ", validators=[Optional()])
 
     status = SelectField(
         "Status: ",
