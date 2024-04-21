@@ -88,11 +88,11 @@ main {
             filter: brightness(0.7);
         }
 
-        .task-modal-button {
+        .add-task-button {
             background-color: var(--add-button);
         }
 
-        .task-modal-button::after {
+        .add-task-button::after {
             display: inline-block;
             content: "";
             width: 24px;

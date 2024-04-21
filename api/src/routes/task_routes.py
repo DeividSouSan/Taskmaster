@@ -72,27 +72,28 @@ def add():
         use_case = AddTaskUseCase(current_user.id, form, repository)
         use_case.execute()
 
-    return redirect(url_for("view.board"))
+    return redirect(url_for("task.get"))
 
 
-@task.route("/delete/<user_id>", methods=["DELETE"])
+@task.route("/delete/<task_id>", methods=["DELETE"])
 @login_required
-def delete(user_id):
-    use_case = DeleteTaskUseCase(user_id, repository)
+def delete(task_id):
+    print("id", task_id)
+    use_case = DeleteTaskUseCase(task_id, repository)
     use_case.execute()
 
-    return redirect_response("view.board")
+    return "", 200  # swap="delete" doesn't work with 204
 
 
-@task.route("/get-update-form/<user_id>", methods=["GET", "PUT"])
+@task.route("/get-update-form/<int:task_id>", methods=["GET", "PUT"])
 @login_required
-def get_update_form(user_id):
+def get_update_form(task_id):
     form = TaskForm()
 
-    use_case = GetTaskByIdUseCase(user_id, repository)
+    use_case = GetTaskByIdUseCase(task_id, repository)
     task = use_case.execute()
 
-    session["task_id"] = user_id
+    session["task_id"] = task_id
 
     task_data = {
         "title": task.title,
@@ -111,7 +112,7 @@ def get_update_form(user_id):
 def update():
     form = TaskForm()
 
-    user_id = session.get("task_id")
+    task_id = session.get("task_id")
 
     new_task_data = {
         "title": form.data["title"],
@@ -120,9 +121,9 @@ def update():
         "status": form.data["status"],
     }
 
-    use_case = UpdateTaskUseCase(user_id, new_task_data, repository)
+    use_case = UpdateTaskUseCase(task_id, new_task_data, repository)
     use_case.execute()
 
     session.pop("task_id")
 
-    return redirect(url_for("view.board"))
+    return redirect(url_for("task.get"))

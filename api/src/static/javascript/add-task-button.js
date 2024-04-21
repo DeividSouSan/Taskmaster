@@ -1,18 +1,23 @@
-var taskModalButton = document.querySelector(".task-modal-button");
+var addTaskButton = document.querySelector(".add-task-button");
 
-const taskModalTemplate = document.querySelector(".task-modal-template");
-const taskModal = taskModalTemplate.content.cloneNode(true);
-const taskModalContainer = taskModal.querySelector(".task-modal-window");
-
+const taskModalWindow = document.querySelector(".task-modal-window");
+const taskForm = document.querySelector("#add-form")
 
 // Botão do modal adiciona o formulário de tarefa
-taskModalButton.addEventListener('click', () => {
-    document.body.appendChild(taskModalContainer);
+addTaskButton.addEventListener('click', () => {
+    taskForm.reset()
+    taskModalWindow.style.display = "block";
 })
 
 // Fecha o modal ao clicar fora do formulário
-taskModalContainer.addEventListener("click", (ev) => {
+taskModalWindow.addEventListener("click", (ev) => {
     if (ev.target.classList.contains("task-modal-window")) {
-        document.body.removeChild(taskModalContainer);
+        taskModalWindow.style.display = "none";
     }
 })
+
+const addSubmitBtn = document.querySelector(".add-task-submit");
+
+addSubmitBtn.addEventListener("click", () => {
+    taskModalWindow.style.display = "none";
+});

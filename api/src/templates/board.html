@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block content %}
-
 <section class="board-menu">
   <section class="search-bar">
     <form hx-get="{{ url_for('task.search') }}" hx-target=".task-wrapper" hx-trigger="keyup delay:500ms"
@@ -20,43 +19,41 @@
     <button class="filter-task-button">
       Filtrar
     </button>
-    <button class="task-modal-button">
+    <button class="add-task-button">
       Adicionar
     </button>
   </section>
 </section>
 
-<section class="task-wrapper" hx-get="{{ url_for('task.get')}}" hx-trigger="load" hx-target="this">
+<section id="taskWrapper" class="task-wrapper" hx-get="{{ url_for('task.get')}}" hx-trigger="load">
   {% include "partials/task-container.html" %}
 </section>
 
-<!-- Template Não renderizado  -->
-<template class="task-modal-template">
-  <section class="task-modal-window">
-    <section class="task-modal-container">
-      <h1>Adicionar Task</h1>
-      <form action="{{ url_for('task.add')}}" method="POST">
-        {{ form.hidden_tag()}}
-        {% for field in form if field.name not in ["csrf_token", "submit"] %}
-        <div class="field-wrapper">
-          {{ field.label }}
-          {{ field }}
-        </div>
-        {% endfor %}
-        {{form.submit}}
-      </form>
-    </section>
+<!-- Modal com o Formulário de Adição-->
+<section class="task-modal-window" style="display: none;">
+  <section class="task-modal-container">
+    <h1>Adicionar Task</h1>
+    <form id="add-form" hx-post="{{ url_for('task.add') }}" hx-target=".task-wrapper" hx-swap="innerHTML">
+      {{ form.hidden_tag()}}
+      {% for field in form if field.name not in ["csrf_token", "submit"] %}
+      <div class="field-wrapper">
+        {{ field.label }}
+        {{ field }}
+      </div>
+      {% endfor %}
+      {{form.submit(class_="add-task-submit")}}
+    </form>
   </section>
-</template>
+</section>
 
 <!-- Modal com o Formulário de Edição-->
 <section class="edit-modal-window" style="display: none;">
 </section>
-
 {% endblock %}
 
 {% block javascript %}
 <script src="{{ url_for('static', filename='javascript/task-config-section.js') }}"></script>
 <script src="{{ url_for('static', filename='javascript/add-task-button.js') }}"></script>
 <script src="{{ url_for('static', filename='javascript/menu.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/custom-events.js') }}"></script>
 {% endblock %}
