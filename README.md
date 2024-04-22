@@ -4,7 +4,7 @@ O Taskmaster é um website que permite o usuário criar tarefas para que ele pos
 
 # Objetivo
 
-O objetivo do projeto foi aprender mais sobre o desenvolvimento backend utilizando o Python e o micro-framework Flask. Além disso, desenvolver minhas habilidades de solução de problemas e de escrita de código. Como consequência acabei descobrindo algumas bibliotecas que forem facilitadores-chave para que o projeto pudesse ser concluído.
+O objetivo do projeto foi aprender mais sobre o desenvolvimento backend utilizando o Python e o micro-framework Flask. Além disso, desenvolver minhas habilidades de solução de problemas e de escrita de código. Como consequência acabei descobrindo algumas bibliotecas que forem facilitadores chave para que o projeto pudesse ser concluído.
 
 # Funcionalidades
 
@@ -22,31 +22,23 @@ O objetivo do projeto foi aprender mais sobre o desenvolvimento backend utilizan
 
 ## Login
 
-![login](https://github.com/DeividSouSan/Taskmaster/assets/49818020/1292ad3a-cfae-4c4a-bf7d-1b59e30f777c)
-
 ## Adicionando Tarefa
-
-![adicionando_tarefa](https://github.com/DeividSouSan/Taskmaster/assets/49818020/ae8f377c-62e4-4548-a9c8-f841359504fa)
 
 ## Removendo Tarefa
 
-![excluindo_tarefa](https://github.com/DeividSouSan/Taskmaster/assets/49818020/190fcb2f-a2b2-4bc0-aa30-c50c9ad7aff9)
-
 ## Deslogando
-
-![deslogando](https://github.com/DeividSouSan/Taskmaster/assets/49818020/fbecb0b3-88bd-4200-9114-71d9cc5d8456)
 
 # Como Rodar o Projeto?
 
 ## Clonando
 
-Clone o repositório utilizando:
+Primeiro clone o repositório. Isso pode ser feito baixando-o ou utilizando o comando:
 
 ```
 git clone git@github.com:DeividSouSan/Taskmaster.git
 ```
 
-Acesse o diretório do projeto com:
+Utilizando sua IDE ou Editor de Texto abra o projeto. Se estiver pelo terminal acesse a pasta onde baixou/clonou o projeto e escreva: 
 
 ```
 cd taskmaster
@@ -54,15 +46,14 @@ cd taskmaster
 
 ## Ambiente Virtual
 
-Recomendo instalar as bibliotecas em um ambiente virtual para evitar conflitos de versões com os pacotes instalados globalmente. Para criar um ambiente virtual rode os comandos abaixo:
-
+Dentro da pasta do projeto, inicie um ambiente virtual. Eu recomendo instalar as bibliotecas em um ambiente virtual para evitar conflitos de versões com os pacotes instalados globalmente. Pelo terminal, crie um ambiente virtual utilizando:
 ```
 python3 -m venv <nome_do_ambiente_virtual>
 ```
 
 Comumento o nome utilizado é .venv, mas isso é de sua escolha.
 
-Para ativar o ambiente virutal:
+Para ativar o ambiente virutal no linux:
 
 ```
 source .venv/bin/activate
@@ -80,11 +71,20 @@ Para desativa-lo:
 deactivate
 ```
 
-Notas: o ambiente vitural é criado na mesma pasta do projeto.
+No windows:
+```
+.venv/Scripts/activate
+```
+
+Para desativa-lo:
+
+```
+.venv/Scripts/deactivate
+```
 
 ## Bibliotecas
 
-Algumas biblittecas e framework foram utilizadas para realização do projeto:
+Utilizei as seguintes bibliotecas para realização do projeto:
 
 - Flask (Servidor e Rotas)
 - Python Dotenv (Variáveis de Ambiente)
@@ -93,45 +93,46 @@ Algumas biblittecas e framework foram utilizadas para realização do projeto:
 - Flask-WTF e WTForms (Formulários)
 - Bcrypt (Hash da Senha)
 - Unittest (built-in do Python para testes)
+- HTMX (requisições HTTP direto dos elementos HTML)
+- SQLite3 (built-in do Python)
 
-Para baixa-las basta você utilizar o seguinte comando:
+Para baixar as bibliotecas do Python escreva no terminal (antes verifique se o ambiente virtual está ativado):
 
 ```bash
 pip install requirements.txt
 ```
 
-Assim todas as dependencias serão baixadas para o seu computador ou ambiente virutal.
+Assim todas as dependencias que estão dentro do arquivo `requirements.txt` serão baixadas para o seu ambiente virtual.
 
 ## Variáveis de Ambiente
 
 Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
 
 ```
-USER = nome_usuario
+APP_CONFIG = "ProductionConfig"
 
-PASSWORD = senha_perfil
-
-DATABASE = nome_banco_de_dados
+SECRET_KEY = <uma_string_difícil>
 ```
 
 Os valores à direita são ficticios e devem ser susbstituidos pela informações da sua configuração. Elas serão importadas para dentro de `server.py` e serão utilizadas para acessar, criar e modificar o banco de dados.
 
-**Nota**: Antes de iniciar a aplicação, certifique-se de criar manualmente o banco de dados no seu Sistema Gerenciador de Banco de Dados MySQL. Consulte a [documentação](https://dev.mysql.com/doc/) do MySQL para obter instruções sobre como criar um novo banco de dados. Além disso, é necessário que o perfil fornecido tenha acesso ao banco de dados para criar e modificar as tabelas.
+O `APP_CONFIG` é onde você define qual configurações do Flask serão utilizadas. Utilize `ProductionConfig` para testar o aplicativa da maneira que ele iria para produção. As outras configurações podem ser vistas em `config.py`.
 
-Se estiver usando o MySQL pelo terminal, você pode acessa-lo e criar o banco de dados assim:
+## Banco de Dados
 
-```mysql
-mysql> CREATE DATABASE nome_do_seu_banco_de_dados;
-```
+O banco de dados utilizado para essa aplicação foi o SQLite por motivos de praticidade. Nenhuma configuração adicional é necessária. Basta rodar a aplicação normalmente. Se tudo ocorrer bem ao rodar pela primeira vez, um arquivo chamado `taskmaste.db` surgirá dentro do diretório `instance/`.
 
 ## Finalmente Rodando a Aplicação
 
 Para rodar a aplicação rode o arquivo nomeado como `wsgi.py`.
 
+```
+python wsgi.py
+```
+
 ## Ferramentas e Tecnologias
 ![HTMX](https://img.shields.io/badge/%3C/%3E%20htmx-3D72D7?style=for-the-badge&logo=mysl&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
 ![SQLite](https://img.shields.io/badge/Sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 ![VSCode](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
