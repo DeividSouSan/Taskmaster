@@ -2,7 +2,8 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css')}}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/add-modal.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/task-form.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -30,8 +31,8 @@
 </section>
 
 <!-- Modal com o Formulário de Adição-->
-<section class="add-modal-window" style="display: none;">
-  <section class="add-modal-container">
+<section class="add-modal-window modal-window" style="display: none;">
+  <section class="add-modal-container modal-container">
     <h1>Adicionar Task</h1>
     <form id="add-form" hx-post="{{ url_for('task.add') }}" hx-target=".task-wrapper" hx-swap="innerHTML">
       {{ form.hidden_tag()}}
@@ -47,7 +48,7 @@
 </section>
 
 <!-- Modal com o Formulário de Edição-->
-<section class="edit-modal-window" style="display: none;">
+<section class="edit-modal-window modal-window" style="display: none;">
 </section>
 {% endblock %}
 
