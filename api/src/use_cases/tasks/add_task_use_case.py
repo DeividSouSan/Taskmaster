@@ -10,6 +10,7 @@ class AddTaskUseCase:
         self._repository = repository
 
     def execute(self):
+        # TODO: Can't add task without a description, but it doesn't raises nothing. 
         task = self._create_object(self._form)
         self._repository.add_task(task)
 
