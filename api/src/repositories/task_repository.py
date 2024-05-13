@@ -61,7 +61,7 @@ class TaskRepository:
         """
         with Session(self._engine) as session:
             tasks = session.query(Task).filter(Task.user_id == user_id)
-            return tasks
+            return list(tasks)
 
     def get_task_by_id(self, task_id: int):
         """
@@ -96,7 +96,7 @@ class TaskRepository:
             tasks = session.query(Task).filter(
                 Task.user_id == user_id, Task.title.like(f"%{text}%")
             )
-            return tasks
+            return list(tasks)
 
     def update_task(self, task_id: int, values: dict[str, any]) -> bool:
         """
