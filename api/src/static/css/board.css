@@ -113,6 +113,13 @@ main {
             background-image: url("../img/filter.svg");
             background-size: cover;
         }
+
+        .filter-task-button:disabled {
+            background-color: var(--disabled-button);
+            cursor: default;
+
+            filter: brightness(0.8);
+        }
     }
 }
 

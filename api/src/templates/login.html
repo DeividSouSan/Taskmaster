@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" href=" {{ url_for('static', filename='css/forms.css') }}">
+<link rel="stylesheet" href=" {{ url_for('static', filename='css/modal.css') }}">
+<link rel="stylesheet" href=" {{ url_for('static', filename='css/auth-form.css') }}">
 {% endblock %}
 
 {% block content %}
-<section class="container">
+<section class="modal-container container">
   <form action="{{ url_for('auth.login')}}" method="POST" class="login-form">
     <h1>Login</h1>
     {{ form.hidden_tag() }}
@@ -17,7 +18,9 @@
     {% endfor %}
     {{ form.submit }}
   </form>
-  <a href="{{ url_for('auth.register') }}">Não possui uma conta? Registre-se aqui.</a>
+  <small>
+    <a href="{{ url_for('auth.register') }}">Não possui uma conta? Registre-se aqui.</a>
+  </small>
 </section>
 {% endblock %}
 
