@@ -101,7 +101,7 @@ Utilizei as seguintes bibliotecas para realização do projeto:
 Para baixar as bibliotecas do Python escreva no terminal (antes verifique se o ambiente virtual está ativado):
 
 ```bash
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 Assim todas as dependencias que estão dentro do arquivo `requirements.txt` serão baixadas para o seu ambiente virtual.
