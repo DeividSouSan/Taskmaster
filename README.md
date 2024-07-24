@@ -132,7 +132,7 @@ Para rodar a aplicação rode o arquivo nomeado como `wsgi.py`.
 python wsgi.py
 ```
 
-##3 Ferramentas e Tecnologias
+### Ferramentas e Tecnologias
 ![HTMX](https://img.shields.io/badge/%3C/%3E%20htmx-3D72D7?style=for-the-badge&logo=mysl&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
