@@ -1,0 +1,10 @@
+services:
+    database:
+        image: mysql:9.1
+        environment:
+            MYSQL_ROOT_PASSWORD: local_password
+            MYSQL_DATABASE: taskmaster
+            MYSQL_USER: local_user
+            MYSQL_PASSWORD: local_password
+        ports:
+            - 3306:3306

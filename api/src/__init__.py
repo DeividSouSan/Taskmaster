@@ -34,10 +34,11 @@ def create_app(config: str):
         db.create_all()
 
         # Register Routes
-        from .routes import auth_routes, task_routes, view_routes
+        from .routes import auth_routes, task_routes, view_routes, test_routes
 
         app.register_blueprint(task_routes.task)
         app.register_blueprint(auth_routes.auth)
         app.register_blueprint(view_routes.view)
+        app.register_blueprint(test_routes.test)
 
     return app
